@@ -37,7 +37,7 @@ class ContactEditViewController: UIViewController {
     navigationController?.navigationBar.barTintColor = UIColor.white
     navigationController?.navigationBar.shadowImage = UIImage()
     
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Canel", style: .plain, target: self, action: nil)
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
   }
 }
