@@ -7,6 +7,9 @@ import UIKit
 
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
+  @IBOutlet private weak var ringtoneTextView: UITextField!
+  var picker: RingtonePickerView?
+  var pickerAccessory: UIToolbar?
   
   let viewModel: ContactEditViewModel
   
@@ -31,6 +34,12 @@ class ContactEditViewController: UIViewController {
   private func setupFields() {
     notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     notesTextView.textContainer.lineFragmentPadding = 0
+    
+    picker = RingtonePickerView(data: ["One", "Two", "Three", "Four", "Five"])
+    pickerAccessory = RingtoneToolbarView()
+    
+    ringtoneTextView.inputView = picker
+    ringtoneTextView.inputAccessoryView = pickerAccessory
   }
   
   private func setupNavigationBar() {

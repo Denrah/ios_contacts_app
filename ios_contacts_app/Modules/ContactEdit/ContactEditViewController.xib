@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactEditViewController" customModule="ios_contacts_app" customModuleProvider="target">
             <connections>
                 <outlet property="notesTextView" destination="Hr8-hQ-wdw" id="1Q0-b5-ien"/>
+                <outlet property="ringtoneTextView" destination="4i0-5v-kgU" id="NBa-cI-eGk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -143,12 +144,6 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mv7-ur-6So">
-                                            <rect key="frame" x="16" y="28" width="56" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OgN-pu-JWP" userLabel="Delimiter">
                                             <rect key="frame" x="16" y="57.5" width="359" height="0.5"/>
                                             <color key="backgroundColor" red="0.78431372549019607" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -163,19 +158,26 @@
                                                 <constraint firstAttribute="height" constant="14" id="sGR-hi-zyg"/>
                                             </constraints>
                                         </imageView>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Default" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4i0-5v-kgU">
+                                            <rect key="frame" x="16" y="28" width="318" height="21"/>
+                                            <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <gestureRecognizers/>
                                     <constraints>
-                                        <constraint firstItem="mv7-ur-6So" firstAttribute="top" secondItem="jqg-WM-7VY" secondAttribute="bottom" constant="4" id="BKL-Zh-ib7"/>
+                                        <constraint firstItem="xdr-qU-6xN" firstAttribute="leading" secondItem="4i0-5v-kgU" secondAttribute="trailing" constant="16" id="6ag-dg-bR6"/>
+                                        <constraint firstItem="4i0-5v-kgU" firstAttribute="leading" secondItem="Goa-CK-OXq" secondAttribute="leading" constant="16" id="F7n-T9-aPW"/>
                                         <constraint firstAttribute="trailing" secondItem="xdr-qU-6xN" secondAttribute="trailing" constant="16" id="GMx-1I-Uqb"/>
                                         <constraint firstItem="xdr-qU-6xN" firstAttribute="top" secondItem="Goa-CK-OXq" secondAttribute="top" constant="33" id="IVd-Vy-P6o"/>
                                         <constraint firstItem="jqg-WM-7VY" firstAttribute="top" secondItem="Goa-CK-OXq" secondAttribute="top" constant="6" id="JA2-yX-IZd"/>
                                         <constraint firstAttribute="height" constant="60" id="POZ-jV-lPp"/>
                                         <constraint firstItem="OgN-pu-JWP" firstAttribute="leading" secondItem="Goa-CK-OXq" secondAttribute="leading" constant="16" id="W94-qi-7XB"/>
-                                        <constraint firstItem="OgN-pu-JWP" firstAttribute="top" secondItem="mv7-ur-6So" secondAttribute="bottom" constant="8.5" id="ag0-2U-NsB"/>
+                                        <constraint firstItem="4i0-5v-kgU" firstAttribute="top" secondItem="jqg-WM-7VY" secondAttribute="bottom" constant="4" id="e6T-lK-p07"/>
+                                        <constraint firstItem="OgN-pu-JWP" firstAttribute="top" secondItem="4i0-5v-kgU" secondAttribute="bottom" constant="8.5" id="ix1-f6-b7s"/>
                                         <constraint firstAttribute="trailing" secondItem="OgN-pu-JWP" secondAttribute="trailing" id="nhe-N5-mmS"/>
-                                        <constraint firstItem="mv7-ur-6So" firstAttribute="leading" secondItem="Goa-CK-OXq" secondAttribute="leading" constant="16" id="pqf-tU-Jv7"/>
                                         <constraint firstItem="jqg-WM-7VY" firstAttribute="leading" secondItem="Goa-CK-OXq" secondAttribute="leading" constant="16" id="tHj-Bw-r4v"/>
                                     </constraints>
                                     <connections>
