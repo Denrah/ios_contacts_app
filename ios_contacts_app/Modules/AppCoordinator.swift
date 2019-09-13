@@ -9,9 +9,7 @@ class AppCoordinator: Coordinator {
   // MARK: - Properties
   let window: UIWindow?
   
-  let rootViewController: UINavigationController = {
-    return UINavigationController(rootViewController: UIViewController())
-  }()
+  let rootViewController = UINavigationController()
   
   // MARK: - Coordinator
   init(window: UIWindow?) {
