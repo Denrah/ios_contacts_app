@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
+${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework
