@@ -7,6 +7,7 @@ import UIKit
 
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
+  @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   @IBOutlet private weak var ringtoneTextView: UITextField!
   var picker: RingtonePickerView?
   var pickerAccessory: UIToolbar?
@@ -28,7 +29,6 @@ class ContactEditViewController: UIViewController {
     super.viewDidLoad()
     notesTextView.delegate = self
     setupFields()
-    setupNavigationBar()
   }
   
   private func setupFields() {
@@ -46,8 +46,8 @@ class ContactEditViewController: UIViewController {
     navigationController?.navigationBar.barTintColor = UIColor.white
     navigationController?.navigationBar.shadowImage = UIImage()
     
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
+    notesTextView.translatesAutoresizingMaskIntoConstraints = false
+    notesTextView.isScrollEnabled = false
   }
 }
 
@@ -55,10 +55,6 @@ class ContactEditViewController: UIViewController {
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
-    let fixedWidth = textView.frame.size.width
-    let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-    textView.translatesAutoresizingMaskIntoConstraints = true
-    textView.frame.size = CGSize(width: fixedWidth, height: newSize.height)
-    textView.isScrollEnabled = false
+    notesPlaceholderLabel.isHidden = !textView.text.isEmpty
   }
 }
