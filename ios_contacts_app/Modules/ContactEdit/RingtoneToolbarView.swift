@@ -6,9 +6,12 @@
 import UIKit
 
 class RingtoneToolbarView: UIToolbar {
-  init() {
-    var frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-    frame.size.height = 44.0
+  var viewModel: RingtoneToolbarViewModel
+  
+  init(viewModel: RingtoneToolbarViewModel) {
+    let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
+    self.viewModel = viewModel
+    
     super.init(frame: frame)
     
     self.autoresizingMask = .flexibleHeight
@@ -20,8 +23,16 @@ class RingtoneToolbarView: UIToolbar {
     
     self.frame = frame
     
+    let bottomBorder = CALayer()
+    
+    bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: frame.width, height: 1.0)
+    
+    bottomBorder.backgroundColor = UIColor.borderGray.cgColor
+    
+    self.layer.addSublayer(bottomBorder)
+    
     let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ringtoneToolbarDidTapDoneButton))
     doneButton.tintColor = self.tintColor
     
     self.items = [flexSpace, doneButton]
@@ -29,5 +40,9 @@ class RingtoneToolbarView: UIToolbar {
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  @objc private func ringtoneToolbarDidTapDoneButton() {
+    viewModel.ringtoneToolbarDidTapDoneButton()
   }
 }

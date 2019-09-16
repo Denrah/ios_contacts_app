@@ -13,7 +13,8 @@ class ContactEditCoordinator: Coordinator {
   }
   
   override func start() {
-    let contactEditViewModel = ContactEditViewModel()
+    let ringtoneService = RingtoneService()
+    let contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController)
@@ -30,4 +31,12 @@ class ContactEditCoordinator: Coordinator {
 }
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
+  func contactsEditViewModelDidRequestedChoosePhoto(from sourceType: UIImagePickerController.SourceType) {
+    let imagePicker = UIImagePickerController()
+    let imagePickerHandler = ImagePickerHandler()
+    imagePicker.delegate = imagePickerHandler.self
+    imagePicker.sourceType = sourceType
+    imagePicker.allowsEditing = true
+    rootViewController.present(imagePicker, animated: true, completion: nil)
+  }
 }
