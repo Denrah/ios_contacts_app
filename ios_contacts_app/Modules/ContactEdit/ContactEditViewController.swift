@@ -7,6 +7,7 @@ import UIKit
 
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
+  @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   
   let viewModel: ContactEditViewModel
   
@@ -25,20 +26,13 @@ class ContactEditViewController: UIViewController {
     super.viewDidLoad()
     notesTextView.delegate = self
     setupFields()
-    setupNavigationBar()
   }
   
   private func setupFields() {
     notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     notesTextView.textContainer.lineFragmentPadding = 0
-  }
-  
-  private func setupNavigationBar() {
-    navigationController?.navigationBar.barTintColor = UIColor.white
-    navigationController?.navigationBar.shadowImage = UIImage()
-    
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
+    notesTextView.translatesAutoresizingMaskIntoConstraints = false
+    notesTextView.isScrollEnabled = false
   }
 }
 
@@ -46,10 +40,6 @@ class ContactEditViewController: UIViewController {
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
-    let fixedWidth = textView.frame.size.width
-    let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-    textView.translatesAutoresizingMaskIntoConstraints = true
-    textView.frame.size = CGSize(width: fixedWidth, height: newSize.height)
-    textView.isScrollEnabled = false
+    notesPlaceholderLabel.isHidden = !textView.text.isEmpty
   }
 }
