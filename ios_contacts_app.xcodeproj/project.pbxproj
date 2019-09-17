@@ -35,6 +35,9 @@
 		F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */; };
 		F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */; };
 		F7FDBE7B23308F2A00BA15E5 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */; };
+		F7FDBE7F23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */; };
+		F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,12 @@
 		F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
 		F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHandler.swift; sourceTree = "<group>"; };
 		F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
+		F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		F7FDBE7E23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		F7FDBE8123309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+inputAccessory.swift"; sourceTree = "<group>"; };
+		F7FDBE852330B4A200BA15E5 /* ios_contacts_app-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios_contacts_app-Bridging-Header.h"; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,10 +195,16 @@
 		F7FDBE55232B436F00BA15E5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7FDBE852330B4A200BA15E5 /* ios_contacts_app-Bridging-Header.h */,
+				F7FDBE8123309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				F7FDBE7E23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.h */,
+				F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */,
 				F7FDBE56232B43CD00BA15E5 /* Dynamic.swift */,
 				F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */,
 				F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */,
 				F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */,
+				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -246,6 +261,7 @@
 				TargetAttributes = {
 					F7FDBE2D232A6C0500BA15E5 = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -354,11 +370,13 @@
 				F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
 				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
+				F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */,
 				F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */,
 				F7FDBE5F232B480500BA15E5 /* ContactDetailsCoordinator.swift in Sources */,
 				F7FDBE6E232B77A800BA15E5 /* RingtoneToolbarView.swift in Sources */,
 				F7FDBE72232F87F100BA15E5 /* RingtoneToolbarViewModel.swift in Sources */,
 				F7FDBE57232B43CD00BA15E5 /* Dynamic.swift in Sources */,
+				F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				F7FDBE45232B3FD400BA15E5 /* Coordinator.swift in Sources */,
 				F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */,
 				F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */,
@@ -367,6 +385,7 @@
 				F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */,
 				F7FDBE7B23308F2A00BA15E5 /* ImagePickerHelper.swift in Sources */,
 				F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */,
+				F7FDBE7F23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				F7FDBE69232B6FA000BA15E5 /* RingtonePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +525,7 @@
 			baseConfigurationReference = 42318E08B1DAD402DE400A27 /* Pods-ios_contacts_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_contacts_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,6 +534,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "kode.ios-contacts-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_contacts_app/Helpers/ios_contacts_app-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -524,6 +546,7 @@
 			baseConfigurationReference = FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_contacts_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -532,6 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "kode.ios-contacts-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_contacts_app/Helpers/ios_contacts_app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

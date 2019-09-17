@@ -10,6 +10,10 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   @IBOutlet private weak var ringtoneTextView: UITextField!
   @IBOutlet private weak var imagePickerButton: UIButton!
+  @IBOutlet private weak var firstNameTextField: UITextField!
+  @IBOutlet private weak var lastNametextField: UITextField!
+  @IBOutlet private weak var phoneTextField: UITextField!
+  
   private var ringtonePickerView: RingtonePickerView?
   private var ringtonePickerToolbar: UIToolbar?
   
@@ -18,8 +22,8 @@ class ContactEditViewController: UIViewController {
   private enum ContactEditConstants {
     static let errorAlertTitle = "Sorry"
     static let imagePickerActionSheetTitle = "Select image"
-    static let imagePickerActionSheetCameraOption = "From camera"
-    static let imagePickerActionSheerLibraryOprion = "From gallery"
+    static let imagePickerActionSheetCameraOption = "Take photo"
+    static let imagePickerActionSheerLibraryOprion = "Choose photo"
   }
   
   // MARK: - ViewController setup
@@ -72,6 +76,8 @@ class ContactEditViewController: UIViewController {
     notesTextView.translatesAutoresizingMaskIntoConstraints = false
     notesTextView.isScrollEnabled = false
     
+    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
+    
     let ringtonePickerViewModel = RingtonePickerViewModel(delegate: viewModel)
     ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
     ringtonePickerView?.viewModel.data.value = viewModel.ringtones.value
@@ -98,10 +104,18 @@ class ContactEditViewController: UIViewController {
   }
 }
 
-// MARK: - Enable/disable notes placeholder
+// MARK: - Enable/disable notes placeholder and handle "Done" press
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     notesPlaceholderLabel.isHidden = !textView.text.isEmpty
+  }
+  
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    if text == "\n" {
+      textView.resignFirstResponder()
+      return false
+    }
+    return true
   }
 }
