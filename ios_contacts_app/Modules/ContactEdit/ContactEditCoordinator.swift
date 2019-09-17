@@ -4,6 +4,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class ContactEditCoordinator: Coordinator {
   let rootViewController: UINavigationController
@@ -15,6 +17,8 @@ class ContactEditCoordinator: Coordinator {
   
   override func start() {
     let ringtoneService = RingtoneService()
+    let storageService = StorageService()
+    
     let contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
