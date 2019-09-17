@@ -7,6 +7,7 @@ import UIKit
 
 class ContactEditCoordinator: Coordinator {
   let rootViewController: UINavigationController
+  let imagePickerHandler = ImagePickerHandler()
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -30,11 +31,21 @@ class ContactEditCoordinator: Coordinator {
   }
 }
 
+// MARK: - Image piker presentation
+
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactsEditViewModelDidRequestedChoosePhoto(from sourceType: UIImagePickerController.SourceType) {
+  func contactEditViewModelDidRequestedChoosePhoto(_ viewModel: ContactEditViewModel,
+                                                   from sourceType: UIImagePickerController.SourceType) {
+    imagePickerHandler.didFinish = { result in
+      switch result {
+      case .success(let image):
+        viewModel.selectedImage.value = image
+      case .failure(let error):
+        viewModel.imagePickerError.value = error
+      }
+    }
     let imagePicker = UIImagePickerController()
-    let imagePickerHandler = ImagePickerHandler()
-    imagePicker.delegate = imagePickerHandler.self
+    imagePicker.delegate = imagePickerHandler
     imagePicker.sourceType = sourceType
     imagePicker.allowsEditing = true
     rootViewController.present(imagePicker, animated: true, completion: nil)

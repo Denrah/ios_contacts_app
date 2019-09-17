@@ -6,7 +6,7 @@
 import Foundation
 
 protocol RingtoneToolbarViewModelDelegate: class {
-  func ringtoneViewModelDidTapDoneButton()
+  func ringtoneViewModelDidTapDoneButton(_ viewModel: RingtoneToolbarViewModel)
 }
 
 class RingtoneToolbarViewModel {
@@ -17,6 +17,6 @@ class RingtoneToolbarViewModel {
   }
   
   func ringtoneToolbarDidTapDoneButton() {
-    delegate?.ringtoneViewModelDidTapDoneButton()
+    delegate?.ringtoneViewModelDidTapDoneButton(self)
   }
 }

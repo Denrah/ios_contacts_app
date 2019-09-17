@@ -9,10 +9,18 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   @IBOutlet private weak var ringtoneTextView: UITextField!
+  @IBOutlet private weak var imagePickerButton: UIButton!
   private var ringtonePickerView: RingtonePickerView?
   private var ringtonePickerToolbar: UIToolbar?
   
   let viewModel: ContactEditViewModel
+  
+  private enum ContactEditConstants {
+    static let errorAlertTitle = "Sorry"
+    static let imagePickerActionSheetTitle = "Select image"
+    static let imagePickerActionSheetCameraOption = "From camera"
+    static let imagePickerActionSheerLibraryOprion = "From gallery"
+  }
   
   // MARK: - ViewController setup
   
@@ -45,6 +53,16 @@ class ContactEditViewController: UIViewController {
         self?.ringtoneTextView.resignFirstResponder()
       }
     }
+    viewModel.selectedImage.bind = { [weak self] image in
+      image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
+    }
+    viewModel.imagePickerError.bind = { [weak self] error in
+      let alert = UIAlertController(title: ContactEditConstants.errorAlertTitle,
+                                    message: error?.localizedDescription,
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      self?.present(alert, animated: true, completion: nil)
+    }
   }
   
   private func setupFields() {
@@ -65,46 +83,25 @@ class ContactEditViewController: UIViewController {
     ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
   
+  // MARK: - Image picking handling
+  
   @IBAction private func onChooseImageButton() {
-    let actionSheet = UIAlertController(title: "Select image", message: nil, preferredStyle: .actionSheet)
-    actionSheet.addAction(UIAlertAction(title: "From camera", style: .default) { _ in
-      if UIImagePickerController.isSourceTypeAvailable(.camera) {
-        self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .camera)
-      } else {
-        let alert = UIAlertController(title: "Sorry",
-                                      message: "Taking photos from camera is not avaliable on your device",
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-      }
+    let actionSheet = UIAlertController(title: ContactEditConstants.imagePickerActionSheetTitle,
+                                        message: nil, preferredStyle: .actionSheet)
+    actionSheet.addAction(UIAlertAction(title: ContactEditConstants.imagePickerActionSheetCameraOption, style: .default) { _ in
+      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .camera)
     })
-    actionSheet.addAction(UIAlertAction(title: "From gallery", style: .default) { _ in
-      if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-        self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .photoLibrary)
-      } else {
-        let alert = UIAlertController(title: "Sorry",
-                                      message: "Taking photos from gallery is not avaliable on your device",
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-      }
+    actionSheet.addAction(UIAlertAction(title: ContactEditConstants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
+      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .photoLibrary)
     })
     present(actionSheet, animated: true, completion: nil)
   }
 }
 
-// MARK: - Resizing TextView on content change
+// MARK: - Enable/disable notes placeholder
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     notesPlaceholderLabel.isHidden = !textView.text.isEmpty
   }
 }
-
-/*extension ContactEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    print(info[.editedImage] )
-  }
-
-}*/

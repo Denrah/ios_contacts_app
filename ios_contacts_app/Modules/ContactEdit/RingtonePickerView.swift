@@ -20,6 +20,8 @@ class RingtonePickerView: UIPickerView {
     bindToViewModel()
   }
   
+  // MARK: - View setup
+  
   private func bindToViewModel() {
     viewModel.data.bind = { [weak self] data in
       data.flatMap { self?.data = $0 }
@@ -30,6 +32,8 @@ class RingtonePickerView: UIPickerView {
     fatalError("init(coder:) has not been implemented")
   }
 }
+
+// MARK: - Picker configuration
 
 extension RingtonePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
   public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {

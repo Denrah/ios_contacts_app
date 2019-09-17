@@ -8,12 +8,16 @@ import UIKit
 class RingtoneToolbarView: UIToolbar {
   var viewModel: RingtoneToolbarViewModel
   
+  // MARK: - View setup
+  
   init(viewModel: RingtoneToolbarViewModel) {
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
     self.viewModel = viewModel
-    
     super.init(frame: frame)
-    
+    setupToolbar()
+  }
+  
+  private func setupToolbar() {
     self.autoresizingMask = .flexibleHeight
     
     self.barStyle = .default
@@ -41,6 +45,8 @@ class RingtoneToolbarView: UIToolbar {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  // MARK: - Button press handling
   
   @objc private func ringtoneToolbarDidTapDoneButton() {
     viewModel.ringtoneToolbarDidTapDoneButton()

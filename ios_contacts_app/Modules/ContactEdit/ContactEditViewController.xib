@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactEditViewController" customModule="ios_contacts_app" customModuleProvider="target">
             <connections>
+                <outlet property="imagePickerButton" destination="knD-qg-3C6" id="zFn-tj-0np"/>
                 <outlet property="notesPlaceholderLabel" destination="K92-tV-Ce0" id="R29-Vy-6Xk"/>
                 <outlet property="notesTextView" destination="Hr8-hQ-wdw" id="1Q0-b5-ien"/>
                 <outlet property="ringtoneTextView" destination="kbj-Ji-lMv" id="Jgr-2s-nmN"/>
@@ -35,7 +36,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAi-W8-2GJ" userLabel="Personal Info">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knD-qg-3C6">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knD-qg-3C6">
                                                     <rect key="frame" x="16" y="0.0" width="86" height="86"/>
                                                     <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>

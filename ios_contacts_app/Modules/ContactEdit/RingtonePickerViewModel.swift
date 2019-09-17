@@ -6,7 +6,8 @@
 import Foundation
 
 protocol RingtonePickerViewModelDelegate: class {
-  func ringtonePickerViewModel(didSelected ringtone: String)
+  func ringtonePickerViewModel(_ viewModel: RingtonePickerViewModel,
+                               didSelected ringtone: String)
 }
 
 class RingtonePickerViewModel {
@@ -18,6 +19,6 @@ class RingtonePickerViewModel {
   }
   
   func ringtonePickerView(didSelected ringtone: String) {
-    delegate?.ringtonePickerViewModel(didSelected: ringtone)
+    delegate?.ringtonePickerViewModel(self, didSelected: ringtone)
   }
 }
