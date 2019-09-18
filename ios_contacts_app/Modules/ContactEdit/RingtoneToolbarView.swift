@@ -6,12 +6,12 @@
 import UIKit
 
 class RingtoneToolbarView: UIToolbar {
-  var viewModel: RingtoneToolbarViewModel
+  private var viewModel: RingtoneToolbarViewModel
   
   // MARK: - View setup
   
   init(viewModel: RingtoneToolbarViewModel) {
-    let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
+    let frame = CGRect(x: 0, y: 0, width: UIView.layoutFittingExpandedSize.width, height: 44.0)
     self.viewModel = viewModel
     super.init(frame: frame)
     setupToolbar()
@@ -29,7 +29,7 @@ class RingtoneToolbarView: UIToolbar {
     
     let bottomBorder = CALayer()
     
-    bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: frame.width, height: 1.0)
+    bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: UIView.layoutFittingExpandedSize.width, height: 1.0)
     
     bottomBorder.backgroundColor = UIColor.borderGray.cgColor
     

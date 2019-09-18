@@ -5,6 +5,22 @@
 
 import UIKit
 
+enum ImagePickerError: Error {
+  case sourceNotAvaliable
+  case pickerError
+}
+
+extension ImagePickerError: LocalizedError {
+  public var errorDescription: String? {
+    switch self {
+    case .sourceNotAvaliable:
+      return "This option is not avaliable on your device"
+    case .pickerError:
+      return "Some error has occured while image picking"
+    }
+  }
+}
+
 class ImagePickerHandler: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   var didFinish: ((Result<UIImage, Error>) -> Void)?
   
@@ -12,14 +28,10 @@ class ImagePickerHandler: NSObject, UIImagePickerControllerDelegate, UINavigatio
                              didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
     picker.dismiss(animated: true, completion: nil)
     guard let image = info[.editedImage] as? UIImage else {
-      if let didFinish = didFinish {
-        didFinish(.failure(ImagePickerErrors.pickerError))
-      }
+      didFinish?(.failure(ImagePickerError.pickerError))
       return
     }
-    if let didFinish = didFinish {
-      didFinish(.success(image))
-    }
+    didFinish?(.success(image))
   }
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

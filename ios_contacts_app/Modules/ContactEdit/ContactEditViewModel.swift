@@ -19,7 +19,17 @@ class ContactEditViewModel {
   let selectedImage = Dynamic<UIImage>(nil)
   let imagePickerError = Dynamic<Error>(nil)
   
-  let imagePickerHelper = ImagePickerHelper()
+  lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
+    let viewModel = RingtonePickerViewModel()
+    viewModel.delegate = self
+    return viewModel
+  }()
+  
+  lazy var ringtoneToolbarViewModel: RingtoneToolbarViewModel = { [weak self] in
+    let viewModel = RingtoneToolbarViewModel()
+    viewModel.delegate = self
+    return viewModel
+  }()
   
   init(ringtoneService: RingtoneService) {
     self.ringtoneService = ringtoneService
@@ -32,10 +42,10 @@ class ContactEditViewModel {
   }
   
   func contactsEditViewControllerDidRequestedChoosePhoto(from sourceType: UIImagePickerController.SourceType) {
-    if imagePickerHelper.isSourceTypeAvaliable(sourceType: sourceType) {
+    if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChoosePhoto(self, from: sourceType)
     } else {
-      imagePickerError.value = ImagePickerErrors.sourceNotAvaliable
+      imagePickerError.value = ImagePickerError.sourceNotAvaliable
     }
   }
 }

@@ -6,7 +6,7 @@
 import UIKit
 
 class RingtonePickerView: UIPickerView {
-  var viewModel: RingtonePickerViewModel
+  private var viewModel: RingtonePickerViewModel
   private var data: [String]?
   
   init(viewModel: RingtonePickerViewModel) {

@@ -14,10 +14,6 @@ class RingtonePickerViewModel {
   let data = Dynamic<[String]>(nil)
   weak var delegate: RingtonePickerViewModelDelegate?
   
-  init(delegate: RingtonePickerViewModelDelegate) {
-    self.delegate = delegate
-  }
-  
   func ringtonePickerView(didSelected ringtone: String) {
     delegate?.ringtonePickerViewModel(self, didSelected: ringtone)
   }
