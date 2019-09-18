@@ -9,7 +9,7 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   
-  let viewModel: ContactEditViewModel
+  private let viewModel: ContactEditViewModel
   
   // MARK: - ViewController setup
   
@@ -24,11 +24,11 @@ class ContactEditViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    notesTextView.delegate = self
     setupFields()
   }
   
   private func setupFields() {
+    notesTextView.delegate = self
     notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     notesTextView.textContainer.lineFragmentPadding = 0
     notesTextView.translatesAutoresizingMaskIntoConstraints = false
