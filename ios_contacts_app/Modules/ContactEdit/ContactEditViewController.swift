@@ -13,7 +13,7 @@ class ContactEditViewController: UIViewController {
   private var ringtonePickerView: RingtonePickerView?
   private var ringtonePickerToolbar: UIToolbar?
   
-  let viewModel: ContactEditViewModel
+  private let viewModel: ContactEditViewModel
   
   private enum ContactEditConstants {
     static let errorAlertTitle = "Sorry"
@@ -35,7 +35,6 @@ class ContactEditViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    notesTextView.delegate = self
     setupFields()
     bindToViewModel()
   }
@@ -66,6 +65,7 @@ class ContactEditViewController: UIViewController {
   }
   
   private func setupFields() {
+    notesTextView.delegate = self
     notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     notesTextView.textContainer.lineFragmentPadding = 0
     
