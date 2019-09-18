@@ -60,12 +60,18 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.imagePickerError.bind = { [weak self] error in
+    viewModel.didError.bind = { [weak self] error in
       let alert = UIAlertController(title: ContactEditConstants.errorAlertTitle,
                                     message: error?.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
+    }
+    viewModel.didRequestedSave.bind = { [weak self] _ in
+      guard let self = self else { return }
+      self.viewModel.contactsEditViewControllerDidRequestedSave(firstName: self.firstNameTextField.text,
+                                                                lastName: self.lastNametextField.text,
+                                                                phone: self.phoneTextField.text, notes: self.notesTextView.text)
     }
   }
   

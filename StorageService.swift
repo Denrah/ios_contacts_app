@@ -10,6 +10,7 @@ enum StorageErrors: Error {
   case initFail
   case objectConvertionFailed
   case failWriteToStorage
+  case generalSaveFailure
 }
 
 extension StorageErrors: LocalizedError {
@@ -21,6 +22,8 @@ extension StorageErrors: LocalizedError {
       return "Can't convert object to realm entity"
     case .failWriteToStorage:
       return "Can't write to storage"
+    case .generalSaveFailure:
+      return "Some error has occured while contact saving"
     }
   }
 }
@@ -51,7 +54,7 @@ class StorageService {
     return Result.success(Array(objects))
   }
   
-  func saveContact(contact: Contact) {
+  func saveContact(contact: Contact) -> (Result<Void, Error>) {
     let realmContact = RealmContact()
     realmContact.firstName = contact.firstName
     realmContact.lastName = contact.lastName
@@ -64,9 +67,10 @@ class StorageService {
     
     switch result {
     case .success:
-      print(1)
+      return .success(())
     case .failure(let error):
-      print(error.localizedDescription)
+      print(error)
+      return .failure(StorageErrors.generalSaveFailure)
     }
   }
   
