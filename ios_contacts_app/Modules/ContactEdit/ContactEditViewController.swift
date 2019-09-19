@@ -39,17 +39,25 @@ class ContactEditViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    notesTextView.delegate = self
     setupFields()
     bindToViewModel()
+  }
+  
+  private func setupFields() {
+    notesTextView.delegate = self
+    notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+    notesTextView.textContainer.lineFragmentPadding = 0
+    
+    notesTextView.translatesAutoresizingMaskIntoConstraints = false
+    notesTextView.isScrollEnabled = false
+    
+    ringtoneTextView.inputView = viewModel.ringtonePickerView
+    ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
   }
   
   private func bindToViewModel() {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
       ringtone.flatMap { self?.ringtoneTextView.text = $0 }
-    }
-    viewModel.ringtones.bind = { [weak self] ringtones in
-      ringtones.flatMap { self?.ringtonePickerView?.viewModel.data.value = $0 }
     }
     viewModel.ringtoneIsEditing.bind = { [weak self] isEditing in
       guard let isEditing = isEditing else { return }

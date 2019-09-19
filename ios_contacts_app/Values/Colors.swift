@@ -6,6 +6,6 @@
 import UIKit
 
 extension UIColor {
-  static let defaultGray = UIColor(redValue: 250, greenValue: 250, blueValue: 248, alphaValue: 1)
-  static let borderGray = UIColor(redValue: 225, greenValue: 224, blueValue: 224, alphaValue: 1)
+  static let defaultGray = UIColor.color(fromRed: 250, green: 250, blue: 248)
+  static let borderGray = UIColor.color(fromRed: 225, green: 224, blue: 224)
 }

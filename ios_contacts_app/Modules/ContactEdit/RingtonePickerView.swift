@@ -6,30 +6,30 @@
 import UIKit
 
 class RingtonePickerView: UIPickerView {
-  var viewModel: RingtonePickerViewModel
-  private var data: [String]?
+  private var viewModel: RingtonePickerViewModel
+  
+  // MARK: - View setup
   
   init(viewModel: RingtonePickerViewModel) {
     self.viewModel = viewModel
     super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-    self.backgroundColor = UIColor.white
-    super.delegate = self
-    super.dataSource = self
-    self.reloadAllComponents()
-    bindToViewModel()
-  }
-  
-  // MARK: - View setup
-  
-  private func bindToViewModel() {
-    viewModel.data.bind = { [weak self] data in
-      data.flatMap { self?.data = $0 }
-    }
+    setup()
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func setup() {
+    autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    backgroundColor = UIColor.white
+    delegate = self
+    dataSource = self
+    reloadAllComponents()
+  }
+  
+  func update(viewModel: RingtonePickerViewModel) {
+    self.viewModel = viewModel
   }
 }
 
@@ -37,8 +37,7 @@ class RingtonePickerView: UIPickerView {
 
 extension RingtonePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
   public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    guard let data = data else { return 0 }
-    return data.count
+    return viewModel.numberOfRows
   }
   
   public func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -46,12 +45,12 @@ extension RingtonePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
   }
   
   public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    guard let data = data else { return nil }
-    return data[row]
+    guard let ringtones = viewModel.ringtones else { return nil }
+    return ringtones[row]
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    guard let data = data else { return }
-    viewModel.ringtonePickerView(didSelected: data[row])
+    guard let ringtones = viewModel.ringtones else { return }
+    viewModel.selectRingtone(ringtone: ringtones[row])
   }
 }
