@@ -21,9 +21,9 @@ class AppCoordinator: Coordinator {
       return
     }
     
-    let contactsEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
-    self.addChildCoordinator(contactsEditCoordinator)
-    contactsEditCoordinator.start()
+    let contactsListCoordinator = ContactsListCoordinator(rootViewController: rootViewController)
+    self.addChildCoordinator(contactsListCoordinator)
+    contactsListCoordinator.start()
     
     window.rootViewController = rootViewController
     window.makeKeyAndVisible()

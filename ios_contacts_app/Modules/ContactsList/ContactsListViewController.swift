@@ -8,6 +8,8 @@ import UIKit
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
   
+  let searchController = UISearchController(searchResultsController: nil)
+  
   // MARK: - ViewController setup
   
   init(viewModel: ContactsListViewModel) {
@@ -33,21 +35,22 @@ class ContactsListViewController: UITableViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
-    return 0
+    return 1
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
-    return 0
+    return 100
   }
   
-  /*
+  
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-   let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+   //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+    let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
    
    // Configure the cell...
    
    return cell
    }
-   */
+  
 }
