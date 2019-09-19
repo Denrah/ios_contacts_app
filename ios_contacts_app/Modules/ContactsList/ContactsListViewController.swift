@@ -6,7 +6,7 @@
 import UIKit
 
 class ContactsListViewController: UITableViewController {
-  let viewModel: ContactsListViewModel
+  private let viewModel: ContactsListViewModel
   
   // MARK: - ViewController setup
   

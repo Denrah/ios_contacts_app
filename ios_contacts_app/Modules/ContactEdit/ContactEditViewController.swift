@@ -17,9 +17,9 @@ class ContactEditViewController: UIViewController {
   private var ringtonePickerView: RingtonePickerView?
   private var ringtonePickerToolbar: UIToolbar?
   
-  let viewModel: ContactEditViewModel
+  private let viewModel: ContactEditViewModel
   
-  private enum ContactEditConstants {
+  private enum Constants {
     static let errorAlertTitle = "Sorry"
     static let imagePickerActionSheetTitle = "Select image"
     static let imagePickerActionSheetCameraOption = "Take photo"
@@ -39,17 +39,27 @@ class ContactEditViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    notesTextView.delegate = self
     setupFields()
     bindToViewModel()
+  }
+  
+  private func setupFields() {
+    notesTextView.delegate = self
+    notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+    notesTextView.textContainer.lineFragmentPadding = 0
+    
+    notesTextView.translatesAutoresizingMaskIntoConstraints = false
+    notesTextView.isScrollEnabled = false
+    
+    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
+    
+    ringtoneTextView.inputView = viewModel.ringtonePickerView
+    ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
   }
   
   private func bindToViewModel() {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
       ringtone.flatMap { self?.ringtoneTextView.text = $0 }
-    }
-    viewModel.ringtones.bind = { [weak self] ringtones in
-      ringtones.flatMap { self?.ringtonePickerView?.viewModel.data.value = $0 }
     }
     viewModel.ringtoneIsEditing.bind = { [weak self] isEditing in
       guard let isEditing = isEditing else { return }
@@ -61,7 +71,7 @@ class ContactEditViewController: UIViewController {
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
     viewModel.didError.bind = { [weak self] error in
-      let alert = UIAlertController(title: ContactEditConstants.errorAlertTitle,
+      let alert = UIAlertController(title: Constants.errorAlertTitle,
                                     message: error?.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -75,36 +85,16 @@ class ContactEditViewController: UIViewController {
     }
   }
   
-  private func setupFields() {
-    notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
-    notesTextView.textContainer.lineFragmentPadding = 0
-    
-    notesTextView.translatesAutoresizingMaskIntoConstraints = false
-    notesTextView.isScrollEnabled = false
-    
-    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
-    
-    let ringtonePickerViewModel = RingtonePickerViewModel(delegate: viewModel)
-    ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    ringtonePickerView?.viewModel.data.value = viewModel.ringtones.value
-    
-    let ringtoneToolbarViewModel = RingtoneToolbarViewModel(delegate: viewModel)
-    ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
-    
-    ringtoneTextView.inputView = ringtonePickerView
-    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
-  }
-  
   // MARK: - Image picking handling
   
   @IBAction private func onChooseImageButton() {
-    let actionSheet = UIAlertController(title: ContactEditConstants.imagePickerActionSheetTitle,
+    let actionSheet = UIAlertController(title: Constants.imagePickerActionSheetTitle,
                                         message: nil, preferredStyle: .actionSheet)
-    actionSheet.addAction(UIAlertAction(title: ContactEditConstants.imagePickerActionSheetCameraOption, style: .default) { _ in
-      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .camera)
+    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheetCameraOption, style: .default) { _ in
+      self.viewModel.chooseImage(sourceType: .camera)
     })
-    actionSheet.addAction(UIAlertAction(title: ContactEditConstants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
-      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .photoLibrary)
+    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
+      self.viewModel.chooseImage(sourceType: .photoLibrary)
     })
     present(actionSheet, animated: true, completion: nil)
   }
