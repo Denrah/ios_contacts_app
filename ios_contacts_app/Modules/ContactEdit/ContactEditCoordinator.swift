@@ -7,7 +7,7 @@ import UIKit
 
 class ContactEditCoordinator: Coordinator {
   let rootViewController: UINavigationController
-  let imagePickerHandler = ImagePickerHandler()
+  var contactEditViewModel: ContactEditViewModel?
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -15,7 +15,8 @@ class ContactEditCoordinator: Coordinator {
   
   override func start() {
     let ringtoneService = RingtoneService()
-    let contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
+    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
+    guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController)
@@ -34,20 +35,26 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewModelDidRequestedChoosePhoto(_ viewModel: ContactEditViewModel,
-                                                   from sourceType: UIImagePickerController.SourceType) {
-    imagePickerHandler.didFinish = { result in
-      switch result {
-      case .success(let image):
-        viewModel.selectedImage.value = image
-      case .failure(let error):
-        viewModel.imagePickerError.value = error
-      }
+  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
+                                                   sourceType: UIImagePickerController.SourceType) {
+    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
+    imagePickerCoordinator.delegate = self
+    addChildCoordinator(imagePickerCoordinator)
+    imagePickerCoordinator.start()
+  }
+}
+
+extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
+  func imagePickerCoordinator(didSelectImageWith result: Result<UIImage, Error>) {
+    switch result {
+    case .success(let image):
+      contactEditViewModel?.selectedImage.value = image
+    case .failure(let error):
+      contactEditViewModel?.imagePickerError.value = error
     }
-    let imagePicker = UIImagePickerController()
-    imagePicker.delegate = imagePickerHandler
-    imagePicker.sourceType = sourceType
-    imagePicker.allowsEditing = true
-    rootViewController.present(imagePicker, animated: true, completion: nil)
+  }
+  
+  func didFinish(from coordinator: ImagePickerCoordinator) {
+    removeChildCoordinator(coordinator)
   }
 }

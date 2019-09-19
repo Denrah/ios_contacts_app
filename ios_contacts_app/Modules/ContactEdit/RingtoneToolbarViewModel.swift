@@ -12,7 +12,7 @@ protocol RingtoneToolbarViewModelDelegate: class {
 class RingtoneToolbarViewModel {
   weak var delegate: RingtoneToolbarViewModelDelegate?
   
-  func ringtoneToolbarDidTapDoneButton() {
+  func onDoneButton() {
     delegate?.ringtoneViewModelDidTapDoneButton(self)
   }
 }

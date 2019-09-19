@@ -4,51 +4,50 @@
 //
 
 import UIKit
+import SnapKit
 
 class RingtoneToolbarView: UIToolbar {
-  private var viewModel: RingtoneToolbarViewModel
+  private let viewModel: RingtoneToolbarViewModel
   
   // MARK: - View setup
   
   init(viewModel: RingtoneToolbarViewModel) {
-    let frame = CGRect(x: 0, y: 0, width: UIView.layoutFittingExpandedSize.width, height: 44.0)
+    let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     self.viewModel = viewModel
     super.init(frame: frame)
     setupToolbar()
-  }
-  
-  private func setupToolbar() {
-    self.autoresizingMask = .flexibleHeight
-    
-    self.barStyle = .default
-    self.barTintColor = UIColor.defaultGray
-    self.backgroundColor = UIColor.defaultGray
-    self.isTranslucent = false
-    
-    self.frame = frame
-    
-    let bottomBorder = CALayer()
-    
-    bottomBorder.frame = CGRect(x: 0.0, y: 43.0, width: UIView.layoutFittingExpandedSize.width, height: 1.0)
-    
-    bottomBorder.backgroundColor = UIColor.borderGray.cgColor
-    
-    self.layer.addSublayer(bottomBorder)
-    
-    let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ringtoneToolbarDidTapDoneButton))
-    doneButton.tintColor = self.tintColor
-    
-    self.items = [flexSpace, doneButton]
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
+  private func setupToolbar() {
+    autoresizingMask = .flexibleHeight
+    barStyle = .default
+    barTintColor = UIColor.defaultGray
+    backgroundColor = UIColor.defaultGray
+    isTranslucent = false
+    
+    let bottomBorder = UIView()
+    bottomBorder.backgroundColor = UIColor.borderGray
+    addSubview(bottomBorder)
+    bottomBorder.snp.makeConstraints { make in
+      make.top.equalTo(43)
+      make.height.equalTo(1)
+      make.left.right.equalTo(0)
+    }
+    
+    let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButton))
+    doneButton.tintColor = tintColor
+    
+    items = [flexSpace, doneButton]
+  }
+  
   // MARK: - Button press handling
   
-  @objc private func ringtoneToolbarDidTapDoneButton() {
-    viewModel.ringtoneToolbarDidTapDoneButton()
+  @objc private func onDoneButton() {
+    viewModel.onDoneButton()
   }
 }

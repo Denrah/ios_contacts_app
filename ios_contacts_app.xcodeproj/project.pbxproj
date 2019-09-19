@@ -34,6 +34,7 @@
 		F7FDBE75232F8D4700BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */; };
 		F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */; };
 		F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */; };
+		F7FDBE8F23337C8A00BA15E5 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8E23337C8A00BA15E5 /* ImagePickerCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneService.swift; sourceTree = "<group>"; };
 		F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
 		F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHandler.swift; sourceTree = "<group>"; };
+		F7FDBE8E23337C8A00BA15E5 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				F7FDBE49232B404A00BA15E5 /* ContactsList */,
 				F7FDBE44232B3FD400BA15E5 /* Coordinator.swift */,
 				F7FDBE47232B400400BA15E5 /* AppCoordinator.swift */,
+				F7FDBE8E23337C8A00BA15E5 /* ImagePickerCoordinator.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			files = (
 				F7FDBE75232F8D4700BA15E5 /* RingtoneService.swift in Sources */,
 				F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */,
+				F7FDBE8F23337C8A00BA15E5 /* ImagePickerCoordinator.swift in Sources */,
 				F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */,
 				F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */,
 				F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */,
