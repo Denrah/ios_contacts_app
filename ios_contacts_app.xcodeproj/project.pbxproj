@@ -34,10 +34,10 @@
 		F7FDBE75232F8D4700BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */; };
 		F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */; };
 		F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */; };
-		F7FDBE7B23308F2A00BA15E5 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */; };
 		F7FDBE7F23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */; };
 		F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */; };
+		F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,13 +71,13 @@
 		F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneService.swift; sourceTree = "<group>"; };
 		F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
 		F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHandler.swift; sourceTree = "<group>"; };
-		F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
 		F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		F7FDBE7E23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		F7FDBE8123309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+inputAccessory.swift"; sourceTree = "<group>"; };
 		F7FDBE852330B4A200BA15E5 /* ios_contacts_app-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios_contacts_app-Bridging-Header.h"; sourceTree = "<group>"; };
+		F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,8 +150,8 @@
 				F7FDBE4A232B405300BA15E5 /* ContactDetails */,
 				F7FDBE49232B404A00BA15E5 /* ContactsList */,
 				F7FDBE44232B3FD400BA15E5 /* Coordinator.swift */,
+				F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */,
 				F7FDBE47232B400400BA15E5 /* AppCoordinator.swift */,
-				F7FDBE8E23337C8A00BA15E5 /* ImagePickerCoordinator.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -204,7 +204,6 @@
 				F7FDBE56232B43CD00BA15E5 /* Dynamic.swift */,
 				F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */,
 				F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */,
-				F7FDBE7A23308F2A00BA15E5 /* ImagePickerHelper.swift */,
 				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
 			);
 			path = Helpers;
@@ -365,7 +364,6 @@
 			files = (
 				F7FDBE75232F8D4700BA15E5 /* RingtoneService.swift in Sources */,
 				F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */,
-				F7FDBE8F23337C8A00BA15E5 /* ImagePickerCoordinator.swift in Sources */,
 				F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */,
 				F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */,
 				F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */,
@@ -383,6 +381,7 @@
 				F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */,
 				F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */,
 				F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */,
+				F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */,
 				F7FDBE5A232B479500BA15E5 /* ContactDetailsViewController.swift in Sources */,
 				F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */,
 				F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */,

@@ -51,6 +51,8 @@ class ContactEditViewController: UIViewController {
     notesTextView.translatesAutoresizingMaskIntoConstraints = false
     notesTextView.isScrollEnabled = false
     
+    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
+    
     ringtoneTextView.inputView = viewModel.ringtonePickerView
     ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
   }
@@ -77,36 +79,16 @@ class ContactEditViewController: UIViewController {
     }
   }
   
-  private func setupFields() {
-    notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
-    notesTextView.textContainer.lineFragmentPadding = 0
-    
-    notesTextView.translatesAutoresizingMaskIntoConstraints = false
-    notesTextView.isScrollEnabled = false
-    
-    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
-    
-    let ringtonePickerViewModel = RingtonePickerViewModel(delegate: viewModel)
-    ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    ringtonePickerView?.viewModel.data.value = viewModel.ringtones.value
-    
-    let ringtoneToolbarViewModel = RingtoneToolbarViewModel(delegate: viewModel)
-    ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
-    
-    ringtoneTextView.inputView = ringtonePickerView
-    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
-  }
-  
   // MARK: - Image picking handling
   
   @IBAction private func onChooseImageButton() {
     let actionSheet = UIAlertController(title: Constants.imagePickerActionSheetTitle,
                                         message: nil, preferredStyle: .actionSheet)
     actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheetCameraOption, style: .default) { _ in
-      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .camera)
+      self.viewModel.chooseImage(sourceType: .camera)
     })
     actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
-      self.viewModel.contactsEditViewControllerDidRequestedChoosePhoto(from: .photoLibrary)
+      self.viewModel.chooseImage(sourceType: .photoLibrary)
     })
     present(actionSheet, animated: true, completion: nil)
   }
