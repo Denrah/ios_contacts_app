@@ -30,11 +30,13 @@ class ContactEditViewModel {
   var ringtonePickerToolbar: UIToolbar?
   
   let selectedRingtone = Dynamic<String>(nil)
-  let ringtoneService: RingtoneService
   let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
-  let didRequestedSave = Dynamic<Bool>(false)
+  let didRequestSave = Dynamic<Bool>(false)
   let didError = Dynamic<Error>(nil)
+  
+  let ringtoneService: RingtoneService
+  let storageService: StorageService
   
   var ringtones: [String]?
   
@@ -42,22 +44,20 @@ class ContactEditViewModel {
     let viewModel = RingtonePickerViewModel()
     viewModel.delegate = self
     return viewModel
-  }()
+    }()
   
   lazy var ringtoneToolbarViewModel: RingtoneToolbarViewModel = { [weak self] in
     let viewModel = RingtoneToolbarViewModel()
     viewModel.delegate = self
     return viewModel
-  }()
-  let imagePickerHelper = ImagePickerHelper()
-  let storageService: StorageService
+    }()
   
   init(ringtoneService: RingtoneService, storageService: StorageService) {
     self.ringtoneService = ringtoneService
     self.storageService = storageService
     ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
     ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
-    self.storageService = storageService
+    getRingtones()
   }
   
   private func getRingtones() {
@@ -70,19 +70,19 @@ class ContactEditViewModel {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
     } else {
-      didError.value = ImagePickerErrors.sourceNotAvaliable
-      didError.value = ImagePickerErrors.sourceNotAvaliable
+      didError.value = ImagePickerError.sourceNotAvaliable
+      didError.value = ImagePickerError.sourceNotAvaliable
     }
   }
   
-  func contactsEditViewControllerDidRequestedSave(firstName: String?, lastName: String?, phone: String?, notes: String?) {
+  func saveContact(firstName: String?, lastName: String?, phone: String?, notes: String?) {
     guard let firstName = firstName, !firstName.isEmpty,
       let lastName = lastName, !lastName.isEmpty,
       let phone = phone, !phone.isEmpty, let ringtone = selectedRingtone.value else {
-      didError.value = ContactsEditErrors.emptyFields
-      return
+        didError.value = ContactsEditErrors.emptyFields
+        return
     }
-
+    
     let contact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phone,
                           ringtone: ringtone, notes: notes, image: selectedImage.value)
     
@@ -93,9 +93,19 @@ class ContactEditViewModel {
       return
     case .failure(let error):
       didError.value = error
+    }
+  }
+  
+  // MARK: - Navbar events handling
+  
+  func onNavnbarDoneButton() {
+    didRequestSave.value = true
+  }
+  
+  func onNavbarCancelButton() {
+    // TODO: - Go to contacts
   }
 }
-
 // MARK: - Ringtone editing handling
 
 extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
@@ -107,17 +117,5 @@ extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
 extension ContactEditViewModel: RingtonePickerViewModelDelegate {
   func ringtonePickerViewModel(_ viewModel: RingtonePickerViewModel, didSelect ringtone: String) {
     selectedRingtone.value = ringtone
-  }
-}
-
-// MARK: - Navbar events handling
-
-extension ContactEditViewModel: ContactEditCoordinatorDelegate {
-  func contactEditCoordinatorDidTapDone() {
-    didRequestedSave.value = true
-  }
-  
-  func contactEditCoordinatorDidTapCancel() {
-    // TODO: - Go to contacts
   }
 }

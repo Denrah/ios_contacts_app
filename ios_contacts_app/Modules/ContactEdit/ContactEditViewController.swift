@@ -77,11 +77,11 @@ class ContactEditViewController: UIViewController {
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
     }
-    viewModel.didRequestedSave.bind = { [weak self] _ in
+    viewModel.didRequestSave.bind = { [weak self] _ in
       guard let self = self else { return }
-      self.viewModel.contactsEditViewControllerDidRequestedSave(firstName: self.firstNameTextField.text,
-                                                                lastName: self.lastNametextField.text,
-                                                                phone: self.phoneTextField.text, notes: self.notesTextView.text)
+      self.viewModel.saveContact(firstName: self.firstNameTextField.text,
+                                 lastName: self.lastNametextField.text,
+                                 phone: self.phoneTextField.text, notes: self.notesTextView.text)
     }
   }
   
