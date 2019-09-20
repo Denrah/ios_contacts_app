@@ -7,6 +7,7 @@ import UIKit
 
 class ContactsListCoordinator: Coordinator {
   let rootViewController: UINavigationController
+  var searchResultsUpdater: SearchResultsUpdater?
   var contactsListViewModel: ContactsListViewModel?
   
   private enum Contants {
@@ -22,6 +23,7 @@ class ContactsListCoordinator: Coordinator {
     contactsListViewModel = ContactsListViewModel(storageService: storageService)
     guard let contactsListViewModel = contactsListViewModel else { return }
     contactsListViewModel.delegate = self
+    searchResultsUpdater = SearchResultsUpdater(viewModel: contactsListViewModel)
     let contactsListViewController = ContactsListViewController(viewModel: contactsListViewModel)
     setupNavigationBar(viewController: contactsListViewController)
     rootViewController.setViewControllers([contactsListViewController], animated: false)
@@ -34,6 +36,7 @@ class ContactsListCoordinator: Coordinator {
     viewController.navigationItem.largeTitleDisplayMode = .always
     
     let searchController = UISearchController(searchResultsController: nil)
+    searchController.searchResultsUpdater = searchResultsUpdater
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   
@@ -55,6 +58,6 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
   func didFinish(from coordinator: ContactEditCoordinator) {
     removeChildCoordinator(coordinator)
-    contactsListViewModel?.updateContacts()
+    contactsListViewModel?.getContacts()
   }
 }

@@ -16,6 +16,7 @@ class ContactsListViewModel {
   var sectionTitles: [String] = []
   private let collation = UILocalizedIndexedCollation.current()
   private var contactsWithSections = [[Contact]]()
+  var contacts: [Contact] = []
   
   let didUpdate = Dynamic<Bool>(false)
   let didError = Dynamic<Error>(nil)
@@ -26,25 +27,30 @@ class ContactsListViewModel {
   
   init(storageService: StorageService) {
     self.storageService = storageService
-    updateContacts()
+    getContacts()
   }
   
-  func updateContacts() {
+  func getContacts() {
     let result = storageService.getContacts()
     switch result {
     case .success(let contacts):
-      let (contacts, titles) = collation.partitionObjects(array: contacts,
-                                                          collationStringSelector: #selector(getter: Contact.lastName))
-      guard let contactsWithSections = contacts as? [[Contact]] else {
-        didError.value = AppError.contactsLoadFailed
-        return
-      }
-      self.contactsWithSections = contactsWithSections
-      sectionTitles = titles
-      didUpdate.value = true
+      self.contacts = contacts
+      updateContacts(contacts: contacts)
     case .failure(let error):
       didError.value = error
     }
+  }
+  
+  func updateContacts(contacts: [Contact]) {
+    let (contacts, titles) = collation.partitionObjects(array: contacts,
+                                                        collationStringSelector: #selector(getter: Contact.lastName))
+    guard let contactsWithSections = contacts as? [[Contact]] else {
+      didError.value = AppError.contactsLoadFailed
+      return
+    }
+    self.contactsWithSections = contactsWithSections
+    sectionTitles = titles
+    didUpdate.value = true
   }
   
   // MARK: - Data for tableView
