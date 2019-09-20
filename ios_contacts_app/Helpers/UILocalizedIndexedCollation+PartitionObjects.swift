@@ -14,7 +14,7 @@ extension UILocalizedIndexedCollation {
     }
 
     for item in array {
-      let index: Int = self.section(for: item, collationStringSelector: collationStringSelector)
+      let index: Int = section(for: item, collationStringSelector: collationStringSelector)
       unsortedSections[index].append(item)
     }
 
@@ -22,8 +22,8 @@ extension UILocalizedIndexedCollation {
     var sections: [AnyObject] = []
     for index in 0 ..< unsortedSections.count where !unsortedSections[index].isEmpty {
       sectionTitles.append(self.sectionTitles[index])
-      sections.append(self.sortedArray(from: unsortedSections[index],
-                                       collationStringSelector: collationStringSelector) as AnyObject)
+      sections.append(sortedArray(from: unsortedSections[index],
+                                  collationStringSelector: collationStringSelector) as AnyObject)
     }
     return (sections, sectionTitles)
   }
