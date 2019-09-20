@@ -61,4 +61,8 @@ class ContactsListViewModel {
   func getNumberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].count
   }
+  
+  func getSectionIndexTitles() -> [String] {
+    return collation.sectionIndexTitles
+  }
 }
