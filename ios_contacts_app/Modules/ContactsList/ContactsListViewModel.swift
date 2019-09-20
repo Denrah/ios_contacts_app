@@ -35,7 +35,10 @@ class ContactsListViewModel {
     case .success(let contacts):
       let (contacts, titles) = collation.partitionObjects(array: contacts,
                                                           collationStringSelector: #selector(getter: Contact.lastName))
-      guard let contactsWithSections = contacts as? [[Contact]] else { return }
+      guard let contactsWithSections = contacts as? [[Contact]] else {
+        didError.value = AppError.contactsLoadFailed
+        return
+      }
       self.contactsWithSections = contactsWithSections
       sectionTitles = titles
       didUpdate.value = true
