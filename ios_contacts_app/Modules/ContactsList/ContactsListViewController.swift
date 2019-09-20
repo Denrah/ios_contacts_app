@@ -7,8 +7,10 @@ import UIKit
 
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
-  
-  let searchController = UISearchController(searchResultsController: nil)
+
+  private enum Constants {
+    static let errorAlertTitle = "Sorry"
+  }
   
   // MARK: - ViewController setup
   
@@ -23,34 +25,44 @@ class ContactsListViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    bindToViewModel()
+  }
+  
+  private func bindToViewModel() {
+    viewModel.didError.bind = { [weak self] error in
+      let alert = UIAlertController(title: Constants.errorAlertTitle,
+                                    message: error?.localizedDescription,
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      self?.present(alert, animated: true, completion: nil)
+    }
+    viewModel.didUpdate.bind = { [weak self] _ in
+      self?.tableView.reloadData()
+    }
   }
   
   // MARK: - Table view data source
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    // #warning Incomplete implementation, return the number of sections
-    return 1
+    return viewModel.numberOfSections
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete implementation, return the number of rows
-    return 100
+    return viewModel.getNumberOfRowsIn(section: section)
   }
   
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return viewModel.sectionTitles[section]
+  }
   
-   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-   //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-    let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-   
-   // Configure the cell...
-   
-   return cell
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+    cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
+
+    return cell
    }
   
+  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 28
+  }
 }

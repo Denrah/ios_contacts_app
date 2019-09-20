@@ -7,9 +7,15 @@ import UIKit
 import Realm
 import RealmSwift
 
+protocol ContactEditCoordinatorDelegate: class {
+  func didFinish(from coordinator: ContactEditCoordinator)
+}
+
 class ContactEditCoordinator: Coordinator {
   let rootViewController: UINavigationController
   var contactEditViewModel: ContactEditViewModel?
+  
+  weak var delegate: ContactEditCoordinatorDelegate?
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -24,12 +30,13 @@ class ContactEditCoordinator: Coordinator {
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
-    rootViewController.setViewControllers([contactEditViewController], animated: false)
+    rootViewController.pushViewController(contactEditViewController, animated: true)
   }
   
   private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
     rootViewController.navigationBar.barTintColor = UIColor.white
     rootViewController.navigationBar.shadowImage = UIImage()
+    viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
                                                                       target: self, action: #selector(didTapCancel))
@@ -39,10 +46,14 @@ class ContactEditCoordinator: Coordinator {
   
   @objc private func didTapDone() {
     contactEditViewModel?.onNavnbarDoneButton()
+    rootViewController.popViewController(animated: true)
+    delegate?.didFinish(from: self)
   }
   
   @objc private func didTapCancel() {
     contactEditViewModel?.onNavbarCancelButton()
+    rootViewController.popViewController(animated: true)
+    delegate?.didFinish(from: self)
   }
 }
 

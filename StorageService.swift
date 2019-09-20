@@ -6,14 +6,14 @@
 import Realm
 import RealmSwift
 
-enum StorageErrors: Error {
+enum StorageError: Error {
   case initFail
   case objectConvertionFailed
   case failWriteToStorage
   case generalSaveFailure
 }
 
-extension StorageErrors: LocalizedError {
+extension StorageError: LocalizedError {
   public var errorDescription: String? {
     switch self {
     case .initFail:
@@ -31,7 +31,7 @@ extension StorageErrors: LocalizedError {
 class StorageService {
   private func saveObject<T>(object: T) -> Result<Void, Error> where T: Object {
     guard let realm = try? Realm() else {
-      return Result.failure(StorageErrors.initFail)
+      return Result.failure(StorageError.initFail)
     }
 
     do {
@@ -39,14 +39,14 @@ class StorageService {
         realm.add(object)
       }
     } catch {
-      return Result.failure(StorageErrors.failWriteToStorage)
+      return Result.failure(StorageError.failWriteToStorage)
     }
     return Result.success(())
   }
   
   private func getObjects<T>(ofType: T.Type) -> Result<[T], Error> where T: Object {
     guard let realm = try? Realm() else {
-      return Result.failure(StorageErrors.initFail)
+      return Result.failure(StorageError.initFail)
     }
     
     let objects = realm.objects(T.self)
@@ -70,7 +70,7 @@ class StorageService {
       return .success(())
     case .failure(let error):
       print(error)
-      return .failure(StorageErrors.generalSaveFailure)
+      return .failure(StorageError.generalSaveFailure)
     }
   }
   

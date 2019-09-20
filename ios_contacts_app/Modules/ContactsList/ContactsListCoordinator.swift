@@ -7,6 +7,7 @@ import UIKit
 
 class ContactsListCoordinator: Coordinator {
   let rootViewController: UINavigationController
+  var contactsListViewModel: ContactsListViewModel?
   
   private enum Contants {
     static let screenTitle = "Contacts"
@@ -18,7 +19,8 @@ class ContactsListCoordinator: Coordinator {
   
   override func start() {
     let storageService = StorageService()
-    let contactsListViewModel = ContactsListViewModel(storageService: storageService)
+    contactsListViewModel = ContactsListViewModel(storageService: storageService)
+    guard let contactsListViewModel = contactsListViewModel else { return }
     contactsListViewModel.delegate = self
     let contactsListViewController = ContactsListViewController(viewModel: contactsListViewModel)
     setupNavigationBar(viewController: contactsListViewController)
@@ -29,14 +31,30 @@ class ContactsListCoordinator: Coordinator {
     rootViewController.navigationBar.barTintColor = UIColor.white
     rootViewController.navigationBar.prefersLargeTitles = true
     viewController.navigationItem.title = Contants.screenTitle
+    viewController.navigationItem.largeTitleDisplayMode = .always
     
     let searchController = UISearchController(searchResultsController: nil)
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   
-    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                                                       action: #selector(goToContactEdit))
+  }
+  
+  @objc private func goToContactEdit() {
+    let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
+    contactEditCoordinator.delegate = self
+    addChildCoordinator(contactEditCoordinator)
+    contactEditCoordinator.start()
   }
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
+}
+
+extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
+  func didFinish(from coordinator: ContactEditCoordinator) {
+    removeChildCoordinator(coordinator)
+    contactsListViewModel?.updateContacts()
+  }
 }
