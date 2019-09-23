@@ -6,7 +6,10 @@
 import UIKit
 
 class ContactEditViewController: UIViewController {
-  let viewModel: ContactEditViewModel
+  @IBOutlet private weak var notesTextView: UITextView!
+  @IBOutlet private weak var notesPlaceholderLabel: UILabel!
+  
+  private let viewModel: ContactEditViewModel
   
   // MARK: - ViewController setup
   
@@ -21,5 +24,22 @@ class ContactEditViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupFields()
+  }
+  
+  private func setupFields() {
+    notesTextView.delegate = self
+    notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+    notesTextView.textContainer.lineFragmentPadding = 0
+    notesTextView.translatesAutoresizingMaskIntoConstraints = false
+    notesTextView.isScrollEnabled = false
+  }
+}
+
+// MARK: - Resizing TextView on content change
+
+extension ContactEditViewController: UITextViewDelegate {
+  func textViewDidChange(_ textView: UITextView) {
+    notesPlaceholderLabel.isHidden = !textView.text.isEmpty
   }
 }

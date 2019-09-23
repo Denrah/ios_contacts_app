@@ -6,7 +6,7 @@
 import UIKit
 
 class ContactDetailsViewController: UIViewController {
-  let viewModel: ContactDetailsViewModel
+  private let viewModel: ContactDetailsViewModel
   
   // MARK: - ViewController setup
   
