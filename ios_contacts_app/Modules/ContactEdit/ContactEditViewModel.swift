@@ -26,19 +26,14 @@ extension ContactsEditErrors: LocalizedError {
 class ContactEditViewModel {
   weak var delegate: ContactEditViewModelDelegate?
   
-  var ringtonePickerView: RingtonePickerView?
-  var ringtonePickerToolbar: UIToolbar?
+  private let ringtoneService: RingtoneService
+  private let storageService: StorageService
   
   let selectedRingtone = Dynamic<String>(nil)
   let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
   let didRequestSave = Dynamic<Bool>(false)
-  let didError = Dynamic<Error>(nil)
-  
-  let ringtoneService: RingtoneService
-  let storageService: StorageService
-  
-  var ringtones: [String]?
+  let idReceiveError = Dynamic<Error>(nil)
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -62,16 +57,14 @@ class ContactEditViewModel {
   
   private func getRingtones() {
     selectedRingtone.value = ringtoneService.getDefaultRingtone()
-    ringtonePickerViewModel.ringtones = ringtoneService.getRingtones()
-    ringtonePickerView?.update(viewModel: ringtonePickerViewModel)
+    ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
   }
   
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
     } else {
-      didError.value = ImagePickerError.sourceNotAvaliable
-      didError.value = ImagePickerError.sourceNotAvaliable
+      didReceiveError.value = ImagePickerError.sourceNotAvaliable
     }
   }
   
@@ -106,10 +99,9 @@ class ContactEditViewModel {
     // TODO: - Go to contacts
   }
 }
-// MARK: - Ringtone editing handling
 
 extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
-  func ringtoneViewModelDidTapDoneButton(_ viewModel: RingtoneToolbarViewModel) {
+  func ringtoneViewModelDidTapDone(_ viewModel: RingtoneToolbarViewModel) {
     ringtoneIsEditing.value = false
   }
 }

@@ -14,10 +14,10 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var lastNametextField: UITextField!
   @IBOutlet private weak var phoneTextField: UITextField!
   
-  private var ringtonePickerView: RingtonePickerView?
-  private var ringtonePickerToolbar: UIToolbar?
-  
   private let viewModel: ContactEditViewModel
+  
+  private var ringtonePickerView: RingtonePickerView
+  private var ringtonePickerToolbar: UIToolbar
   
   private enum Constants {
     static let errorAlertTitle = "Sorry"
@@ -28,8 +28,11 @@ class ContactEditViewController: UIViewController {
   
   // MARK: - ViewController setup
   
-  init(viewModel: ContactEditViewModel) {
+  init(viewModel: ContactEditViewModel, ringtonePickerViewModel: RingtonePickerViewModel,
+       ringtoneTollbarViewModel: RingtoneToolbarViewModel) {
     self.viewModel = viewModel
+    self.ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
+    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneTollbarViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -53,8 +56,8 @@ class ContactEditViewController: UIViewController {
     
     addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
     
-    ringtoneTextView.inputView = viewModel.ringtonePickerView
-    ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
+    ringtoneTextView.inputView = ringtonePickerView
+    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
   
   private func bindToViewModel() {
@@ -70,7 +73,7 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.didError.bind = { [weak self] error in
+    viewModel.didReceiveError.bind = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
                                     message: error?.localizedDescription,
                                     preferredStyle: .alert)
