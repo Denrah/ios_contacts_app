@@ -21,7 +21,7 @@ class AppCoordinator: Coordinator {
       return
     }
     
-    let contactsListCoordinator = ContactsListCoordinator(rootViewController: rootViewController)
+    let contactsListCoordinator = ContactDetailsCoordinator(rootViewController: rootViewController)
     self.addChildCoordinator(contactsListCoordinator)
     contactsListCoordinator.start()
     
