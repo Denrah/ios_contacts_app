@@ -13,7 +13,11 @@ class SearchResultsUpdater: NSObject, UISearchResultsUpdating {
   }
   
   func updateSearchResults(for searchController: UISearchController) {
-    guard let searchInput = searchController.searchBar.text, !searchInput.isEmpty else { return }
+    guard let searchInput = searchController.searchBar.text else { return }
+    guard !searchInput.isEmpty else {
+      viewModel.updateContacts(contacts: viewModel.contacts)
+      return
+    }
     let contacts: [Contact] = viewModel.contacts.filter { contact -> Bool in
       return contact.firstName.range(of: searchInput, options: [.caseInsensitive]) != nil
         || (contact.lastName.range(of: searchInput, options: [.caseInsensitive]) != nil)

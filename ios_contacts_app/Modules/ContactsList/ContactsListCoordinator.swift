@@ -37,6 +37,7 @@ class ContactsListCoordinator: Coordinator {
     
     let searchController = UISearchController(searchResultsController: nil)
     searchController.searchResultsUpdater = searchResultsUpdater
+    searchController.dimsBackgroundDuringPresentation = false
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   

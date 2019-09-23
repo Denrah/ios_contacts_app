@@ -101,10 +101,6 @@ class ContactEditViewModel {
   func onNavnbarDoneButton() {
     didRequestSave.value = true
   }
-  
-  func onNavbarCancelButton() {
-    // TODO: - Go to contacts
-  }
 }
 // MARK: - Ringtone editing handling
 

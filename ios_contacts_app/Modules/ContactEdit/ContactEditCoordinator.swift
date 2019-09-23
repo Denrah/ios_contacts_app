@@ -51,7 +51,6 @@ class ContactEditCoordinator: Coordinator {
   }
   
   @objc private func didTapCancel() {
-    contactEditViewModel?.onNavbarCancelButton()
     rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
   }
