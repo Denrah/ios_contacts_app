@@ -14,9 +14,6 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var lastNametextField: UITextField!
   @IBOutlet private weak var phoneTextField: UITextField!
   
-  private var ringtonePickerView: RingtonePickerView?
-  private var ringtonePickerToolbar: UIToolbar?
-  
   private let viewModel: ContactEditViewModel
   
   private var ringtonePickerView: RingtonePickerView
@@ -76,7 +73,7 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.imagePickerError.bind = { [weak self] error in
+    viewModel.didReceiveError.bind = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
                                     message: error?.localizedDescription,
                                     preferredStyle: .alert)

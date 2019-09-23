@@ -52,7 +52,7 @@ extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
     case .success(let image):
       contactEditViewModel?.selectedImage.value = image
     case .failure(let error):
-      contactEditViewModel?.imagePickerError.value = error
+      contactEditViewModel?.didReceiveError.value = error
     }
   }
   
