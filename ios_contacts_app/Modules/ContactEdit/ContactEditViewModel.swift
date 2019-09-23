@@ -8,6 +8,7 @@ import UIKit
 protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
                                                    sourceType: UIImagePickerController.SourceType)
+  func contactEditViewDidRequestedGoBack()
 }
 
 enum ContactsEditErrors: Error {
@@ -90,7 +91,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      return
+      delegate?.contactEditViewDidRequestedGoBack()
     case .failure(let error):
       didError.value = error
     }
@@ -100,10 +101,6 @@ class ContactEditViewModel {
   
   func onNavnbarDoneButton() {
     didRequestSave.value = true
-  }
-  
-  func onNavbarCancelButton() {
-    // TODO: - Go to contacts
   }
 }
 // MARK: - Ringtone editing handling

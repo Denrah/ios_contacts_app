@@ -46,12 +46,13 @@ class ContactEditCoordinator: Coordinator {
   
   @objc private func didTapDone() {
     contactEditViewModel?.onNavnbarDoneButton()
-    rootViewController.popViewController(animated: true)
-    delegate?.didFinish(from: self)
   }
   
   @objc private func didTapCancel() {
-    contactEditViewModel?.onNavbarCancelButton()
+    goBack()
+  }
+  
+  private func goBack() {
     rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
   }
@@ -60,6 +61,10 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
+  func contactEditViewDidRequestedGoBack() {
+    goBack()
+  }
+  
   func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
                                                    sourceType: UIImagePickerController.SourceType) {
     let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
