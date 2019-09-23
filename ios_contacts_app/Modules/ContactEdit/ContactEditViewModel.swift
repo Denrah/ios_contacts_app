@@ -30,10 +30,10 @@ class ContactEditViewModel {
   private let storageService: StorageService
   
   let selectedRingtone = Dynamic<String>(nil)
-  let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
-  let didRequestSave = Dynamic<Bool>(false)
-  let idReceiveError = Dynamic<Error>(nil)
+  var ringtonePickerDidTapDone: (() -> Void)?
+  var didRequestSave: (() -> Void)?
+  let didReceiveError = Dynamic<Error>(nil)
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -50,8 +50,6 @@ class ContactEditViewModel {
   init(ringtoneService: RingtoneService, storageService: StorageService) {
     self.ringtoneService = ringtoneService
     self.storageService = storageService
-    ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
     getRingtones()
   }
   
@@ -72,7 +70,7 @@ class ContactEditViewModel {
     guard let firstName = firstName, !firstName.isEmpty,
       let lastName = lastName, !lastName.isEmpty,
       let phone = phone, !phone.isEmpty, let ringtone = selectedRingtone.value else {
-        didError.value = ContactsEditErrors.emptyFields
+        didReceiveError.value = ContactsEditErrors.emptyFields
         return
     }
     
@@ -85,14 +83,14 @@ class ContactEditViewModel {
     case .success:
       return
     case .failure(let error):
-      didError.value = error
+      didReceiveError.value = error
     }
   }
   
   // MARK: - Navbar events handling
   
   func onNavnbarDoneButton() {
-    didRequestSave.value = true
+    didRequestSave?()
   }
   
   func onNavbarCancelButton() {
@@ -102,7 +100,7 @@ class ContactEditViewModel {
 
 extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
   func ringtoneViewModelDidTapDone(_ viewModel: RingtoneToolbarViewModel) {
-    ringtoneIsEditing.value = false
+    ringtonePickerDidTapDone?()
   }
 }
 

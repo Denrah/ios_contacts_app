@@ -19,13 +19,13 @@ class ContactEditCoordinator: Coordinator {
     let ringtoneService = RingtoneService()
     let storageService = StorageService()
     
-    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
+    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService, storageService: storageService)
     guard let viewModel = contactEditViewModel else { return }
     viewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: viewModel,
                                                               ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
                                                               ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
-    setupNavigationBar(viewController: contactEditViewController)
+    setupNavigationBar(viewController: contactEditViewController, viewModel: viewModel)
     rootViewController.setViewControllers([contactEditViewController], animated: false)
   }
   
@@ -64,7 +64,7 @@ extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
   func imagePickerCoordinator(didSelectImageWith result: Result<UIImage, Error>) {
     switch result {
     case .success(let image):
-      contactEditViewModel?.selectedImage.value = error
+      contactEditViewModel?.selectedImage.value = image
     case .failure(let error):
       contactEditViewModel?.didReceiveError.value = error
     }
