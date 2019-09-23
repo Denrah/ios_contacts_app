@@ -45,6 +45,8 @@ class ContactsListCoordinator: Coordinator {
                                                                        action: #selector(goToContactEdit))
   }
   
+  // MARK: - Moving between screens
+  
   @objc private func goToContactEdit() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
     contactEditCoordinator.delegate = self

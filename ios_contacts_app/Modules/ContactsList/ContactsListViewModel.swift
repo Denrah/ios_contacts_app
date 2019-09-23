@@ -30,6 +30,8 @@ class ContactsListViewModel {
     getContacts()
   }
   
+  // MARK: - Loading contacts
+  
   func getContacts() {
     let result = storageService.getContacts()
     switch result {
