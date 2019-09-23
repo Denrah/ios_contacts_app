@@ -13,16 +13,12 @@ protocol ContactEditViewModelDelegate: class {
 class ContactEditViewModel {
   weak var delegate: ContactEditViewModelDelegate?
   
-  var ringtonePickerView: RingtonePickerView?
-  var ringtonePickerToolbar: UIToolbar?
+  private let ringtoneService: RingtoneService
   
   let selectedRingtone = Dynamic<String>(nil)
-  let ringtoneService: RingtoneService
   let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
   let imagePickerError = Dynamic<Error>(nil)
-  
-  var ringtones: [String]?
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -38,15 +34,12 @@ class ContactEditViewModel {
   
   init(ringtoneService: RingtoneService) {
     self.ringtoneService = ringtoneService
-    ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
     getRingtones()
   }
   
   private func getRingtones() {
     selectedRingtone.value = ringtoneService.getDefaultRingtone()
-    ringtonePickerViewModel.ringtones = ringtoneService.getRingtones()
-    ringtonePickerView?.update(viewModel: ringtonePickerViewModel)
+    ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
   }
   
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
@@ -61,7 +54,7 @@ class ContactEditViewModel {
 // MARK: - Ringtone editing handling
 
 extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
-  func ringtoneViewModelDidTapDoneButton(_ viewModel: RingtoneToolbarViewModel) {
+  func ringtoneViewModelDidTapDone(_ viewModel: RingtoneToolbarViewModel) {
     ringtoneIsEditing.value = false
   }
 }

@@ -19,6 +19,9 @@ class ContactEditViewController: UIViewController {
   
   private let viewModel: ContactEditViewModel
   
+  private var ringtonePickerView: RingtonePickerView
+  private var ringtonePickerToolbar: UIToolbar
+  
   private enum Constants {
     static let errorAlertTitle = "Sorry"
     static let imagePickerActionSheetTitle = "Select image"
@@ -28,8 +31,11 @@ class ContactEditViewController: UIViewController {
   
   // MARK: - ViewController setup
   
-  init(viewModel: ContactEditViewModel) {
+  init(viewModel: ContactEditViewModel, ringtonePickerViewModel: RingtonePickerViewModel,
+       ringtoneTollbarViewModel: RingtoneToolbarViewModel) {
     self.viewModel = viewModel
+    self.ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
+    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneTollbarViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -53,8 +59,8 @@ class ContactEditViewController: UIViewController {
     
     addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
     
-    ringtoneTextView.inputView = viewModel.ringtonePickerView
-    ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
+    ringtoneTextView.inputView = ringtonePickerView
+    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
   
   private func bindToViewModel() {

@@ -6,8 +6,8 @@
 import UIKit
 
 class ContactEditCoordinator: Coordinator {
-  let rootViewController: UINavigationController
-  var contactEditViewModel: ContactEditViewModel?
+  private let rootViewController: UINavigationController
+  private var contactEditViewModel: ContactEditViewModel?
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -16,9 +16,11 @@ class ContactEditCoordinator: Coordinator {
   override func start() {
     let ringtoneService = RingtoneService()
     contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
-    guard let contactEditViewModel = contactEditViewModel else { return }
-    contactEditViewModel.delegate = self
-    let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
+    guard let viewModel = contactEditViewModel else { return }
+    viewModel.delegate = self
+    let contactEditViewController = ContactEditViewController(viewModel: viewModel,
+                                                              ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
+                                                              ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
     setupNavigationBar(viewController: contactEditViewController)
     rootViewController.setViewControllers([contactEditViewController], animated: false)
   }
