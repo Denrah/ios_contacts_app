@@ -30,14 +30,14 @@ class ContactsListViewController: UITableViewController {
   }
   
   private func bindToViewModel() {
-    viewModel.didError.bind = { [weak self] error in
+    viewModel.didReceiveError = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
-                                    message: error?.localizedDescription,
+                                    message: error.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
     }
-    viewModel.didUpdate.bind = { [weak self] _ in
+    viewModel.didUpdate = { [weak self] in
       self?.tableView.reloadData()
     }
   }

@@ -44,6 +44,7 @@
 		F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */; };
 		F7FDBE9C2339DCF200BA15E5 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */; };
 		F7FDBE9D2339DCF200BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */; };
+		F7FDBE9F2339DD9600BA15E5 /* StorageService+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9E2339DD9600BA15E5 /* StorageService+Contacts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdater.swift; sourceTree = "<group>"; };
 		F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageService.swift; path = ios_contacts_app/Services/StorageService.swift; sourceTree = "<group>"; };
 		F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneService.swift; path = ios_contacts_app/Services/RingtoneService.swift; sourceTree = "<group>"; };
+		F7FDBE9E2339DD9600BA15E5 /* StorageService+Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+Contacts.swift"; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +240,7 @@
 			children = (
 				F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */,
 				F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */,
+				F7FDBE9E2339DD9600BA15E5 /* StorageService+Contacts.swift */,
 			);
 			name = Services;
 			path = ..;
@@ -404,6 +407,7 @@
 				F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
 				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
+				F7FDBE9F2339DD9600BA15E5 /* StorageService+Contacts.swift in Sources */,
 				F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */,
 				F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */,
 				F7FDBE9523349DAF00BA15E5 /* AppError.swift in Sources */,

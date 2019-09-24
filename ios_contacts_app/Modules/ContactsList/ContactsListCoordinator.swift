@@ -6,9 +6,9 @@
 import UIKit
 
 class ContactsListCoordinator: Coordinator {
-  let rootViewController: UINavigationController
-  var searchResultsUpdater: SearchResultsUpdater?
-  var contactsListViewModel: ContactsListViewModel?
+  private let rootViewController: UINavigationController
+  private var contactsListViewModel: ContactsListViewModel?
+  private var searchResultsUpdater: SearchResultsUpdater?
   
   private enum Contants {
     static let screenTitle = "Contacts"
@@ -40,7 +40,7 @@ class ContactsListCoordinator: Coordinator {
     searchController.dimsBackgroundDuringPresentation = false
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
-  
+    
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                                                        action: #selector(goToContactEdit))
   }
