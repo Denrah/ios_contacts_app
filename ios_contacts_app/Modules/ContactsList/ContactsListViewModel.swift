@@ -18,8 +18,8 @@ class ContactsListViewModel {
   private var contactsWithSections = [[Contact]]()
   var contacts: [Contact] = []
   
-  let didUpdate = Dynamic<Bool>(false)
-  let didError = Dynamic<Error>(nil)
+  var didUpdate: (() -> Void)?
+  var didReceiveError: ((Error) -> Void)?
 
   var numberOfSections: Int {
     return contactsWithSections.count
@@ -39,7 +39,7 @@ class ContactsListViewModel {
       self.contacts = contacts
       updateContacts(contacts: contacts)
     case .failure(let error):
-      didError.value = error
+      didReceiveError?(error)
     }
   }
   
@@ -47,12 +47,12 @@ class ContactsListViewModel {
     let (contacts, titles) = collation.partitionObjects(array: contacts,
                                                         collationStringSelector: #selector(getter: Contact.lastName))
     guard let contactsWithSections = contacts as? [[Contact]] else {
-      didError.value = AppError.contactsLoadFailed
+      didReceiveError?(AppError.contactsLoadFailed)
       return
     }
     self.contactsWithSections = contactsWithSections
     sectionTitles = titles
-    didUpdate.value = true
+    didUpdate?()
   }
   
   // MARK: - Data for tableView

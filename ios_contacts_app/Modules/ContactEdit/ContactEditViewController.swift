@@ -14,10 +14,10 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var lastNametextField: UITextField!
   @IBOutlet private weak var phoneTextField: UITextField!
   
-  private var ringtonePickerView: RingtonePickerView?
-  private var ringtonePickerToolbar: UIToolbar?
-  
   private let viewModel: ContactEditViewModel
+  
+  private var ringtonePickerView: RingtonePickerView
+  private var ringtonePickerToolbar: UIToolbar
   
   private enum Constants {
     static let errorAlertTitle = "Sorry"
@@ -28,8 +28,11 @@ class ContactEditViewController: UIViewController {
   
   // MARK: - ViewController setup
   
-  init(viewModel: ContactEditViewModel) {
+  init(viewModel: ContactEditViewModel, ringtonePickerViewModel: RingtonePickerViewModel,
+       ringtoneTollbarViewModel: RingtoneToolbarViewModel) {
     self.viewModel = viewModel
+    self.ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
+    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneTollbarViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -53,31 +56,28 @@ class ContactEditViewController: UIViewController {
     
     addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
     
-    ringtoneTextView.inputView = viewModel.ringtonePickerView
-    ringtoneTextView.inputAccessoryView = viewModel.ringtonePickerToolbar
+    ringtoneTextView.inputView = ringtonePickerView
+    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
   
   private func bindToViewModel() {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
       ringtone.flatMap { self?.ringtoneTextView.text = $0 }
     }
-    viewModel.ringtoneIsEditing.bind = { [weak self] isEditing in
-      guard let isEditing = isEditing else { return }
-      if !isEditing {
-        self?.ringtoneTextView.resignFirstResponder()
-      }
+    viewModel.ringtonePickerDidTapDone = { [weak self] in
+      self?.ringtoneTextView.resignFirstResponder()
     }
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.didError.bind = { [weak self] error in
+    viewModel.didReceiveError = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
-                                    message: error?.localizedDescription,
+                                    message: error.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
     }
-    viewModel.didRequestSave.bind = { [weak self] _ in
+    viewModel.didRequestSave = { [weak self] in
       guard let self = self else { return }
       self.viewModel.saveContact(firstName: self.firstNameTextField.text,
                                  lastName: self.lastNametextField.text,

@@ -27,19 +27,14 @@ extension ContactsEditErrors: LocalizedError {
 class ContactEditViewModel {
   weak var delegate: ContactEditViewModelDelegate?
   
-  var ringtonePickerView: RingtonePickerView?
-  var ringtonePickerToolbar: UIToolbar?
+  private let ringtoneService: RingtoneService
+  private let storageService: StorageService
   
   let selectedRingtone = Dynamic<String>(nil)
-  let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
-  let didRequestSave = Dynamic<Bool>(false)
-  let didError = Dynamic<Error>(nil)
-  
-  let ringtoneService: RingtoneService
-  let storageService: StorageService
-  
-  var ringtones: [String]?
+  var ringtonePickerDidTapDone: (() -> Void)?
+  var didRequestSave: (() -> Void)?
+  var didReceiveError: ((Error) -> Void)?
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -56,23 +51,19 @@ class ContactEditViewModel {
   init(ringtoneService: RingtoneService, storageService: StorageService) {
     self.ringtoneService = ringtoneService
     self.storageService = storageService
-    ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneToolbarViewModel)
     getRingtones()
   }
   
   private func getRingtones() {
     selectedRingtone.value = ringtoneService.getDefaultRingtone()
-    ringtonePickerViewModel.ringtones = ringtoneService.getRingtones()
-    ringtonePickerView?.update(viewModel: ringtonePickerViewModel)
+    ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
   }
   
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
     } else {
-      didError.value = ImagePickerError.sourceNotAvaliable
-      didError.value = ImagePickerError.sourceNotAvaliable
+      didReceiveError?(ImagePickerError.sourceNotAvaliable)
     }
   }
   
@@ -80,34 +71,33 @@ class ContactEditViewModel {
     guard let firstName = firstName, !firstName.isEmpty,
       let lastName = lastName, !lastName.isEmpty,
       let phone = phone, !phone.isEmpty, let ringtone = selectedRingtone.value else {
-        didError.value = ContactsEditErrors.emptyFields
+        didReceiveError?(ContactsEditErrors.emptyFields)
         return
     }
     
     let contact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phone,
                           ringtone: ringtone, notes: notes, image: selectedImage.value)
     
-    let result = storageService.saveContact(contact: contact)
+    let result = storageService.saveContact(contact)
     
     switch result {
     case .success:
       delegate?.contactEditViewDidRequestedGoBack()
     case .failure(let error):
-      didError.value = error
+      didReceiveError?(error)
     }
   }
   
   // MARK: - Navbar events handling
   
-  func onNavnbarDoneButton() {
-    didRequestSave.value = true
+  func navbarDidTapDone() {
+    didRequestSave?()
   }
 }
-// MARK: - Ringtone editing handling
 
 extension ContactEditViewModel: RingtoneToolbarViewModelDelegate {
-  func ringtoneViewModelDidTapDoneButton(_ viewModel: RingtoneToolbarViewModel) {
-    ringtoneIsEditing.value = false
+  func ringtoneViewModelDidTapDone(_ viewModel: RingtoneToolbarViewModel) {
+    ringtonePickerDidTapDone?()
   }
 }
 

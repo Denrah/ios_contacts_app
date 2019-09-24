@@ -12,8 +12,8 @@ protocol ContactEditCoordinatorDelegate: class {
 }
 
 class ContactEditCoordinator: Coordinator {
-  let rootViewController: UINavigationController
-  var contactEditViewModel: ContactEditViewModel?
+  private let rootViewController: UINavigationController
+  private var contactEditViewModel: ContactEditViewModel?
   
   weak var delegate: ContactEditCoordinatorDelegate?
   
@@ -26,10 +26,12 @@ class ContactEditCoordinator: Coordinator {
     let storageService = StorageService()
     
     contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService, storageService: storageService)
-    guard let contactEditViewModel = contactEditViewModel else { return }
-    contactEditViewModel.delegate = self
-    let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
-    setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
+    guard let viewModel = contactEditViewModel else { return }
+    viewModel.delegate = self
+    let contactEditViewController = ContactEditViewController(viewModel: viewModel,
+                                                              ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
+                                                              ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
+    setupNavigationBar(viewController: contactEditViewController, viewModel: viewModel)
     rootViewController.pushViewController(contactEditViewController, animated: true)
   }
   
@@ -44,17 +46,13 @@ class ContactEditCoordinator: Coordinator {
                                                                        target: self, action: #selector(didTapDone))
   }
   
-  // MARK: - Header buttons events
-  
   @objc private func didTapDone() {
-    contactEditViewModel?.onNavnbarDoneButton()
+    contactEditViewModel?.navbarDidTapDone()
   }
   
   @objc private func didTapCancel() {
     goBack()
   }
-  
-  // MARK: - Moving between screens
   
   private func goBack() {
     rootViewController.popViewController(animated: true)
@@ -84,7 +82,7 @@ extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
     case .success(let image):
       contactEditViewModel?.selectedImage.value = image
     case .failure(let error):
-      contactEditViewModel?.didError.value = error
+      contactEditViewModel?.didReceiveError?(error)
     }
   }
   
