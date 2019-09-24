@@ -33,7 +33,7 @@ class ContactEditViewModel {
   let selectedImage = Dynamic<UIImage>(nil)
   var ringtonePickerDidTapDone: (() -> Void)?
   var didRequestSave: (() -> Void)?
-  let didReceiveError = Dynamic<Error>(nil)
+  var didReceiveError: ((Error) -> Void)?
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -62,7 +62,7 @@ class ContactEditViewModel {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
     } else {
-      didReceiveError.value = ImagePickerError.sourceNotAvaliable
+      didReceiveError?(ImagePickerError.sourceNotAvaliable)
     }
   }
   
@@ -70,7 +70,7 @@ class ContactEditViewModel {
     guard let firstName = firstName, !firstName.isEmpty,
       let lastName = lastName, !lastName.isEmpty,
       let phone = phone, !phone.isEmpty, let ringtone = selectedRingtone.value else {
-        didReceiveError.value = ContactsEditErrors.emptyFields
+        didReceiveError?(ContactsEditErrors.emptyFields)
         return
     }
     
@@ -83,7 +83,7 @@ class ContactEditViewModel {
     case .success:
       return
     case .failure(let error):
-      didReceiveError.value = error
+      didReceiveError?(error)
     }
   }
   
@@ -91,10 +91,6 @@ class ContactEditViewModel {
   
   func onNavnbarDoneButton() {
     didRequestSave?()
-  }
-  
-  func onNavbarCancelButton() {
-    // TODO: - Go to contacts
   }
 }
 

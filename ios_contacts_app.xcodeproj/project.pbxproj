@@ -41,6 +41,7 @@
 		F7FDBE8A2330B95A00BA15E5 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE892330B95A00BA15E5 /* StorageService.swift */; };
 		F7FDBE8D2330B9EA00BA15E5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */; };
 		F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */; };
+		F7FDBE992339BA6A00BA15E5 /* StorageService+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		F7FDBE892330B95A00BA15E5 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+Contacts.swift"; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,6 +231,7 @@
 			children = (
 				F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */,
 				F7FDBE892330B95A00BA15E5 /* StorageService.swift */,
+				F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */,
 			);
 			name = Services;
 			path = ..;
@@ -397,6 +400,7 @@
 				F7FDBE8A2330B95A00BA15E5 /* StorageService.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
 				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
+				F7FDBE992339BA6A00BA15E5 /* StorageService+Contacts.swift in Sources */,
 				F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */,
 				F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */,
 				F7FDBE5F232B480500BA15E5 /* ContactDetailsCoordinator.swift in Sources */,

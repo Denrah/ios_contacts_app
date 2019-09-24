@@ -70,9 +70,9 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.didReceiveError.bind = { [weak self] error in
+    viewModel.didReceiveError = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
-                                    message: error?.localizedDescription,
+                                    message: error.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)

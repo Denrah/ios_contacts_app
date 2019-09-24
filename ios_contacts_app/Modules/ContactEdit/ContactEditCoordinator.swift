@@ -44,7 +44,7 @@ class ContactEditCoordinator: Coordinator {
   }
   
   @objc private func didTapCancel() {
-    contactEditViewModel?.onNavbarCancelButton()
+    
   }
 }
 
@@ -66,7 +66,7 @@ extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
     case .success(let image):
       contactEditViewModel?.selectedImage.value = image
     case .failure(let error):
-      contactEditViewModel?.didReceiveError.value = error
+      contactEditViewModel?.didReceiveError?(error)
     }
   }
   
