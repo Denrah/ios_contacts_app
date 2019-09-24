@@ -10,6 +10,7 @@ class ContactsListViewController: UITableViewController {
 
   private enum Constants {
     static let errorAlertTitle = "Sorry"
+    static let contactCellIdentifier = "contactCell"
   }
   
   // MARK: - ViewController setup
@@ -56,7 +57,7 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: Constants.contactCellIdentifier)
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
     return cell
@@ -64,5 +65,9 @@ class ContactsListViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 28
+  }
+  
+  override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    return viewModel.getSectionIndexTitles()
   }
 }
