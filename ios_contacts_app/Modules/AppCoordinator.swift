@@ -13,6 +13,7 @@ class AppCoordinator: Coordinator {
   
   // MARK: - Coordinator
   init(window: UIWindow?) {
+    window?.backgroundColor = UIColor.white
     self.window = window
   }
   

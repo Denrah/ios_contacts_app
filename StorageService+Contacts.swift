@@ -32,4 +32,15 @@ extension StorageService {
       return Result.failure(error)
     }
   }
+  
+  func getContact(contactId: String) -> Result<Contact, Error> {
+    let result = getObjectById(ofType: RealmContact.self, id: contactId)
+    
+    switch result {
+    case .success(let realmContact):
+      return Result.success(realmContact.toContact())
+    case .failure(let error):
+      return Result.failure(error)
+    }
+  }
 }

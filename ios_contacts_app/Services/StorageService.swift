@@ -11,6 +11,7 @@ enum StorageError: Error {
   case objectConvertionFailed
   case failWriteToStorage
   case generalSaveFailure
+  case objectNotFound
 }
 
 extension StorageError: LocalizedError {
@@ -24,6 +25,8 @@ extension StorageError: LocalizedError {
       return "Can't write to storage"
     case .generalSaveFailure:
       return "Some error has occured while contact saving"
+    case .objectNotFound:
+      return "Object not found"
     }
   }
 }
@@ -52,5 +55,17 @@ class StorageService {
     let objects = realm.objects(T.self)
     
     return Result.success(Array(objects))
+  }
+  
+  func getObjectById<T>(ofType: T.Type, id: Any) -> Result<T, Error> where T: Object {
+    guard let realm = try? Realm() else {
+      return Result.failure(StorageError.initFail)
+    }
+    
+    guard let object = realm.object(ofType: T.self, forPrimaryKey: id) else {
+      return Result.failure(StorageError.objectNotFound)
+    }
+    
+    return Result.success(object)
   }
 }

@@ -5,15 +5,26 @@
 
 import UIKit
 
+protocol ContactDetailsCoordinatorDelegate: class {
+  func didFinish(from coordinator: ContactDetailsCoordinator)
+}
+
 class ContactDetailsCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   
-  init(rootViewController: UINavigationController) {
+  weak var delegate: ContactDetailsCoordinatorDelegate?
+  
+  private let contactId: String
+  private let storageService: StorageService
+  
+  init(rootViewController: UINavigationController, storageService: StorageService, contactId: String) {
     self.rootViewController = rootViewController
+    self.storageService = storageService
+    self.contactId = contactId
   }
   
   override func start() {
-    let contactDetailsViewModel = ContactDetailsViewModel()
+    let contactDetailsViewModel = ContactDetailsViewModel(storageService: storageService, contactId: contactId)
     contactDetailsViewModel.delegate = self
     let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
     setupNavigationBar(viewController: contactDetailsViewController)
@@ -29,7 +40,14 @@ class ContactDetailsCoordinator: Coordinator {
     viewController.navigationItem.largeTitleDisplayMode = .never    
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: nil)
   }
+  
+  override func finish() {
+    delegate?.didFinish(from: self)
+  }
 }
 
 extension ContactDetailsCoordinator: ContactDetailsViewModelDelegate {
+  func contactDetailsViewModelDidFinish(_ viewModel: ContactDetailsViewModel) {
+    finish()
+  }
 }

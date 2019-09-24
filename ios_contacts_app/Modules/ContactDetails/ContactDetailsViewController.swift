@@ -11,12 +11,17 @@ class ContactDetailsViewController: UIViewController {
   
   @IBOutlet private weak var scrollView: UIScrollView!
   @IBOutlet private var contentView: UIView!
+  @IBOutlet private weak var contactName: UILabel!
   
   // MARK: - ViewController setup
   
   init(viewModel: ContactDetailsViewModel) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
+  }
+  
+  deinit {
+    viewModel.goBack()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -26,6 +31,18 @@ class ContactDetailsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupScrollView()
+    setup()
+    bindToViewModel()
+  }
+  
+  private func setup() {
+    self.contactName.text = viewModel.contactName.value
+  }
+  
+  private func bindToViewModel() {
+    viewModel.contactName.bind = { [weak self] name in
+      name.flatMap { self?.contactName.text = $0 }
+    }
   }
   
   // MARK: - Add a gray view to the top in order to hide white background when user drags scrollview down
