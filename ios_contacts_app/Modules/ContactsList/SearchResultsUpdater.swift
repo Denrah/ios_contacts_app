@@ -12,6 +12,8 @@ class SearchResultsUpdater: NSObject, UISearchResultsUpdating {
     self.viewModel = viewModel
   }
   
+  // MARK: - Update data in table
+  
   func updateSearchResults(for searchController: UISearchController) {
     guard let searchInput = searchController.searchBar.text else { return }
     guard !searchInput.isEmpty else {
