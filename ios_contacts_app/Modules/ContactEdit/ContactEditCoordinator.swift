@@ -46,8 +46,6 @@ class ContactEditCoordinator: Coordinator {
                                                                        target: self, action: #selector(didTapDone))
   }
   
-  // MARK: - Header buttons events
-  
   @objc private func didTapDone() {
     contactEditViewModel?.onNavnbarDoneButton()
   }
@@ -55,8 +53,6 @@ class ContactEditCoordinator: Coordinator {
   @objc private func didTapCancel() {
     goBack()
   }
-  
-  // MARK: - Moving between screens
   
   private func goBack() {
     rootViewController.popViewController(animated: true)
