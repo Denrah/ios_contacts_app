@@ -89,7 +89,7 @@ class ContactEditViewModel {
   
   // MARK: - Navbar events handling
   
-  func onNavnbarDoneButton() {
+  func navbarDidTapDone() {
     didRequestSave?()
   }
 }
