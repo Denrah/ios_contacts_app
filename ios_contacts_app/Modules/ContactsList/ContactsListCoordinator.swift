@@ -56,6 +56,11 @@ class ContactsListCoordinator: Coordinator {
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
+  func goToContactDetails(id: String) {
+    let contactDetailsCoordinator = ContactDetailsCoordinator(rootViewController: rootViewController)
+    addChildCoordinator(contactDetailsCoordinator)
+    contactDetailsCoordinator.start()
+  }
 }
 
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {

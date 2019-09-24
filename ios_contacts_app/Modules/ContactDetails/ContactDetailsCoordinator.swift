@@ -17,7 +17,7 @@ class ContactDetailsCoordinator: Coordinator {
     contactDetailsViewModel.delegate = self
     let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
     setupNavigationBar(viewController: contactDetailsViewController)
-    rootViewController.setViewControllers([contactDetailsViewController], animated: false)
+    rootViewController.pushViewController(contactDetailsViewController, animated: true)
   }
   
   private func setupNavigationBar(viewController: UIViewController) {
@@ -26,6 +26,7 @@ class ContactDetailsCoordinator: Coordinator {
     rootViewController.navigationBar.shadowImage = UIImage()
     rootViewController.navigationBar.isTranslucent = false
     
+    viewController.navigationItem.largeTitleDisplayMode = .never    
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: nil)
   }
 }

@@ -70,4 +70,10 @@ class ContactsListViewController: UITableViewController {
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
     return viewModel.getSectionIndexTitles()
   }
+  
+  // MARK: - Handle cell selection
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.didSelectCell(indexPath: indexPath)
+  }
 }

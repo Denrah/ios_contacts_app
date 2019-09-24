@@ -6,6 +6,7 @@
 import UIKit
 
 protocol ContactsListViewModelDelegate: class {
+  func goToContactDetails(id: String)
 }
 
 class ContactsListViewModel {
@@ -72,5 +73,12 @@ class ContactsListViewModel {
   
   func getSectionIndexTitles() -> [String] {
     return collation.sectionIndexTitles
+  }
+  
+  // MARK: - Cell selection
+  
+  func didSelectCell(indexPath: IndexPath) {
+    guard let contactId = contactsWithSections[indexPath.section][indexPath.row].id else { return }
+    delegate?.goToContactDetails(id: contactId)
   }
 }
