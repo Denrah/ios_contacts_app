@@ -13,9 +13,9 @@ protocol ImagePickerCoordinatorDelegate: class {
 class ImagePickerCoordinator: Coordinator {
   weak var delegate: ImagePickerCoordinatorDelegate?
   
-  private let rootViewController: UINavigationController
-  private let sourceType: UIImagePickerController.SourceType
-  private let imagePickerHandler = ImagePickerHandler()
+  let rootViewController: UINavigationController
+  let sourceType: UIImagePickerController.SourceType
+  let imagePickerHandler = ImagePickerHandler()
   
   init(rootViewController: UINavigationController, sourceType: UIImagePickerController.SourceType) {
     self.rootViewController = rootViewController

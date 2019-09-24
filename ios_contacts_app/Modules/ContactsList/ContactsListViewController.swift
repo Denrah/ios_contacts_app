@@ -10,6 +10,7 @@ class ContactsListViewController: UITableViewController {
 
   private enum Constants {
     static let errorAlertTitle = "Sorry"
+    static let contactCellIdentifier = "contactCell"
   }
   
   // MARK: - ViewController setup
@@ -29,14 +30,14 @@ class ContactsListViewController: UITableViewController {
   }
   
   private func bindToViewModel() {
-    viewModel.didReceiveError = { [weak self] error in
+    viewModel.didError.bind = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
-                                    message: error.localizedDescription,
+                                    message: error?.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
     }
-    viewModel.didUpdate = { [weak self] in
+    viewModel.didUpdate.bind = { [weak self] _ in
       self?.tableView.reloadData()
     }
   }
@@ -56,7 +57,7 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: Constants.contactCellIdentifier)
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
     return cell
@@ -64,5 +65,9 @@ class ContactsListViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 28
+  }
+  
+  override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    return viewModel.getSectionIndexTitles()
   }
 }

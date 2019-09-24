@@ -20,19 +20,16 @@ class RingtonePickerView: UIPickerView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func setup() {
+  func setup() {
     autoresizingMask = [.flexibleHeight, .flexibleWidth]
     backgroundColor = UIColor.white
     delegate = self
     dataSource = self
     reloadAllComponents()
-    bindToViewModel()
   }
   
-  private func bindToViewModel() {
-    viewModel.ringtones.bind = { [weak self] _ in
-      self?.reloadAllComponents()
-    }
+  func update(viewModel: RingtonePickerViewModel) {
+    self.viewModel = viewModel
   }
 }
 
@@ -48,12 +45,12 @@ extension RingtonePickerView: UIPickerViewDataSource, UIPickerViewDelegate {
   }
   
   public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    guard let ringtones = viewModel.ringtones.value else { return nil }
+    guard let ringtones = viewModel.ringtones else { return nil }
     return ringtones[row]
   }
   
   public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    guard let ringtones = viewModel.ringtones.value else { return }
-    viewModel.selectRingtone(ringtones[row])
+    guard let ringtones = viewModel.ringtones else { return }
+    viewModel.selectRingtone(ringtone: ringtones[row])
   }
 }

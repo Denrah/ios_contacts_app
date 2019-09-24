@@ -12,7 +12,7 @@ class RingtoneToolbarView: UIToolbar {
   // MARK: - View setup
   
   init(viewModel: RingtoneToolbarViewModel) {
-    let frame: CGRect = .zero
+    let frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     self.viewModel = viewModel
     super.init(frame: frame)
     setupToolbar()
@@ -33,13 +33,13 @@ class RingtoneToolbarView: UIToolbar {
     bottomBorder.backgroundColor = UIColor.borderGray
     addSubview(bottomBorder)
     bottomBorder.snp.makeConstraints { make in
-      make.bottom.equalToSuperview()
+      make.top.equalTo(43)
       make.height.equalTo(1)
-      make.left.right.equalToSuperview()
+      make.left.right.equalTo(0)
     }
     
     let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButton))
     doneButton.tintColor = tintColor
     
     items = [flexSpace, doneButton]
@@ -47,7 +47,7 @@ class RingtoneToolbarView: UIToolbar {
   
   // MARK: - Button press handling
   
-  @objc private func didTapDone() {
-    viewModel.didTapDone()
+  @objc private func onDoneButton() {
+    viewModel.onDoneButton()
   }
 }

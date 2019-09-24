@@ -13,10 +13,10 @@ protocol RingtonePickerViewModelDelegate: class {
 class RingtonePickerViewModel {
   weak var delegate: RingtonePickerViewModelDelegate?
   
-  let ringtones = Dynamic<[String]>(nil)
-  var numberOfRows: Int { return ringtones.value?.count ?? 0 }
+  var ringtones: [String]?
+  var numberOfRows: Int { return ringtones?.count ?? 0 }
   
-  func selectRingtone(_ ringtone: String) {
+  func selectRingtone(ringtone: String) {
     delegate?.ringtonePickerViewModel(self, didSelect: ringtone)
   }
 }

@@ -43,7 +43,7 @@
 		F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */; };
 		F7FDBE9323348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */; };
 		F7FDBE9523349DAF00BA15E5 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9423349DAF00BA15E5 /* AppError.swift */; };
-		F7FDBE992339BA6A00BA15E5 /* StorageService+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */; };
+		F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,7 +89,7 @@
 		F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
 		F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILocalizedIndexedCollation+PartitionObjects.swift"; sourceTree = "<group>"; };
 		F7FDBE9423349DAF00BA15E5 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageService+Contacts.swift"; sourceTree = "<group>"; };
+		F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdater.swift; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +174,7 @@
 			children = (
 				F7FDBE60232B48E800BA15E5 /* ContactsListViewController.swift */,
 				F7FDBE61232B48E800BA15E5 /* ContactsListViewController.xib */,
+				F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */,
 				F7FDBE64232B494400BA15E5 /* ContactsListViewModel.swift */,
 				F7FDBE66232B495500BA15E5 /* ContactsListCoordinator.swift */,
 			);
@@ -237,7 +238,6 @@
 			children = (
 				F7FDBE74232F8D4700BA15E5 /* RingtoneService.swift */,
 				F7FDBE892330B95A00BA15E5 /* StorageService.swift */,
-				F7FDBE982339BA6A00BA15E5 /* StorageService+Contacts.swift */,
 			);
 			name = Services;
 			path = ..;
@@ -406,12 +406,12 @@
 				F7FDBE8A2330B95A00BA15E5 /* StorageService.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
 				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
-				F7FDBE992339BA6A00BA15E5 /* StorageService+Contacts.swift in Sources */,
 				F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */,
 				F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */,
 				F7FDBE9523349DAF00BA15E5 /* AppError.swift in Sources */,
 				F7FDBE5F232B480500BA15E5 /* ContactDetailsCoordinator.swift in Sources */,
 				F7FDBE6E232B77A800BA15E5 /* RingtoneToolbarView.swift in Sources */,
+				F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */,
 				F7FDBE72232F87F100BA15E5 /* RingtoneToolbarViewModel.swift in Sources */,
 				F7FDBE57232B43CD00BA15E5 /* Dynamic.swift in Sources */,
 				F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,

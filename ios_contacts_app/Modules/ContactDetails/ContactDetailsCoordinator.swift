@@ -6,7 +6,7 @@
 import UIKit
 
 class ContactDetailsCoordinator: Coordinator {
-  private let rootViewController: UINavigationController
+  let rootViewController: UINavigationController
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController

@@ -11,14 +11,15 @@ protocol ContactsListViewModelDelegate: class {
 class ContactsListViewModel {
   weak var delegate: ContactsListViewModelDelegate?
   
-  private let storageService: StorageService
+  let storageService: StorageService
   
   var sectionTitles: [String] = []
   private let collation = UILocalizedIndexedCollation.current()
   private var contactsWithSections = [[Contact]]()
+  var contacts: [Contact] = []
   
-  var didUpdate: (() -> Void)?
-  var didReceiveError: ((Error) -> Void)?
+  let didUpdate = Dynamic<Bool>(false)
+  let didError = Dynamic<Error>(nil)
 
   var numberOfSections: Int {
     return contactsWithSections.count
@@ -26,25 +27,32 @@ class ContactsListViewModel {
   
   init(storageService: StorageService) {
     self.storageService = storageService
-    updateContacts()
+    getContacts()
   }
   
-  func updateContacts() {
+  // MARK: - Loading contacts
+  
+  func getContacts() {
     let result = storageService.getContacts()
     switch result {
     case .success(let contacts):
-      let (contacts, titles) = collation.partitionObjects(array: contacts,
-                                                          collationStringSelector: #selector(getter: Contact.lastName))
-      guard let contactsWithSections = contacts as? [[Contact]] else {
-        didReceiveError?(AppError.contactsLoadFailed)
-        return
-      }
-      self.contactsWithSections = contactsWithSections
-      sectionTitles = titles
-      didUpdate?()
+      self.contacts = contacts
+      updateContacts(contacts: contacts)
     case .failure(let error):
-      didReceiveError?(error)
+      didError.value = error
     }
+  }
+  
+  func updateContacts(contacts: [Contact]) {
+    let (contacts, titles) = collation.partitionObjects(array: contacts,
+                                                        collationStringSelector: #selector(getter: Contact.lastName))
+    guard let contactsWithSections = contacts as? [[Contact]] else {
+      didError.value = AppError.contactsLoadFailed
+      return
+    }
+    self.contactsWithSections = contactsWithSections
+    sectionTitles = titles
+    didUpdate.value = true
   }
   
   // MARK: - Data for tableView
@@ -60,5 +68,9 @@ class ContactsListViewModel {
   
   func getNumberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].count
+  }
+  
+  func getSectionIndexTitles() -> [String] {
+    return collation.sectionIndexTitles
   }
 }
