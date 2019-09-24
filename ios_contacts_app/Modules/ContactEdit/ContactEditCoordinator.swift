@@ -32,7 +32,7 @@ class ContactEditCoordinator: Coordinator {
                                                               ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
                                                               ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
     setupNavigationBar(viewController: contactEditViewController, viewModel: viewModel)
-    rootViewController.setViewControllers([contactEditViewController], animated: false)
+    rootViewController.pushViewController(contactEditViewController, animated: true)
   }
   
   private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
