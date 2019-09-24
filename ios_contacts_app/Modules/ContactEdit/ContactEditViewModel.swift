@@ -8,7 +8,6 @@ import UIKit
 protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
                                                    sourceType: UIImagePickerController.SourceType)
-  func contactEditViewDidRequestedGoBack()
 }
 
 enum ContactsEditErrors: Error {
@@ -91,7 +90,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewDidRequestedGoBack()
+      return
     case .failure(let error):
       didError.value = error
     }
