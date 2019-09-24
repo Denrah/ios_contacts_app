@@ -78,7 +78,7 @@ class ContactEditViewModel {
     let contact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phone,
                           ringtone: ringtone, notes: notes, image: selectedImage.value)
     
-    let result = storageService.saveContact(contact: contact)
+    let result = storageService.saveContact(contact)
     
     switch result {
     case .success:

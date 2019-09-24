@@ -6,10 +6,10 @@
 import UIKit
 
 extension StorageService {
-  func saveContact(contact: Contact) -> (Result<Void, Error>) {
+  func saveContact(_ contact: Contact) -> (Result<Void, Error>) {
     let realmContact = RealmContact.fromContact(contact)    
     
-    let result = saveObject(object: realmContact)
+    let result = saveObject(realmContact)
     
     switch result {
     case .success:
