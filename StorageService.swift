@@ -29,7 +29,7 @@ extension StorageError: LocalizedError {
 }
 
 class StorageService {
-  private func saveObject<T>(object: T) -> Result<Void, Error> where T: Object {
+  func saveObject<T>(object: T) -> Result<Void, Error> where T: Object {
     guard let realm = try? Realm() else {
       return Result.failure(StorageError.initFail)
     }
@@ -44,7 +44,7 @@ class StorageService {
     return Result.success(())
   }
   
-  private func getObjects<T>(ofType: T.Type) -> Result<[T], Error> where T: Object {
+  func getObjects<T>(ofType: T.Type) -> Result<[T], Error> where T: Object {
     guard let realm = try? Realm() else {
       return Result.failure(StorageError.initFail)
     }

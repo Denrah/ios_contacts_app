@@ -6,7 +6,7 @@
 import UIKit
 
 class ContactsListCoordinator: Coordinator {
-  let rootViewController: UINavigationController
+  private let rootViewController: UINavigationController
   var contactsListViewModel: ContactsListViewModel?
   
   private enum Contants {
