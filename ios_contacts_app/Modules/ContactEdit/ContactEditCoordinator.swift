@@ -47,7 +47,7 @@ class ContactEditCoordinator: Coordinator {
   }
   
   @objc private func didTapDone() {
-    contactEditViewModel?.onNavnbarDoneButton()
+    contactEditViewModel?.navbarDidTapDone()
   }
   
   @objc private func didTapCancel() {
