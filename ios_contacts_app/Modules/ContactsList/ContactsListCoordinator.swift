@@ -7,7 +7,7 @@ import UIKit
 
 class ContactsListCoordinator: Coordinator {
   private let rootViewController: UINavigationController
-  var contactsListViewModel: ContactsListViewModel?
+  private var contactsListViewModel: ContactsListViewModel?
   
   private enum Contants {
     static let screenTitle = "Contacts"

@@ -11,14 +11,14 @@ protocol ContactsListViewModelDelegate: class {
 class ContactsListViewModel {
   weak var delegate: ContactsListViewModelDelegate?
   
-  let storageService: StorageService
+  private let storageService: StorageService
   
   var sectionTitles: [String] = []
   private let collation = UILocalizedIndexedCollation.current()
   private var contactsWithSections = [[Contact]]()
   
-  let didUpdate = Dynamic<Bool>(false)
-  let didError = Dynamic<Error>(nil)
+  var didUpdate: (() -> Void)?
+  var didReceiveError: ((Error) -> Void)?
 
   var numberOfSections: Int {
     return contactsWithSections.count
@@ -36,14 +36,14 @@ class ContactsListViewModel {
       let (contacts, titles) = collation.partitionObjects(array: contacts,
                                                           collationStringSelector: #selector(getter: Contact.lastName))
       guard let contactsWithSections = contacts as? [[Contact]] else {
-        didError.value = AppError.contactsLoadFailed
+        didReceiveError?(AppError.contactsLoadFailed)
         return
       }
       self.contactsWithSections = contactsWithSections
       sectionTitles = titles
-      didUpdate.value = true
+      didUpdate?()
     case .failure(let error):
-      didError.value = error
+      didReceiveError?(error)
     }
   }
   
