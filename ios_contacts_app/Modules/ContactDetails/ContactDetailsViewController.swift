@@ -11,7 +11,12 @@ class ContactDetailsViewController: UIViewController {
   
   @IBOutlet private weak var scrollView: UIScrollView!
   @IBOutlet private var contentView: UIView!
-  @IBOutlet private weak var contactName: UILabel!
+  @IBOutlet private weak var contactNameLabel: UILabel!
+  @IBOutlet private weak var phoneNumberButton: UIButton!
+  @IBOutlet private weak var ringtoneLabel: UILabel!
+  @IBOutlet private weak var notesLabel: UILabel!
+  @IBOutlet private weak var contactImageView: UIImageView!
+  
   
   // MARK: - ViewController setup
   
@@ -36,12 +41,28 @@ class ContactDetailsViewController: UIViewController {
   }
   
   private func setup() {
-    self.contactName.text = viewModel.contactName.value
+    contactNameLabel.text = viewModel.contactName.value
+    phoneNumberButton.setTitle(viewModel.phoneNumber.value, for: .normal)
+    ringtoneLabel.text = viewModel.ringtone.value
+    notesLabel.text = viewModel.notes.value
+    contactImageView.image = viewModel.contactImage.value
   }
   
   private func bindToViewModel() {
     viewModel.contactName.bind = { [weak self] name in
-      name.flatMap { self?.contactName.text = $0 }
+      name.flatMap { self?.contactNameLabel.text = $0 }
+    }
+    viewModel.phoneNumber.bind = { [weak self] phone in
+      phone.flatMap { self?.phoneNumberButton.setTitle($0, for: .normal) }
+    }
+    viewModel.ringtone.bind = { [weak self] ringtone in
+      ringtone.flatMap { self?.ringtoneLabel.text = $0 }
+    }
+    viewModel.notes.bind = { [weak self] notes in
+      notes.flatMap { self?.notesLabel.text = $0 }
+    }
+    viewModel.contactImage.bind = { [weak self] image in
+      image.flatMap { self?.contactImageView.image = $0 }
     }
   }
   
@@ -56,5 +77,11 @@ class ContactDetailsViewController: UIViewController {
       make.top.equalTo(contentView.snp.top)
     }
     topView.backgroundColor = UIColor.headerGray
+  }
+  
+  // MARK: - Handle user interactions
+  
+  @IBAction func didTapPhoneNumber() {
+    viewModel.didTapPhoneNumber()
   }
 }

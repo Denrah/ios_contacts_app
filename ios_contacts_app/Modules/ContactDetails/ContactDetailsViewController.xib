@@ -12,8 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactDetailsViewController" customModule="ios_contacts_app" customModuleProvider="target">
             <connections>
-                <outlet property="contactName" destination="rnU-D0-iCT" id="gNU-bW-ewp"/>
+                <outlet property="contactImageView" destination="Rz1-Nr-6eh" id="nu5-0I-zI9"/>
+                <outlet property="contactNameLabel" destination="rnU-D0-iCT" id="7BO-EV-y1m"/>
                 <outlet property="contentView" destination="i5M-Pr-FkT" id="AO2-Ar-ltG"/>
+                <outlet property="notesLabel" destination="e91-Up-NTy" id="9hS-ez-fLN"/>
+                <outlet property="phoneNumberButton" destination="BhI-en-yuh" id="1UH-Jw-tl6"/>
+                <outlet property="ringtoneLabel" destination="HpE-is-0Vx" id="x2P-0Q-EFI"/>
                 <outlet property="scrollView" destination="KAb-f8-HkB" id="P5h-vr-PRs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,9 +36,9 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELs-OJ-xir">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rz1-Nr-6eh">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rz1-Nr-6eh">
                                             <rect key="frame" x="144.5" y="12" width="86" height="86"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.06706646126760564" green="0.0" blue="0.046572403169014086" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="Axx-Zz-Igg"/>
                                                 <constraint firstAttribute="width" constant="86" id="MPF-WA-Tsr"/>
@@ -88,6 +92,9 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="+1 (202) 555-0158"/>
+                                            <connections>
+                                                <action selector="didTapPhoneNumber" destination="-1" eventType="touchUpInside" id="RnR-It-KEe"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
