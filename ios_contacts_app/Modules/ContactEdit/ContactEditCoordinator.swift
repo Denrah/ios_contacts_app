@@ -23,7 +23,7 @@ class ContactEditCoordinator: Coordinator {
     guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
-    setupNavigationBar(viewController: contactEditViewController, viewModel: viewModel)
+    setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
     rootViewController.setViewControllers([contactEditViewController], animated: false)
   }
   
