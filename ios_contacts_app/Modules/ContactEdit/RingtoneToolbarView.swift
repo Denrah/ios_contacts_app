@@ -12,9 +12,8 @@ class RingtoneToolbarView: UIToolbar {
   // MARK: - View setup
   
   init(viewModel: RingtoneToolbarViewModel) {
-    let frame: CGRect = .zero
     self.viewModel = viewModel
-    super.init(frame: frame)
+    super.init(frame: .zero)
     setupToolbar()
   }
   
@@ -33,9 +32,8 @@ class RingtoneToolbarView: UIToolbar {
     bottomBorder.backgroundColor = UIColor.borderGray
     addSubview(bottomBorder)
     bottomBorder.snp.makeConstraints { make in
-      make.bottom.equalToSuperview()
       make.height.equalTo(1)
-      make.left.right.equalToSuperview()
+      make.bottom.left.right.equalToSuperview()
     }
     
     let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
