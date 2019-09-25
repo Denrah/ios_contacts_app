@@ -28,11 +28,10 @@ class ContactEditViewController: UIViewController {
   
   // MARK: - ViewController setup
   
-  init(viewModel: ContactEditViewModel, ringtonePickerViewModel: RingtonePickerViewModel,
-       ringtoneTollbarViewModel: RingtoneToolbarViewModel) {
+  init(viewModel: ContactEditViewModel) {
     self.viewModel = viewModel
-    self.ringtonePickerView = RingtonePickerView(viewModel: ringtonePickerViewModel)
-    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: ringtoneTollbarViewModel)
+    self.ringtonePickerView = RingtonePickerView(viewModel: viewModel.ringtonePickerViewModel)
+    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: viewModel.ringtoneToolbarViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   
