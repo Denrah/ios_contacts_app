@@ -48,7 +48,7 @@ class ContactsListCoordinator: Coordinator {
   
   private func setNavigationBarAppearance() {
     rootViewController.navigationBar.barTintColor = UIColor.white
-    rootViewController.navigationBar.isTranslucent = true
+    // rootViewController.navigationBar.isTranslucent = true
   }
   
   // MARK: - Moving between screens

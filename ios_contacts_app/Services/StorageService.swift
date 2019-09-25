@@ -68,4 +68,23 @@ class StorageService {
     
     return Result.success(object)
   }
+  
+  func deleteObjectByID<T>(ofType: T.Type, objectID: Any) -> Result<Void, Error> where T: Object {
+    guard let realm = try? Realm() else {
+      return Result.failure(StorageError.initFail)
+    }
+    
+    guard let object = realm.object(ofType: T.self, forPrimaryKey: objectID) else {
+      return Result.failure(StorageError.objectNotFound)
+    }
+    
+    do {
+      try realm.write {
+        realm.delete(object)
+      }
+    } catch {
+      return Result.failure(StorageError.failWriteToStorage)
+    }
+    return Result.success(())
+  }
 }

@@ -8,7 +8,8 @@ import UIKit
 protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
                                                    sourceType: UIImagePickerController.SourceType)
-  func contactEditViewDidRequestedGoBack()
+  func contactEditViewModelDidRequestedGoBack()
+  func contactEditViewModelDidRequestedGobackAfterDelete()
 }
 
 enum ContactsEditErrors: Error {
@@ -37,6 +38,7 @@ class ContactEditViewModel {
   let lastName = Dynamic<String>(nil)
   let phoneNumber = Dynamic<String>(nil)
   let notes = Dynamic<String>(nil)
+  let deleteButtonIsHidden = Dynamic<Bool>(true)
   
   var ringtonePickerDidTapDone: (() -> Void)?
   var didRequestSave: (() -> Void)?
@@ -74,6 +76,7 @@ class ContactEditViewModel {
         lastName.value = contact.lastName
         phoneNumber.value = contact.phoneNumber
         notes.value = contact.notes
+        deleteButtonIsHidden.value = false
       case .failure(let error):
         didReceiveError?(error)
       }
@@ -108,7 +111,19 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewDidRequestedGoBack()
+      delegate?.contactEditViewModelDidRequestedGoBack()
+    case .failure(let error):
+      didReceiveError?(error)
+    }
+  }
+  
+  func deleteContact() {
+    guard let contactID = contactID else { return }
+    let result = storageService.deleteContactByID(contactID)
+    
+    switch result {
+    case .success:
+      delegate?.contactEditViewModelDidRequestedGobackAfterDelete()
     case .failure(let error):
       didReceiveError?(error)
     }

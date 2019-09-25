@@ -13,6 +13,7 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var firstNameTextField: UITextField!
   @IBOutlet private weak var lastNametextField: UITextField!
   @IBOutlet private weak var phoneTextField: UITextField!
+  @IBOutlet private weak var contactDeleteView: UIView!
   
   private let viewModel: ContactEditViewModel
   
@@ -65,6 +66,7 @@ class ContactEditViewController: UIViewController {
     notesTextView.text = viewModel.notes.value
     notesPlaceholderLabel.isHidden = !notesTextView.text.isEmpty
     imagePickerButton.setImage(viewModel.selectedImage.value ?? #imageLiteral(resourceName: "add"), for: .normal)
+    contactDeleteView.isHidden = viewModel.deleteButtonIsHidden.value ?? true
   }
   
   private func bindToViewModel() {
@@ -90,11 +92,14 @@ class ContactEditViewController: UIViewController {
                                  lastName: self.lastNametextField.text,
                                  phone: self.phoneTextField.text, notes: self.notesTextView.text)
     }
+    viewModel.deleteButtonIsHidden.bind = { [weak self] isHidden in
+      isHidden.flatMap { self?.contactDeleteView.isHidden = $0 }
+    }
   }
   
   // MARK: - Image picking handling
   
-  @IBAction private func onChooseImageButton() {
+  @IBAction private func didTapChooseImage() {
     let actionSheet = UIAlertController(title: Constants.imagePickerActionSheetTitle,
                                         message: nil, preferredStyle: .actionSheet)
     actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheetCameraOption, style: .default) { _ in
@@ -104,6 +109,10 @@ class ContactEditViewController: UIViewController {
       self.viewModel.chooseImage(sourceType: .photoLibrary)
     })
     present(actionSheet, animated: true, completion: nil)
+  }
+  
+  @IBAction private func didTapDelete() {
+    viewModel.deleteContact()
   }
 }
 

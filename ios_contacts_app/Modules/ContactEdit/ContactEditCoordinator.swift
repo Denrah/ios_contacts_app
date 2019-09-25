@@ -55,6 +55,11 @@ class ContactEditCoordinator: Coordinator {
     goBack()
   }
   
+  private func goBackAfterDelete() {
+    rootViewController.popToRootViewController(animated: true)
+    delegate?.didFinish(from: self)
+  }
+  
   private func goBack() {
     rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
@@ -64,7 +69,11 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewDidRequestedGoBack() {
+  func contactEditViewModelDidRequestedGobackAfterDelete() {
+    goBackAfterDelete()
+  }
+  
+  func contactEditViewModelDidRequestedGoBack() {
     goBack()
   }
   
