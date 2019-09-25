@@ -26,13 +26,11 @@ class ContactEditCoordinator: Coordinator {
     let storageService = StorageService()
     
     contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService, storageService: storageService)
-    guard let viewModel = contactEditViewModel else { return }
-    viewModel.delegate = self
-    let contactEditViewController = ContactEditViewController(viewModel: viewModel,
-                                                              ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
-                                                              ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
-    setupNavigationBar(viewController: contactEditViewController, viewModel: viewModel)
-    rootViewController.pushViewController(contactEditViewController, animated: true)
+    guard let contactEditViewModel = contactEditViewModel else { return }
+    contactEditViewModel.delegate = self
+    let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
+    setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
+     rootViewController.pushViewController(contactEditViewController, animated: true)
   }
   
   private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
