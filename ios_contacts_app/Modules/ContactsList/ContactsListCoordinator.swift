@@ -62,9 +62,9 @@ class ContactsListCoordinator: Coordinator {
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
-  func didRequestedShowDetails(for contactId: String) {
+  func didRequestedShowDetails(for contactID: String) {
     let contactDetailsCoordinator = ContactDetailsCoordinator(rootViewController: rootViewController,
-                                                              storageService: storageService, contactId: contactId)
+                                                              storageService: storageService, contactID: contactID)
     contactDetailsCoordinator.delegate = self
     addChildCoordinator(contactDetailsCoordinator)
     contactDetailsCoordinator.start()
@@ -81,5 +81,6 @@ extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
 extension ContactsListCoordinator: ContactDetailsCoordinatorDelegate {
   func didFinish(from coordinator: ContactDetailsCoordinator) {
     setNavigationBarAppearance()
+    contactsListViewModel?.getContacts()
   }
 }

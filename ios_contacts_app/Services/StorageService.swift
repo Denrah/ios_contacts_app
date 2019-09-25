@@ -39,7 +39,7 @@ class StorageService {
     
     do {
       try realm.write {
-        realm.add(object)
+        realm.add(object, update: .all)
       }
     } catch {
       return Result.failure(StorageError.failWriteToStorage)
@@ -57,12 +57,12 @@ class StorageService {
     return Result.success(Array(objects))
   }
   
-  func getObjectById<T>(ofType: T.Type, id: Any) -> Result<T, Error> where T: Object {
+  func getObjectByID<T>(ofType: T.Type, objectID: Any) -> Result<T, Error> where T: Object {
     guard let realm = try? Realm() else {
       return Result.failure(StorageError.initFail)
     }
     
-    guard let object = realm.object(ofType: T.self, forPrimaryKey: id) else {
+    guard let object = realm.object(ofType: T.self, forPrimaryKey: objectID) else {
       return Result.failure(StorageError.objectNotFound)
     }
     

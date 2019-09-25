@@ -18,7 +18,7 @@
                 <outlet property="notesPlaceholderLabel" destination="K92-tV-Ce0" id="R29-Vy-6Xk"/>
                 <outlet property="notesTextView" destination="Hr8-hQ-wdw" id="1Q0-b5-ien"/>
                 <outlet property="phoneTextField" destination="QpE-SD-wfa" id="vCu-gf-S9e"/>
-                <outlet property="ringtoneTextView" destination="kbj-Ji-lMv" id="Jgr-2s-nmN"/>
+                <outlet property="ringtoneTextField" destination="kbj-Ji-lMv" id="FdG-Ki-Kme"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -209,9 +209,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="OgN-pu-JWP" secondAttribute="trailing" id="nhe-N5-mmS"/>
                                                 <constraint firstItem="jqg-WM-7VY" firstAttribute="leading" secondItem="Goa-CK-OXq" secondAttribute="leading" constant="16" id="tHj-Bw-r4v"/>
                                             </constraints>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="3F4-Jk-IGR" appends="YES" id="H1j-eY-L6h"/>
-                                            </connections>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJL-K7-IHn" userLabel="Notes">
                                             <rect key="frame" x="0.0" y="246" width="375" height="61"/>
@@ -278,6 +275,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="jzR-Fo-PlT" firstAttribute="width" secondItem="EZr-3u-g65" secondAttribute="width" id="6qf-bC-KWx"/>
                         <constraint firstItem="jzR-Fo-PlT" firstAttribute="top" secondItem="EZr-3u-g65" secondAttribute="top" id="Xzo-wL-3vN"/>
@@ -287,7 +285,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EZr-3u-g65" secondAttribute="trailing" id="5gY-9t-yx2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EZr-3u-g65" secondAttribute="bottom" id="Bxk-o5-5al"/>
@@ -298,7 +296,6 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
-        <tapGestureRecognizer id="3F4-Jk-IGR" userLabel="Ringtone Tap Recognizer"/>
     </objects>
     <resources>
         <image name="add" width="42" height="42"/>

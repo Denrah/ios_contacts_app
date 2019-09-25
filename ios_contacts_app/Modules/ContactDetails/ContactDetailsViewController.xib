@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactDetailsViewController" customModule="ios_contacts_app" customModuleProvider="target">
             <connections>
+                <outlet property="contactImagePlaceholderLabel" destination="bKv-Sl-3Ti" id="3MP-Th-n00"/>
                 <outlet property="contactImageView" destination="Rz1-Nr-6eh" id="nu5-0I-zI9"/>
                 <outlet property="contactNameLabel" destination="rnU-D0-iCT" id="7BO-EV-y1m"/>
                 <outlet property="contentView" destination="i5M-Pr-FkT" id="AO2-Ar-ltG"/>
@@ -38,7 +39,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rz1-Nr-6eh">
                                             <rect key="frame" x="144.5" y="12" width="86" height="86"/>
-                                            <color key="backgroundColor" red="0.06706646126760564" green="0.0" blue="0.046572403169014086" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.06706646126760564" green="0.0" blue="0.032075264084507039" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="86" id="Axx-Zz-Igg"/>
                                                 <constraint firstAttribute="width" constant="86" id="MPF-WA-Tsr"/>
@@ -55,11 +56,19 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="А" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKv-Sl-3Ti">
+                                            <rect key="frame" x="175" y="32.5" width="25" height="45.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.98431372549019602" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="rnU-D0-iCT" firstAttribute="top" secondItem="Rz1-Nr-6eh" secondAttribute="bottom" constant="16" id="1Cz-NC-dDi"/>
                                         <constraint firstItem="Rz1-Nr-6eh" firstAttribute="centerX" secondItem="ELs-OJ-xir" secondAttribute="centerX" id="7bP-wO-GRK"/>
+                                        <constraint firstItem="bKv-Sl-3Ti" firstAttribute="centerX" secondItem="Rz1-Nr-6eh" secondAttribute="centerX" id="N8X-xH-Hpb"/>
+                                        <constraint firstItem="bKv-Sl-3Ti" firstAttribute="centerY" secondItem="Rz1-Nr-6eh" secondAttribute="centerY" id="Sj4-zD-7aa"/>
                                         <constraint firstAttribute="trailing" secondItem="rnU-D0-iCT" secondAttribute="trailing" constant="16" id="Wnq-zN-6i9"/>
                                         <constraint firstItem="rnU-D0-iCT" firstAttribute="leading" secondItem="ELs-OJ-xir" secondAttribute="leading" constant="16" id="rTH-qh-BQk"/>
                                         <constraint firstItem="Rz1-Nr-6eh" firstAttribute="top" secondItem="ELs-OJ-xir" secondAttribute="top" constant="12" id="uKP-WP-w5N"/>
@@ -199,7 +208,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
-            <color key="backgroundColor" red="0.98431372549019602" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="KAb-f8-HkB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="22R-af-Kx4"/>
                 <constraint firstAttribute="trailing" secondItem="KAb-f8-HkB" secondAttribute="trailing" id="7f6-II-BaL"/>

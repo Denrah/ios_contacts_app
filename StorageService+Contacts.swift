@@ -6,7 +6,7 @@
 import UIKit
 
 extension StorageService {
-  func saveContact(_ contact: Contact) -> (Result<Void, Error>) {
+  func saveContact(_ contact: Contact) -> Result<Void, Error> {
     let realmContact = RealmContact.fromContact(contact)
     
     let result = saveObject(realmContact)
@@ -33,8 +33,8 @@ extension StorageService {
     }
   }
   
-  func getContact(contactId: String) -> Result<Contact, Error> {
-    let result = getObjectById(ofType: RealmContact.self, id: contactId)
+  func getContact(contactID: String) -> Result<Contact, Error> {
+    let result = getObjectByID(ofType: RealmContact.self, objectID: contactID)
     
     switch result {
     case .success(let realmContact):

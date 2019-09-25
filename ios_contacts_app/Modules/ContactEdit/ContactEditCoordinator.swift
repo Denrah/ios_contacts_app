@@ -14,18 +14,21 @@ protocol ContactEditCoordinatorDelegate: class {
 class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactEditViewModel: ContactEditViewModel?
+  private let contactID: String?
   
   weak var delegate: ContactEditCoordinatorDelegate?
   
-  init(rootViewController: UINavigationController) {
+  init(rootViewController: UINavigationController, contactID: String? = nil) {
     self.rootViewController = rootViewController
+    self.contactID = contactID
   }
   
   override func start() {
     let ringtoneService = RingtoneService()
     let storageService = StorageService()
     
-    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService, storageService: storageService)
+    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService,
+                                                storageService: storageService, contactID: contactID)
     guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)

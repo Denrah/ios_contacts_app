@@ -29,7 +29,7 @@ class RealmContact: Object {
     realmContact.ringtone = contact.ringtone
     realmContact.notes = contact.notes
     realmContact.image = contact.image?.pngData()
-    realmContact.id = UUID().uuidString
+    realmContact.id = contact.id ?? UUID().uuidString
     return realmContact
   }
   

@@ -16,7 +16,7 @@ class ContactDetailsViewController: UIViewController {
   @IBOutlet private weak var ringtoneLabel: UILabel!
   @IBOutlet private weak var notesLabel: UILabel!
   @IBOutlet private weak var contactImageView: UIImageView!
-  
+  @IBOutlet private weak var contactImagePlaceholderLabel: UILabel!
   
   // MARK: - ViewController setup
   
@@ -45,7 +45,14 @@ class ContactDetailsViewController: UIViewController {
     phoneNumberButton.setTitle(viewModel.phoneNumber.value, for: .normal)
     ringtoneLabel.text = viewModel.ringtone.value
     notesLabel.text = viewModel.notes.value
-    contactImageView.image = viewModel.contactImage.value
+    
+    if let contactImage = viewModel.contactImage.value {
+      contactImageView.image = contactImage
+      contactImagePlaceholderLabel.isHidden = true
+    } else {
+      contactImagePlaceholderLabel.text = viewModel.contactImagePlaceholder.value
+      contactImagePlaceholderLabel.isHidden = false
+    }
   }
   
   private func bindToViewModel() {
@@ -62,7 +69,15 @@ class ContactDetailsViewController: UIViewController {
       notes.flatMap { self?.notesLabel.text = $0 }
     }
     viewModel.contactImage.bind = { [weak self] image in
-      image.flatMap { self?.contactImageView.image = $0 }
+      if let contactImage = image {
+        self?.contactImageView.image = contactImage
+        self?.contactImagePlaceholderLabel.isHidden = true
+      } else {
+        self?.contactImagePlaceholderLabel.isHidden = false
+      }
+    }
+    viewModel.contactImagePlaceholder.bind = { [weak self] placeholder in
+      placeholder.flatMap { self?.contactImagePlaceholderLabel.text = $0 }
     }
   }
   
@@ -81,7 +96,7 @@ class ContactDetailsViewController: UIViewController {
   
   // MARK: - Handle user interactions
   
-  @IBAction func didTapPhoneNumber() {
+  @IBAction private func didTapPhoneNumber() {
     viewModel.didTapPhoneNumber()
   }
 }

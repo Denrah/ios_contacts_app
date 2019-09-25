@@ -12,23 +12,24 @@ protocol ContactDetailsViewModelDelegate: class {
 class ContactDetailsViewModel {
   weak var delegate: ContactDetailsViewModelDelegate?
   private let storageService: StorageService
-  private let contactId: String
+  private let contactID: String
   
   let contactName = Dynamic<String>(nil)
   let phoneNumber = Dynamic<String>(nil)
   let ringtone = Dynamic<String>(nil)
   let notes = Dynamic<String>(nil)
   let contactImage = Dynamic<UIImage>(nil)
+  let contactImagePlaceholder = Dynamic<String>(nil)
   
-  init(storageService: StorageService, contactId: String) {
+  init(storageService: StorageService, contactID: String) {
     self.storageService = storageService
-    self.contactId = contactId
+    self.contactID = contactID
     
     getContact()
   }
   
   func getContact() {
-    let result = storageService.getContact(contactId: contactId)
+    let result = storageService.getContact(contactID: contactID)
     switch result {
     case .success(let contact):
       contactName.value = "\(contact.firstName) \(contact.lastName)"
@@ -36,6 +37,7 @@ class ContactDetailsViewModel {
       ringtone.value = contact.ringtone
       notes.value = contact.notes
       contactImage.value = contact.image
+      contactImagePlaceholder.value = "\(contact.firstName.prefix(1))\(contact.lastName.prefix(1))"
     case .failure(let error):
       print(error)
     }

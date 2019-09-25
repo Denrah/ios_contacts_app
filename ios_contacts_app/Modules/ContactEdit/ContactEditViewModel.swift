@@ -29,9 +29,15 @@ class ContactEditViewModel {
   
   private let ringtoneService: RingtoneService
   private let storageService: StorageService
+  private let contactID: String?
   
   let selectedRingtone = Dynamic<String>(nil)
   let selectedImage = Dynamic<UIImage>(nil)
+  let firstName = Dynamic<String>(nil)
+  let lastName = Dynamic<String>(nil)
+  let phoneNumber = Dynamic<String>(nil)
+  let notes = Dynamic<String>(nil)
+  
   var ringtonePickerDidTapDone: (() -> Void)?
   var didRequestSave: (() -> Void)?
   var didReceiveError: ((Error) -> Void)?
@@ -48,10 +54,30 @@ class ContactEditViewModel {
     return viewModel
     }()
   
-  init(ringtoneService: RingtoneService, storageService: StorageService) {
+  init(ringtoneService: RingtoneService, storageService: StorageService, contactID: String? = nil) {
     self.ringtoneService = ringtoneService
     self.storageService = storageService
+    self.contactID = contactID
+    prepareData()
+  }
+  
+  private func prepareData() {
     getRingtones()
+    
+    if let contactID = contactID {
+      let result = storageService.getContact(contactID: contactID)
+      switch result {
+      case .success(let contact):
+        selectedImage.value = contact.image
+        selectedRingtone.value = contact.ringtone
+        firstName.value = contact.firstName
+        lastName.value = contact.lastName
+        phoneNumber.value = contact.phoneNumber
+        notes.value = contact.notes
+      case .failure(let error):
+        didReceiveError?(error)
+      }
+    }
   }
   
   private func getRingtones() {
@@ -76,7 +102,7 @@ class ContactEditViewModel {
     }
     
     let contact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phone,
-                          ringtone: ringtone, notes: notes, image: selectedImage.value)
+                          ringtone: ringtone, notes: notes, image: selectedImage.value, id: contactID)
     
     let result = storageService.saveContact(contact)
     

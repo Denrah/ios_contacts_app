@@ -8,7 +8,7 @@ import UIKit
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
-  @IBOutlet private weak var ringtoneTextView: UITextField!
+  @IBOutlet private weak var ringtoneTextField: UITextField!
   @IBOutlet private weak var imagePickerButton: UIButton!
   @IBOutlet private weak var firstNameTextField: UITextField!
   @IBOutlet private weak var lastNametextField: UITextField!
@@ -55,16 +55,24 @@ class ContactEditViewController: UIViewController {
     
     addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
     
-    ringtoneTextView.inputView = ringtonePickerView
-    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
+    ringtoneTextField.inputView = ringtonePickerView
+    ringtoneTextField.inputAccessoryView = ringtonePickerToolbar
+    
+    ringtoneTextField.text = viewModel.selectedRingtone.value
+    firstNameTextField.text = viewModel.firstName.value
+    lastNametextField.text = viewModel.lastName.value
+    phoneTextField.text = viewModel.phoneNumber.value
+    notesTextView.text = viewModel.notes.value
+    notesPlaceholderLabel.isHidden = !notesTextView.text.isEmpty
+    imagePickerButton.setImage(viewModel.selectedImage.value ?? #imageLiteral(resourceName: "add"), for: .normal)
   }
   
   private func bindToViewModel() {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
-      ringtone.flatMap { self?.ringtoneTextView.text = $0 }
+      ringtone.flatMap { self?.ringtoneTextField.text = $0 }
     }
     viewModel.ringtonePickerDidTapDone = { [weak self] in
-      self?.ringtoneTextView.resignFirstResponder()
+      self?.ringtoneTextField.resignFirstResponder()
     }
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
