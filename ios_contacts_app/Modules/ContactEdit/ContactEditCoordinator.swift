@@ -16,11 +16,9 @@ class ContactEditCoordinator: Coordinator {
   override func start() {
     let ringtoneService = RingtoneService()
     contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
-    guard let viewModel = contactEditViewModel else { return }
-    viewModel.delegate = self
-    let contactEditViewController = ContactEditViewController(viewModel: viewModel,
-                                                              ringtonePickerViewModel: viewModel.ringtonePickerViewModel,
-                                                              ringtoneTollbarViewModel: viewModel.ringtoneToolbarViewModel)
+    guard let contactEditViewModel = contactEditViewModel else { return }
+    contactEditViewModel.delegate = self
+    let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController)
     rootViewController.setViewControllers([contactEditViewController], animated: false)
   }
