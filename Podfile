@@ -9,5 +9,6 @@ target 'ios_contacts_app' do
 
   pod 'RealmSwift'
   pod 'SwiftLint'
+  pod 'SnapKit'
 
 end

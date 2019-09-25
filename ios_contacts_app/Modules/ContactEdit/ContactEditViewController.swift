@@ -8,13 +8,27 @@ import UIKit
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
+  @IBOutlet private weak var ringtoneTextView: UITextField!
+  @IBOutlet private weak var imagePickerButton: UIButton!
   
   private let viewModel: ContactEditViewModel
+  
+  private var ringtonePickerView: RingtonePickerView
+  private var ringtonePickerToolbar: UIToolbar
+  
+  private enum Constants {
+    static let errorAlertTitle = "Sorry"
+    static let imagePickerActionSheetTitle = "Select image"
+    static let imagePickerActionSheetCameraOption = "From camera"
+    static let imagePickerActionSheerLibraryOprion = "From gallery"
+  }
   
   // MARK: - ViewController setup
   
   init(viewModel: ContactEditViewModel) {
     self.viewModel = viewModel
+    self.ringtonePickerView = RingtonePickerView(viewModel: viewModel.ringtonePickerViewModel)
+    self.ringtonePickerToolbar = RingtoneToolbarView(viewModel: viewModel.ringtoneToolbarViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -25,18 +39,59 @@ class ContactEditViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupFields()
+    bindToViewModel()
   }
   
   private func setupFields() {
     notesTextView.delegate = self
     notesTextView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
     notesTextView.textContainer.lineFragmentPadding = 0
+    
     notesTextView.translatesAutoresizingMaskIntoConstraints = false
     notesTextView.isScrollEnabled = false
+    
+    ringtoneTextView.inputView = ringtonePickerView
+    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
+  }
+  
+  private func bindToViewModel() {
+    viewModel.selectedRingtone.bind = { [weak self] ringtone in
+      ringtone.flatMap { self?.ringtoneTextView.text = $0 }
+    }
+    viewModel.ringtoneIsEditing.bind = { [weak self] isEditing in
+      guard let isEditing = isEditing else { return }
+      if !isEditing {
+        self?.ringtoneTextView.resignFirstResponder()
+      }
+    }
+    viewModel.selectedImage.bind = { [weak self] image in
+      image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
+    }
+    viewModel.imagePickerError.bind = { [weak self] error in
+      let alert = UIAlertController(title: Constants.errorAlertTitle,
+                                    message: error?.localizedDescription,
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      self?.present(alert, animated: true, completion: nil)
+    }
+  }
+  
+  // MARK: - Image picking handling
+  
+  @IBAction private func onChooseImageButton() {
+    let actionSheet = UIAlertController(title: Constants.imagePickerActionSheetTitle,
+                                        message: nil, preferredStyle: .actionSheet)
+    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheetCameraOption, style: .default) { _ in
+      self.viewModel.chooseImage(sourceType: .camera)
+    })
+    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
+      self.viewModel.chooseImage(sourceType: .photoLibrary)
+    })
+    present(actionSheet, animated: true, completion: nil)
   }
 }
 
-// MARK: - Resizing TextView on content change
+// MARK: - Enable/disable notes placeholder
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {

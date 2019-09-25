@@ -6,14 +6,17 @@
 import UIKit
 
 class ContactEditCoordinator: Coordinator {
-  let rootViewController: UINavigationController
+  private let rootViewController: UINavigationController
+  private var contactEditViewModel: ContactEditViewModel?
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
   }
   
   override func start() {
-    let contactEditViewModel = ContactEditViewModel()
+    let ringtoneService = RingtoneService()
+    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService)
+    guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController)
@@ -29,5 +32,29 @@ class ContactEditCoordinator: Coordinator {
   }
 }
 
+// MARK: - Image piker presentation
+
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
+  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
+                                                   sourceType: UIImagePickerController.SourceType) {
+    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
+    imagePickerCoordinator.delegate = self
+    addChildCoordinator(imagePickerCoordinator)
+    imagePickerCoordinator.start()
+  }
+}
+
+extension ContactEditCoordinator: ImagePickerCoordinatorDelegate {
+  func imagePickerCoordinator(didSelectImageWith result: Result<UIImage, Error>) {
+    switch result {
+    case .success(let image):
+      contactEditViewModel?.selectedImage.value = image
+    case .failure(let error):
+      contactEditViewModel?.imagePickerError.value = error
+    }
+  }
+  
+  func didFinish(from coordinator: ImagePickerCoordinator) {
+    removeChildCoordinator(coordinator)
+  }
 }
