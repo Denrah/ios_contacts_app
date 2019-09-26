@@ -18,7 +18,7 @@ class ContactEditViewModel {
   let selectedRingtone = Dynamic<String>(nil)
   let ringtoneIsEditing = Dynamic<Bool>(false)
   let selectedImage = Dynamic<UIImage>(nil)
-  let imagePickerError = Dynamic<Error>(nil)
+  let didReceiveError = Dynamic<Error>(nil)
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -46,7 +46,7 @@ class ContactEditViewModel {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
       delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
     } else {
-      imagePickerError.value = ImagePickerError.sourceNotAvaliable
+      didReceiveError.value = ImagePickerError.sourceNotAvaliable
     }
   }
 }

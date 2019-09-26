@@ -10,6 +10,9 @@ class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
   @IBOutlet private weak var ringtoneTextView: UITextField!
   @IBOutlet private weak var imagePickerButton: UIButton!
+  @IBOutlet private weak var firstNameTextField: UITextField!
+  @IBOutlet private weak var lastNametextField: UITextField!
+  @IBOutlet private weak var phoneTextField: UITextField!
   
   private let viewModel: ContactEditViewModel
   
@@ -19,8 +22,8 @@ class ContactEditViewController: UIViewController {
   private enum Constants {
     static let errorAlertTitle = "Sorry"
     static let imagePickerActionSheetTitle = "Select image"
-    static let imagePickerActionSheetCameraOption = "From camera"
-    static let imagePickerActionSheerLibraryOprion = "From gallery"
+    static let imagePickerActionSheetCameraOption = "Take photo"
+    static let imagePickerActionSheerLibraryOprion = "Choose photo"
   }
   
   // MARK: - ViewController setup
@@ -50,6 +53,8 @@ class ContactEditViewController: UIViewController {
     notesTextView.translatesAutoresizingMaskIntoConstraints = false
     notesTextView.isScrollEnabled = false
     
+    addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
+    
     ringtoneTextView.inputView = ringtonePickerView
     ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
@@ -67,7 +72,7 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.imagePickerError.bind = { [weak self] error in
+    viewModel.didReceiveError.bind = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
                                     message: error?.localizedDescription,
                                     preferredStyle: .alert)
@@ -91,10 +96,18 @@ class ContactEditViewController: UIViewController {
   }
 }
 
-// MARK: - Enable/disable notes placeholder
+// MARK: - Enable/disable notes placeholder and handle "Done" press
 
 extension ContactEditViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     notesPlaceholderLabel.isHidden = !textView.text.isEmpty
+  }
+  
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    if text == "\n" {
+      textView.resignFirstResponder()
+      return false
+    }
+    return true
   }
 }
