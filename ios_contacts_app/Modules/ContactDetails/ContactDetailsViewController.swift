@@ -18,6 +18,10 @@ class ContactDetailsViewController: UIViewController {
   @IBOutlet private weak var contactImageView: UIImageView!
   @IBOutlet private weak var contactImagePlaceholderLabel: UILabel!
   
+  private enum Constants {
+    static let errorAlertTitle = "Sorry"
+  }
+  
   // MARK: - ViewController setup
   
   init(viewModel: ContactDetailsViewModel) {
@@ -35,7 +39,6 @@ class ContactDetailsViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupScrollView()
     setup()
     bindToViewModel()
   }
@@ -53,6 +56,21 @@ class ContactDetailsViewController: UIViewController {
       contactImagePlaceholderLabel.text = viewModel.contactImagePlaceholder.value
       contactImagePlaceholderLabel.isHidden = false
     }
+    
+    setupScrollView()
+  }
+  
+  // MARK: - Add a gray view to the top in order to hide white background when user drags scrollview down
+  
+  private func setupScrollView() {
+    let topView = UIView()
+    scrollView.addSubview(topView)
+    topView.snp.makeConstraints { make in
+      make.left.right.equalTo(0)
+      make.bottom.equalTo(scrollView.snp.top)
+      make.top.equalTo(contentView.snp.top)
+    }
+    topView.backgroundColor = UIColor.headerGray
   }
   
   private func bindToViewModel() {
@@ -79,19 +97,13 @@ class ContactDetailsViewController: UIViewController {
     viewModel.contactImagePlaceholder.bind = { [weak self] placeholder in
       placeholder.flatMap { self?.contactImagePlaceholderLabel.text = $0 }
     }
-  }
-  
-  // MARK: - Add a gray view to the top in order to hide white background when user drags scrollview down
-  
-  private func setupScrollView() {
-    let topView = UIView()
-    scrollView.addSubview(topView)
-    topView.snp.makeConstraints { make in
-      make.left.right.equalTo(0)
-      make.bottom.equalTo(scrollView.snp.top)
-      make.top.equalTo(contentView.snp.top)
+    viewModel.didReceiveError = { [weak self] error in
+      let alert = UIAlertController(title: Constants.errorAlertTitle,
+                                    message: error.localizedDescription,
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      self?.present(alert, animated: true, completion: nil)
     }
-    topView.backgroundColor = UIColor.headerGray
   }
   
   // MARK: - Handle user interactions

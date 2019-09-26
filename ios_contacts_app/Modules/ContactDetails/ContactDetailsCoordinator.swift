@@ -44,7 +44,6 @@ class ContactDetailsCoordinator: Coordinator {
     rootViewController.navigationBar.barTintColor = UIColor.headerGray
     rootViewController.navigationBar.backgroundColor = UIColor.headerGray
     rootViewController.navigationBar.shadowImage = UIImage()
-    // rootViewController.navigationBar.isTranslucent = false
   }
   
   override func finish() {

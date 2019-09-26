@@ -21,6 +21,8 @@ class ContactDetailsViewModel {
   let contactImage = Dynamic<UIImage>(nil)
   let contactImagePlaceholder = Dynamic<String>(nil)
   
+  var didReceiveError: ((Error) -> Void)?
+  
   init(storageService: StorageService, contactID: String) {
     self.storageService = storageService
     self.contactID = contactID
