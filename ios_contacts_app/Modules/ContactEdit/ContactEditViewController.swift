@@ -63,21 +63,24 @@ class ContactEditViewController: UIViewController {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
       ringtone.flatMap { self?.ringtoneTextView.text = $0 }
     }
-    viewModel.ringtoneIsEditing.bind = { [weak self] isEditing in
-      guard let isEditing = isEditing else { return }
-      if !isEditing {
-        self?.ringtoneTextView.resignFirstResponder()
-      }
+    viewModel.ringtonePickerDidTapDone = { [weak self] in
+      self?.ringtoneTextView.resignFirstResponder()
     }
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
     }
-    viewModel.didReceiveError.bind = { [weak self] error in
+    viewModel.didReceiveError = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,
-                                    message: error?.localizedDescription,
+                                    message: error.localizedDescription,
                                     preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       self?.present(alert, animated: true, completion: nil)
+    }
+    viewModel.didRequestSave = { [weak self] in
+      guard let self = self else { return }
+      self.viewModel.saveContact(firstName: self.firstNameTextField.text,
+                                 lastName: self.lastNametextField.text,
+                                 phone: self.phoneTextField.text, notes: self.notesTextView.text)
     }
   }
   
