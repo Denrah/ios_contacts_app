@@ -38,10 +38,10 @@ class ContactsListCoordinator: Coordinator {
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                                                       action: #selector(goToContactEdit))
+                                                                       action: #selector(didTapEditContact))
   }
   
-  @objc private func goToContactEdit() {
+  @objc private func didTapEditContact() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)

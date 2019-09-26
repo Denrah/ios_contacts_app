@@ -6,9 +6,9 @@
 import UIKit
 
 protocol ContactEditViewModelDelegate: class {
-  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
-                                                   sourceType: UIImagePickerController.SourceType)
-  func contactEditViewDidRequestedGoBack()
+  func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
+                                                 sourceType: UIImagePickerController.SourceType)
+  func contactEditViewDidRequestGoBack()
 }
 
 enum ContactsEditErrors: Error {
@@ -61,7 +61,7 @@ class ContactEditViewModel {
   
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-      delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
+      delegate?.contactEditViewModelDidRequestChooseImage(self, sourceType: sourceType)
     } else {
       didReceiveError?(ImagePickerError.sourceNotAvaliable)
     }
@@ -82,7 +82,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewDidRequestedGoBack()
+      delegate?.contactEditViewDidRequestGoBack()
     case .failure(let error):
       didReceiveError?(error)
     }
@@ -90,8 +90,12 @@ class ContactEditViewModel {
   
   // MARK: - Navbar events handling
   
-  func navbarDidTapDone() {
+  func didTapDone() {
     didRequestSave?()
+  }
+  
+  func didTapCancel() {
+    delegate?.contactEditViewDidRequestGoBack()
   }
 }
 
