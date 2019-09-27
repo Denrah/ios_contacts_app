@@ -16,7 +16,11 @@ class ContactEditCoordinator: Coordinator {
   private var contactEditViewModel: ContactEditViewModel?
   private let contactID: String?
   
+  // MARK: - Delegate
+  
   weak var delegate: ContactEditCoordinatorDelegate?
+  
+  // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController, contactID: String? = nil) {
     self.rootViewController = rootViewController
@@ -42,17 +46,11 @@ class ContactEditCoordinator: Coordinator {
     viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
-                                                                      target: self, action: #selector(didTapCancel))
+                                                                      target: contactEditViewModel,
+                                                                      action: #selector(contactEditViewModel?.didTapCancel))
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done,
-                                                                       target: self, action: #selector(didTapDone))
-  }
-  
-  @objc private func didTapDone() {
-    contactEditViewModel?.navbarDidTapDone()
-  }
-  
-  @objc private func didTapCancel() {
-    goBack()
+                                                                       target: contactEditViewModel,
+                                                                       action: #selector(contactEditViewModel?.didTapDone))
   }
   
   private func goBackAfterDelete() {
@@ -60,7 +58,7 @@ class ContactEditCoordinator: Coordinator {
     delegate?.didFinish(from: self)
   }
   
-  private func goBack() {
+  private func close() {
     rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
   }
@@ -73,12 +71,12 @@ extension ContactEditCoordinator: ContactEditViewModelDelegate {
     goBackAfterDelete()
   }
   
-  func contactEditViewModelDidRequestedGoBack() {
-    goBack()
+  func contactEditViewModelDidRequestClose() {
+    close()
   }
   
-  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
-                                                   sourceType: UIImagePickerController.SourceType) {
+  func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
+                                                 sourceType: UIImagePickerController.SourceType) {
     let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)

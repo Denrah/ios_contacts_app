@@ -6,9 +6,9 @@
 import UIKit
 
 protocol ContactEditViewModelDelegate: class {
-  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
-                                                   sourceType: UIImagePickerController.SourceType)
-  func contactEditViewModelDidRequestedGoBack()
+  func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
+                                                 sourceType: UIImagePickerController.SourceType)
+  func contactEditViewModelDidRequestClose()
   func contactEditViewModelDidRequestedGobackAfterDelete()
 }
 
@@ -26,11 +26,15 @@ extension ContactsEditErrors: LocalizedError {
 }
 
 class ContactEditViewModel {
-  weak var delegate: ContactEditViewModelDelegate?
-  
   private let ringtoneService: RingtoneService
   private let storageService: StorageService
   private let contactID: String?
+  
+  // MARK: - Delegate
+  
+  weak var delegate: ContactEditViewModelDelegate?
+  
+  // MARK: - Fields values
   
   let selectedRingtone = Dynamic<String>(nil)
   let selectedImage = Dynamic<UIImage>(nil)
@@ -40,9 +44,13 @@ class ContactEditViewModel {
   let notes = Dynamic<String>(nil)
   let deleteButtonIsHidden = Dynamic<Bool>(true)
   
+  // MARK: - Events handling
+  
   var ringtonePickerDidTapDone: (() -> Void)?
   var didRequestSave: (() -> Void)?
   var didReceiveError: ((Error) -> Void)?
+  
+  // MARK: - Children views' viewModels
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -55,6 +63,8 @@ class ContactEditViewModel {
     viewModel.delegate = self
     return viewModel
     }()
+  
+  // MARK: - ViewModel setup
   
   init(ringtoneService: RingtoneService, storageService: StorageService, contactID: String? = nil) {
     self.ringtoneService = ringtoneService
@@ -88,9 +98,11 @@ class ContactEditViewModel {
     ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
   }
   
+  // MARK: - View events handling
+  
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-      delegate?.contactEditViewModelDidRequestedChooseImage(self, sourceType: sourceType)
+      delegate?.contactEditViewModelDidRequestChooseImage(self, sourceType: sourceType)
     } else {
       didReceiveError?(ImagePickerError.sourceNotAvaliable)
     }
@@ -111,7 +123,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewModelDidRequestedGoBack()
+      delegate?.contactEditViewModelDidRequestClose()
     case .failure(let error):
       didReceiveError?(error)
     }
@@ -131,8 +143,12 @@ class ContactEditViewModel {
   
   // MARK: - Navbar events handling
   
-  func navbarDidTapDone() {
+  @objc func didTapDone() {
     didRequestSave?()
+  }
+  
+  @objc func didTapCancel() {
+    delegate?.contactEditViewModelDidRequestClose()
   }
 }
 

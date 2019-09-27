@@ -8,9 +8,8 @@ import UIKit
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
 
-  private enum Constants {
-    static let errorAlertTitle = "Sorry"
-    static let contactCellIdentifier = "contactCell"
+  private enum LocalConstants {
+    static let cellReuseIdentifier = "contactCell"
   }
   
   // MARK: - ViewController setup
@@ -26,7 +25,12 @@ class ContactsListViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupTableView()
     bindToViewModel()
+  }
+  
+  private func setupTableView() {
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: LocalConstants.cellReuseIdentifier)
   }
   
   private func bindToViewModel() {
@@ -52,12 +56,13 @@ class ContactsListViewController: UITableViewController {
     return viewModel.getNumberOfRowsIn(section: section)
   }
   
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.sectionTitles[section]
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? 
+    return viewModel.getSectionTitle(at: section)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .value1, reuseIdentifier: Constants.contactCellIdentifier)
+    let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.cellReuseIdentifier, for: indexPath)
+    
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
     return cell
@@ -70,7 +75,7 @@ class ContactsListViewController: UITableViewController {
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
     return viewModel.getSectionIndexTitles()
   }
-  
+
   // MARK: - Handle cell selection
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

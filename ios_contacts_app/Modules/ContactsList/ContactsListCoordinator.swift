@@ -14,6 +14,8 @@ class ContactsListCoordinator: Coordinator {
   private enum Contants {
     static let screenTitle = "Contacts"
   }
+ 
+  // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -38,22 +40,23 @@ class ContactsListCoordinator: Coordinator {
     
     let searchController = UISearchController(searchResultsController: nil)
     searchController.searchResultsUpdater = searchResultsUpdater
-    searchController.dimsBackgroundDuringPresentation = false
+    searchController.obscuresBackgroundDuringPresentation = false
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
-    
-    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                                                       action: #selector(goToContactEdit))
+  
+    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: contactsListViewModel,
+                                                                       action: #selector(contactsListViewModel?.didTapAddContact))
   }
+  
   
   private func setNavigationBarAppearance() {
     rootViewController.navigationBar.barTintColor = UIColor.white
-     rootViewController.navigationBar.isTranslucent = false
+    rootViewController.navigationBar.isTranslucent = false
   }
   
   // MARK: - Moving between screens
   
-  @objc private func goToContactEdit() {
+  func showAddContactScreen() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)
@@ -62,6 +65,11 @@ class ContactsListCoordinator: Coordinator {
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
+
+  func contactsListViewModelDidRequestShowContactAddScreen() {
+    showAddContactScreen()
+  }
+
   func didRequestedShowDetails(for contactID: String) {
     let contactDetailsCoordinator = ContactDetailsCoordinator(rootViewController: rootViewController,
                                                               storageService: storageService, contactID: contactID)

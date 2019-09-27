@@ -6,26 +6,34 @@
 import UIKit
 
 protocol ContactsListViewModelDelegate: class {
+  func contactsListViewModelDidRequestShowContactAddScreen()
   func didRequestedShowDetails(for contactId: String)
 }
 
 class ContactsListViewModel {
+  private let storageService: StorageService
+  private let collation = UILocalizedIndexedCollation.current()
+  private var contactsWithSections = [Section<Contact>]()
+  
+  // MARK: - Delegate
+  
   weak var delegate: ContactsListViewModelDelegate?
   
-  let storageService: StorageService
+  // MARK: - Events handling
   
-  var sectionTitles: [String] = []
-  private let collation = UILocalizedIndexedCollation.current()
-  private var contactsWithSections = [[Contact]]()
-  var contacts: [Contact] = []
-  
-  var didUpdate: (() -> Void)?
   var didReceiveError: ((Error) -> Void)?
+  var didUpdate: (() -> Void)?
+  
+  // MARK: - Table data values
 
   var numberOfSections: Int {
     return contactsWithSections.count
   }
   
+  var contacts: [Contact] = []
+  
+  // MARK: - View setup
+
   init(storageService: StorageService) {
     self.storageService = storageService
     getContacts()
@@ -45,15 +53,16 @@ class ContactsListViewModel {
   }
   
   func updateContacts(contacts: [Contact]) {
-    let (contacts, titles) = collation.partitionObjects(array: contacts,
-                                                        collationStringSelector: #selector(getter: Contact.lastName))
-    guard let contactsWithSections = contacts as? [[Contact]] else {
-      didReceiveError?(AppError.contactsLoadFailed)
-      return
-    }
-    self.contactsWithSections = contactsWithSections
-    sectionTitles = titles
+    let sections = collation.partitionObjects(array: contacts,
+                                              collationStringSelector: #selector(getter: Contact.lastName))
+    self.contactsWithSections = sections
     didUpdate?()
+  }
+  
+  // MARK: - Add contact press handling
+  
+  @objc func didTapAddContact() {
+    delegate?.contactsListViewModelDidRequestShowContactAddScreen()
   }
   
   // MARK: - Data for tableView
@@ -67,8 +76,12 @@ class ContactsListViewModel {
     return name
   }
   
+  func getSectionTitle(at section: Int) -> String {
+    return contactsWithSections[section].title
+  }
+  
   func getNumberOfRowsIn(section: Int) -> Int {
-    return contactsWithSections[section].count
+    return contactsWithSections[section].rows.count
   }
   
   func getSectionIndexTitles() -> [String] {

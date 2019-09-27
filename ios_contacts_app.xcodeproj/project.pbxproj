@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9E17CFD5B8D1AF6BBCCA787A /* Pods_ios_contacts_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */; };
+		F7F3A15D233DDBF500352266 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15C233DDBF500352266 /* Constants.swift */; };
+		F7F3A15F233DE8BA00352266 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15E233DE8BA00352266 /* Section.swift */; };
 		F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */; };
 		F7FDBE39232A6C0500BA15E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */; };
 		F7FDBE3C232A6C0500BA15E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		42318E08B1DAD402DE400A27 /* Pods-ios_contacts_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.debug.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.debug.xcconfig"; sourceTree = "<group>"; };
 		CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_contacts_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7F3A15C233DDBF500352266 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F7F3A15E233DE8BA00352266 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		F7FDBE2E232A6C0500BA15E5 /* ios_contacts_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_contacts_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			children = (
 				F7FDBE6B232B733F00BA15E5 /* Colors.swift */,
 				F7FDBE9423349DAF00BA15E5 /* AppError.swift */,
+				F7F3A15C233DDBF500352266 /* Constants.swift */,
 			);
 			path = Values;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			children = (
 				F7FDBE8B2330B9BD00BA15E5 /* RealmModels */,
 				F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */,
+				F7F3A15E233DE8BA00352266 /* Section.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -405,6 +411,8 @@
 				F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */,
 				F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */,
 				F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */,
+				F7F3A15D233DDBF500352266 /* Constants.swift in Sources */,
+				F7FDBE8A2330B95A00BA15E5 /* StorageService.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
 				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
 				F7FDBE9F2339DD9600BA15E5 /* StorageService+Contacts.swift in Sources */,
@@ -420,6 +428,7 @@
 				F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				F7FDBE45232B3FD400BA15E5 /* Coordinator.swift in Sources */,
 				F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */,
+				F7F3A15F233DE8BA00352266 /* Section.swift in Sources */,
 				F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */,
 				F7FDBE8D2330B9EA00BA15E5 /* Contact.swift in Sources */,
 				F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */,
