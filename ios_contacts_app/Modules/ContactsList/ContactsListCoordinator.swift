@@ -43,7 +43,7 @@ class ContactsListCoordinator: Coordinator {
                                                                        action: #selector(contactsListViewModel?.didTapAddContact))
   }
   
-  func showContactAddScreen() {
+  func showAddContactScreen() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)
@@ -53,7 +53,7 @@ class ContactsListCoordinator: Coordinator {
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
   func contactsListViewModelDidRequestShowContactAddScreen() {
-    showContactAddScreen()
+    showAddContactScreen()
   }
 }
 

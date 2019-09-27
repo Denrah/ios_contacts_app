@@ -8,7 +8,7 @@ import UIKit
 protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType)
-  func contactEditViewDidRequestClose()
+  func contactEditViewModelDidRequestClose()
 }
 
 enum ContactsEditErrors: Error {
@@ -95,7 +95,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewDidRequestClose()
+      delegate?.contactEditViewModelDidRequestClose()
     case .failure(let error):
       didReceiveError?(error)
     }
@@ -108,7 +108,7 @@ class ContactEditViewModel {
   }
   
   @objc func didTapCancel() {
-    delegate?.contactEditViewDidRequestClose()
+    delegate?.contactEditViewModelDidRequestClose()
   }
 }
 

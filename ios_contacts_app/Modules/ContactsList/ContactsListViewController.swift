@@ -25,8 +25,11 @@ class ContactsListViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupTableView()
     bindToViewModel()
-    
+  }
+  
+  private func setupTableView() {
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: LocalConstants.cellReuseIdentifier)
   }
   
@@ -59,6 +62,7 @@ class ContactsListViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.cellReuseIdentifier, for: indexPath)
+      
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
     return cell

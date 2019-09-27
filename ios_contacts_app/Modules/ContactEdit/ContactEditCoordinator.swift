@@ -59,7 +59,7 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewDidRequestClose() {
+  func contactEditViewModelDidRequestClose() {
     close()
   }
   
