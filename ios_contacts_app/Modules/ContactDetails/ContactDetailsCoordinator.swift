@@ -5,69 +5,20 @@
 
 import UIKit
 
-protocol ContactDetailsCoordinatorDelegate: class {
-  func didFinish(from coordinator: ContactDetailsCoordinator)
-}
-
 class ContactDetailsCoordinator: Coordinator {
   private let rootViewController: UINavigationController
-  private var contactDetailsViewModel: ContactDetailsViewModel?
   
-  weak var delegate: ContactDetailsCoordinatorDelegate?
-  
-  private let contactID: String
-  private let storageService: StorageService
-  
-  init(rootViewController: UINavigationController, storageService: StorageService, contactID: String) {
+  init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
-    self.storageService = storageService
-    self.contactID = contactID
   }
   
   override func start() {
-    contactDetailsViewModel = ContactDetailsViewModel(storageService: storageService, contactID: contactID)
-    guard let contactDetailsViewModel = contactDetailsViewModel else { return }
+    let contactDetailsViewModel = ContactDetailsViewModel()
     contactDetailsViewModel.delegate = self
     let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
-    setupNavigationBar(viewController: contactDetailsViewController)
-    rootViewController.pushViewController(contactDetailsViewController, animated: true)
-  }
-  
-  private func setupNavigationBar(viewController: UIViewController) {
-    setNavigationBarAppearance()
-    viewController.navigationItem.largeTitleDisplayMode = .never    
-    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain,
-                                                                       target: self, action: #selector(didTapEdit))
-  }
-  
-  private func setNavigationBarAppearance() {
-    rootViewController.navigationBar.barTintColor = UIColor.headerGray
-    rootViewController.navigationBar.backgroundColor = UIColor.headerGray
-    rootViewController.navigationBar.shadowImage = UIImage()
-  }
-  
-  override func finish() {
-    delegate?.didFinish(from: self)
-  }
-  
-  @objc private func didTapEdit() {
-    let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController, contactID: contactID)
-    contactEditCoordinator.delegate = self
-    addChildCoordinator(contactEditCoordinator)
-    contactEditCoordinator.start()
+    rootViewController.setViewControllers([contactDetailsViewController], animated: false)
   }
 }
 
 extension ContactDetailsCoordinator: ContactDetailsViewModelDelegate {
-  func contactDetailsViewModelDidFinish(_ viewModel: ContactDetailsViewModel) {
-    finish()
-  }
-}
-
-extension ContactDetailsCoordinator: ContactEditCoordinatorDelegate {
-  func didFinish(from coordinator: ContactEditCoordinator) {
-    removeChildCoordinator(coordinator)
-    setNavigationBarAppearance()
-    contactDetailsViewModel?.getContact()
-  }
 }

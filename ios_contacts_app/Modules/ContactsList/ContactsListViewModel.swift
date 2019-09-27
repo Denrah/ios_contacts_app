@@ -7,7 +7,6 @@ import UIKit
 
 protocol ContactsListViewModelDelegate: class {
   func contactsListViewModelDidRequestShowContactAddScreen()
-  func didRequestedShowDetails(for contactId: String)
 }
 
 class ContactsListViewModel {
@@ -33,7 +32,7 @@ class ContactsListViewModel {
   var contacts: [Contact] = []
   
   // MARK: - View setup
-
+  
   init(storageService: StorageService) {
     self.storageService = storageService
     getContacts()
@@ -68,9 +67,9 @@ class ContactsListViewModel {
   // MARK: - Data for tableView
   
   func getContactName(at indexPath: IndexPath) -> NSMutableAttributedString {
-    let name = NSMutableAttributedString(string: contactsWithSections[indexPath.section][indexPath.row].firstName + " ")
+    let name = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].firstName + " ")
     let attrs = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17)]
-    let lastName = NSMutableAttributedString(string: contactsWithSections[indexPath.section][indexPath.row].lastName,
+    let lastName = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].lastName,
                                              attributes: attrs)
     name.append(lastName)
     return name
@@ -86,12 +85,5 @@ class ContactsListViewModel {
   
   func getSectionIndexTitles() -> [String] {
     return collation.sectionIndexTitles
-  }
-  
-  // MARK: - Cell selection
-  
-  func didSelectCell(indexPath: IndexPath) {
-    guard let contactId = contactsWithSections[indexPath.section][indexPath.row].id else { return }
-    delegate?.didRequestedShowDetails(for: contactId)
   }
 }
