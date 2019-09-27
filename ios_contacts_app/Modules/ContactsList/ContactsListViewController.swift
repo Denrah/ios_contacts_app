@@ -56,7 +56,7 @@ class ContactsListViewController: UITableViewController {
     return viewModel.getNumberOfRowsIn(section: section)
   }
   
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? 
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return viewModel.getSectionTitle(at: section)
   }
   

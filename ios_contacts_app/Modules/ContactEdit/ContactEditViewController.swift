@@ -117,10 +117,10 @@ class ContactEditViewController: UIViewController {
   }
   
   @IBAction private func didTapDelete() {
-    let alert = UIAlertController(title: Constants.deleteTitle, message: Constants.deleteText,
+    let alert = UIAlertController(title: LocalConstants.deleteTitle, message: LocalConstants.deleteText,
                                   preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: Constants.deleteCancel, style: .cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: Constants.deleteConfirm, style: .destructive) { [weak self] _ in
+    alert.addAction(UIAlertAction(title: LocalConstants.deleteCancel, style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: LocalConstants.deleteConfirm, style: .destructive) { [weak self] _ in
       self?.viewModel.deleteContact()
     })
     present(alert, animated: true, completion: nil)

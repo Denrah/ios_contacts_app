@@ -48,7 +48,6 @@ class ContactsListCoordinator: Coordinator {
                                                                        action: #selector(contactsListViewModel?.didTapAddContact))
   }
   
-  
   private func setNavigationBarAppearance() {
     rootViewController.navigationBar.barTintColor = UIColor.white
     rootViewController.navigationBar.isTranslucent = false
@@ -65,7 +64,6 @@ class ContactsListCoordinator: Coordinator {
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
-
   func contactsListViewModelDidRequestShowContactAddScreen() {
     showAddContactScreen()
   }
