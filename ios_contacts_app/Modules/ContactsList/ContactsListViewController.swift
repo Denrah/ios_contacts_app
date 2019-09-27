@@ -8,11 +8,6 @@ import UIKit
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
 
-  private enum Constants {
-    static let errorAlertTitle = "Sorry"
-    static let contactCellIdentifier = "contactCell"
-  }
-  
   private enum LocalConstants {
     static let cellReuseIdentifier = "contactCell"
   }

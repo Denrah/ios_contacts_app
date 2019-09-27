@@ -39,7 +39,7 @@ class ContactsListCoordinator: Coordinator {
     
     let searchController = UISearchController(searchResultsController: nil)
     searchController.searchResultsUpdater = searchResultsUpdater
-    searchController.dimsBackgroundDuringPresentation = false
+    searchController.obscuresBackgroundDuringPresentation = false
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   
@@ -58,13 +58,6 @@ class ContactsListCoordinator: Coordinator {
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
   func contactsListViewModelDidRequestShowContactAddScreen() {
     showAddContactScreen()
-  }
-}
-
-extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
-  func didFinish(from coordinator: ContactEditCoordinator) {
-    removeChildCoordinator(coordinator)
-    contactsListViewModel?.updateContacts()
   }
 }
 

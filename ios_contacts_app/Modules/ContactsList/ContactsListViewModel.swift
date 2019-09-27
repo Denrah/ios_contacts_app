@@ -53,7 +53,7 @@ class ContactsListViewModel {
   
   func updateContacts(contacts: [Contact]) {
     let sections = collation.partitionObjects(array: contacts,
-                                                        collationStringSelector: #selector(getter: Contact.lastName))
+                                              collationStringSelector: #selector(getter: Contact.lastName))
     self.contactsWithSections = sections
     didUpdate?()
   }
