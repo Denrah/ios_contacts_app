@@ -68,7 +68,7 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
     showAddContactScreen()
   }
 
-  func didRequestedShowDetails(for contactID: String) {
+  func contactsListViewModelDidRequestShowDetails(for contactID: String) {
     let contactDetailsCoordinator = ContactDetailsCoordinator(rootViewController: rootViewController,
                                                               storageService: storageService, contactID: contactID)
     contactDetailsCoordinator.delegate = self

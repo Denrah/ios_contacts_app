@@ -18,10 +18,6 @@ class ContactDetailsViewController: UIViewController {
   @IBOutlet private weak var contactImageView: UIImageView!
   @IBOutlet private weak var contactImagePlaceholderLabel: UILabel!
   
-  private enum Constants {
-    static let errorAlertTitle = "Sorry"
-  }
-  
   // MARK: - ViewController setup
   
   init(viewModel: ContactDetailsViewModel) {
@@ -30,7 +26,7 @@ class ContactDetailsViewController: UIViewController {
   }
   
   deinit {
-    viewModel.goBack()
+    viewModel.close()
   }
   
   required init?(coder aDecoder: NSCoder) {

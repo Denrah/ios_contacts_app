@@ -53,7 +53,7 @@ class ContactEditCoordinator: Coordinator {
                                                                        action: #selector(contactEditViewModel?.didTapDone))
   }
   
-  private func goBackAfterDelete() {
+  private func closeAllScreens() {
     rootViewController.popToRootViewController(animated: true)
     delegate?.didFinish(from: self)
   }
@@ -67,8 +67,8 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewModelDidRequestedGobackAfterDelete() {
-    goBackAfterDelete()
+  func contactEditViewModelDidRequestedCloseAllScreens() {
+    closeAllScreens()
   }
   
   func contactEditViewModelDidRequestClose() {

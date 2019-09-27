@@ -7,12 +7,18 @@ import UIKit
 
 protocol ContactDetailsViewModelDelegate: class {
   func contactDetailsViewModelDidFinish(_ viewModel: ContactDetailsViewModel)
+  func contactDetailsViewModelDidRequestShowEditContactScreen()
 }
 
 class ContactDetailsViewModel {
-  weak var delegate: ContactDetailsViewModelDelegate?
   private let storageService: StorageService
   private let contactID: String
+  
+  // MARK: - Delegate
+  
+  weak var delegate: ContactDetailsViewModelDelegate?
+  
+  // MARK: - Contact fields
   
   let contactName = Dynamic<String>(nil)
   let phoneNumber = Dynamic<String>(nil)
@@ -21,7 +27,11 @@ class ContactDetailsViewModel {
   let contactImage = Dynamic<UIImage>(nil)
   let contactImagePlaceholder = Dynamic<String>(nil)
   
+  // MARK: - Events handling
+  
   var didReceiveError: ((Error) -> Void)?
+  
+  // MARK: - ViewController setup
   
   init(storageService: StorageService, contactID: String) {
     self.storageService = storageService
@@ -45,13 +55,21 @@ class ContactDetailsViewModel {
     }
   }
   
+  // MARK: - ViewController events handling
+  
   func didTapPhoneNumber() {
     guard let phoneNumber = phoneNumber.value?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
     guard let number = URL(string: "tel:" + phoneNumber) else { return }
     UIApplication.shared.open(number, options: [:], completionHandler: nil)
   }
   
-  func goBack() {
+  func close() {
     delegate?.contactDetailsViewModelDidFinish(self)
+  }
+  
+  // MARK: - Navbar events handling
+  
+  @objc func didTapEdit() {
+    delegate?.contactDetailsViewModelDidRequestShowEditContactScreen()
   }
 }

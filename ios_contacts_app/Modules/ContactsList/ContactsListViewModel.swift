@@ -7,7 +7,7 @@ import UIKit
 
 protocol ContactsListViewModelDelegate: class {
   func contactsListViewModelDidRequestShowContactAddScreen()
-  func didRequestedShowDetails(for contactId: String)
+  func contactsListViewModelDidRequestShowDetails(for contactId: String)
 }
 
 class ContactsListViewModel {
@@ -92,6 +92,6 @@ class ContactsListViewModel {
   
   func didSelectCell(indexPath: IndexPath) {
     guard let contactId = contactsWithSections[indexPath.section].rows[indexPath.row].id else { return }
-    delegate?.didRequestedShowDetails(for: contactId)
+    delegate?.contactsListViewModelDidRequestShowDetails(for: contactId)
   }
 }

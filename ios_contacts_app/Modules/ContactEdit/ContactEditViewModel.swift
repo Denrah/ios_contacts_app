@@ -9,7 +9,7 @@ protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType)
   func contactEditViewModelDidRequestClose()
-  func contactEditViewModelDidRequestedGobackAfterDelete()
+  func contactEditViewModelDidRequestedCloseAllScreens()
 }
 
 enum ContactsEditErrors: Error {
@@ -135,7 +135,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewModelDidRequestedGobackAfterDelete()
+      delegate?.contactEditViewModelDidRequestedCloseAllScreens()
     case .failure(let error):
       didReceiveError?(error)
     }

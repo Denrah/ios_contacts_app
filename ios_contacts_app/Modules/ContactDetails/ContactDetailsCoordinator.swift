@@ -12,11 +12,14 @@ protocol ContactDetailsCoordinatorDelegate: class {
 class ContactDetailsCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactDetailsViewModel: ContactDetailsViewModel?
+  private let contactID: String
+  private let storageService: StorageService
+  
+  // MARK: - Delegate
   
   weak var delegate: ContactDetailsCoordinatorDelegate?
   
-  private let contactID: String
-  private let storageService: StorageService
+  // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController, storageService: StorageService, contactID: String) {
     self.rootViewController = rootViewController
@@ -37,7 +40,8 @@ class ContactDetailsCoordinator: Coordinator {
     setNavigationBarAppearance()
     viewController.navigationItem.largeTitleDisplayMode = .never    
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain,
-                                                                       target: self, action: #selector(didTapEdit))
+                                                                       target: contactDetailsViewModel,
+                                                                       action: #selector(contactDetailsViewModel?.didTapEdit))
   }
   
   private func setNavigationBarAppearance() {
@@ -50,7 +54,9 @@ class ContactDetailsCoordinator: Coordinator {
     delegate?.didFinish(from: self)
   }
   
-  @objc private func didTapEdit() {
+  // MARK: - Moving between screens
+  
+  private func showEditContactScreen() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController, contactID: contactID)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)
@@ -59,6 +65,10 @@ class ContactDetailsCoordinator: Coordinator {
 }
 
 extension ContactDetailsCoordinator: ContactDetailsViewModelDelegate {
+  func contactDetailsViewModelDidRequestShowEditContactScreen() {
+    showEditContactScreen()
+  }
+  
   func contactDetailsViewModelDidFinish(_ viewModel: ContactDetailsViewModel) {
     finish()
   }
