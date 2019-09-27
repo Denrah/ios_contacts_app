@@ -13,6 +13,8 @@ class ContactsListCoordinator: Coordinator {
     static let screenTitle = "Contacts"
   }
   
+  // MARK: - Coordinator setup
+  
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
   }
@@ -37,11 +39,11 @@ class ContactsListCoordinator: Coordinator {
     viewController.navigationItem.searchController = searchController
     viewController.navigationItem.hidesSearchBarWhenScrolling = false
   
-    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                                                       action: #selector(didTapEditContact))
+    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: contactsListViewModel,
+                                                                       action: #selector(contactsListViewModel?.didTapAddContact))
   }
   
-  @objc private func didTapEditContact() {
+  func showContactAddScreen() {
     let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)
@@ -50,6 +52,9 @@ class ContactsListCoordinator: Coordinator {
 }
 
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
+  func contactsListViewModelDidRequestShowContactAddScreen() {
+    showContactAddScreen()
+  }
 }
 
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {

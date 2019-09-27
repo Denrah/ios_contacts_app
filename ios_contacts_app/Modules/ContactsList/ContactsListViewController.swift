@@ -7,9 +7,9 @@ import UIKit
 
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
-
-  private enum Constants {
-    static let errorAlertTitle = "Sorry"
+  
+  private enum LocalConstants {
+    static let cellReuseIdentifier = "contactCell"
   }
   
   // MARK: - ViewController setup
@@ -26,6 +26,8 @@ class ContactsListViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     bindToViewModel()
+    
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: LocalConstants.cellReuseIdentifier)
   }
   
   private func bindToViewModel() {
@@ -52,11 +54,11 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.sectionTitles[section]
+    return viewModel.getSectionTitle(at: section)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+    let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.cellReuseIdentifier, for: indexPath)
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
     return cell

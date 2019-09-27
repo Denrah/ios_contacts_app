@@ -8,7 +8,7 @@ import UIKit
 protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType)
-  func contactEditViewDidRequestGoBack()
+  func contactEditViewDidRequestClose()
 }
 
 enum ContactsEditErrors: Error {
@@ -25,16 +25,25 @@ extension ContactsEditErrors: LocalizedError {
 }
 
 class ContactEditViewModel {
-  weak var delegate: ContactEditViewModelDelegate?
-  
   private let ringtoneService: RingtoneService
   private let storageService: StorageService
   
+  // MARK: - Delegate
+  
+  weak var delegate: ContactEditViewModelDelegate?
+  
+  // MARK: - Fields values
+  
   let selectedRingtone = Dynamic<String>(nil)
   let selectedImage = Dynamic<UIImage>(nil)
+  
+  // MARK: - Events handling
+  
   var ringtonePickerDidTapDone: (() -> Void)?
   var didRequestSave: (() -> Void)?
   var didReceiveError: ((Error) -> Void)?
+  
+  // MARK: - Children views' viewModels
   
   lazy var ringtonePickerViewModel: RingtonePickerViewModel = { [weak self] in
     let viewModel = RingtonePickerViewModel()
@@ -48,6 +57,8 @@ class ContactEditViewModel {
     return viewModel
     }()
   
+  // MARK: - ViewModel setup
+  
   init(ringtoneService: RingtoneService, storageService: StorageService) {
     self.ringtoneService = ringtoneService
     self.storageService = storageService
@@ -58,6 +69,8 @@ class ContactEditViewModel {
     selectedRingtone.value = ringtoneService.getDefaultRingtone()
     ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
   }
+  
+  // MARK: - View events handling
   
   func chooseImage(sourceType: UIImagePickerController.SourceType) {
     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -82,7 +95,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewDidRequestGoBack()
+      delegate?.contactEditViewDidRequestClose()
     case .failure(let error):
       didReceiveError?(error)
     }
@@ -90,12 +103,12 @@ class ContactEditViewModel {
   
   // MARK: - Navbar events handling
   
-  func didTapDone() {
+  @objc func didTapDone() {
     didRequestSave?()
   }
   
-  func didTapCancel() {
-    delegate?.contactEditViewDidRequestGoBack()
+  @objc func didTapCancel() {
+    delegate?.contactEditViewDidRequestClose()
   }
 }
 
