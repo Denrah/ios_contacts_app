@@ -15,7 +15,11 @@ class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactEditViewModel: ContactEditViewModel?
   
+  // MARK: - Delegate
+  
   weak var delegate: ContactEditCoordinatorDelegate?
+  
+  // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -39,20 +43,14 @@ class ContactEditCoordinator: Coordinator {
     viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
-                                                                      target: self, action: #selector(didTapCancel))
+                                                                      target: contactEditViewModel,
+                                                                      action: #selector(contactEditViewModel?.didTapCancel))
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done,
-                                                                       target: self, action: #selector(didTapDone))
+                                                                       target: contactEditViewModel,
+                                                                       action: #selector(contactEditViewModel?.didTapDone))
   }
   
-  @objc private func didTapDone() {
-    contactEditViewModel?.navbarDidTapDone()
-  }
-  
-  @objc private func didTapCancel() {
-    goBack()
-  }
-  
-  private func goBack() {
+  private func close() {
     rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
   }
@@ -61,12 +59,12 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewDidRequestedGoBack() {
-    goBack()
+  func contactEditViewModelDidRequestClose() {
+    close()
   }
   
-  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
-                                                   sourceType: UIImagePickerController.SourceType) {
+  func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
+                                                 sourceType: UIImagePickerController.SourceType) {
     let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)

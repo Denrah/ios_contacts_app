@@ -16,11 +16,12 @@ class ContactEditViewController: UIViewController {
   
   private let viewModel: ContactEditViewModel
   
+  // MARK: - Children views
+  
   private var ringtonePickerView: RingtonePickerView
   private var ringtonePickerToolbar: UIToolbar
   
-  private enum Constants {
-    static let errorAlertTitle = "Sorry"
+  private enum LocalConstants {
     static let imagePickerActionSheetTitle = "Select image"
     static let imagePickerActionSheetCameraOption = "Take photo"
     static let imagePickerActionSheerLibraryOprion = "Choose photo"
@@ -87,12 +88,12 @@ class ContactEditViewController: UIViewController {
   // MARK: - Image picking handling
   
   @IBAction private func onChooseImageButton() {
-    let actionSheet = UIAlertController(title: Constants.imagePickerActionSheetTitle,
+    let actionSheet = UIAlertController(title: LocalConstants.imagePickerActionSheetTitle,
                                         message: nil, preferredStyle: .actionSheet)
-    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheetCameraOption, style: .default) { _ in
+    actionSheet.addAction(UIAlertAction(title: LocalConstants.imagePickerActionSheetCameraOption, style: .default) { _ in
       self.viewModel.chooseImage(sourceType: .camera)
     })
-    actionSheet.addAction(UIAlertAction(title: Constants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
+    actionSheet.addAction(UIAlertAction(title: LocalConstants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
       self.viewModel.chooseImage(sourceType: .photoLibrary)
     })
     present(actionSheet, animated: true, completion: nil)
