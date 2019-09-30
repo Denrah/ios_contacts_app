@@ -14,6 +14,8 @@ class RealmContact: Object {
   @objc dynamic var notes: String?
   @objc dynamic var image: Data?
   
+  // MARK: - Object convertion
+  
   class func fromContact(_ contact: Contact) -> RealmContact {
     let realmContact = RealmContact()
     realmContact.firstName = contact.firstName

@@ -7,9 +7,19 @@ import UIKit
 import Realm
 import RealmSwift
 
+protocol ContactEditCoordinatorDelegate: class {
+  func didFinish(from coordinator: ContactEditCoordinator)
+}
+
 class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactEditViewModel: ContactEditViewModel?
+  
+  // MARK: - Delegate
+  
+  weak var delegate: ContactEditCoordinatorDelegate?
+  
+  // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
@@ -24,33 +34,37 @@ class ContactEditCoordinator: Coordinator {
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
-    rootViewController.setViewControllers([contactEditViewController], animated: false)
+     rootViewController.pushViewController(contactEditViewController, animated: true)
   }
   
   private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
     rootViewController.navigationBar.barTintColor = UIColor.white
     rootViewController.navigationBar.shadowImage = UIImage()
+    viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
-                                                                      target: self, action: #selector(didTapCancel))
+                                                                      target: contactEditViewModel,
+                                                                      action: #selector(contactEditViewModel?.didTapCancel))
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done,
-                                                                       target: self, action: #selector(didTapDone))
+                                                                       target: contactEditViewModel,
+                                                                       action: #selector(contactEditViewModel?.didTapDone))
   }
   
-  @objc private func didTapDone() {
-    contactEditViewModel?.navbarDidTapDone()
-  }
-  
-  @objc private func didTapCancel() {
-    
+  private func close() {
+    rootViewController.popViewController(animated: true)
+    delegate?.didFinish(from: self)
   }
 }
 
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewModelDidRequestedChooseImage(_ viewModel: ContactEditViewModel,
-                                                   sourceType: UIImagePickerController.SourceType) {
+  func contactEditViewModelDidRequestClose() {
+    close()
+  }
+  
+  func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
+                                                 sourceType: UIImagePickerController.SourceType) {
     let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)
