@@ -10,6 +10,7 @@
 		9E17CFD5B8D1AF6BBCCA787A /* Pods_ios_contacts_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */; };
 		F7F3A15D233DDBF500352266 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15C233DDBF500352266 /* Constants.swift */; };
 		F7F3A15F233DE8BA00352266 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15E233DE8BA00352266 /* Section.swift */; };
+		F7F3A1632341ECBB00352266 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */; };
 		F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */; };
 		F7FDBE39232A6C0500BA15E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */; };
 		F7FDBE3C232A6C0500BA15E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */; };
@@ -53,6 +54,7 @@
 		CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_contacts_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7F3A15C233DDBF500352266 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F7F3A15E233DE8BA00352266 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		F7FDBE2E232A6C0500BA15E5 /* ios_contacts_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_contacts_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */,
 				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
 				F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */,
+				F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7F3A1632341ECBB00352266 /* ReuseIdentifiable.swift in Sources */,
 				F7FDBE882330B78A00BA15E5 /* RealmContact.swift in Sources */,
 				F7FDBE75232F8D4700BA15E5 /* RingtoneService.swift in Sources */,
 				F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */,

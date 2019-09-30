@@ -8,10 +8,6 @@ import UIKit
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
   
-  private enum LocalConstants {
-    static let cellReuseIdentifier = "contactCell"
-  }
-  
   // MARK: - ViewController setup
   
   init(viewModel: ContactsListViewModel) {
@@ -27,10 +23,11 @@ class ContactsListViewController: UITableViewController {
     super.viewDidLoad()
     setupTableView()
     bindToViewModel()
+    viewModel.updateContacts()
   }
   
   private func setupTableView() {
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: LocalConstants.cellReuseIdentifier)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
   }
   
   private func bindToViewModel() {
@@ -53,17 +50,17 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.getNumberOfRowsIn(section: section)
+    return viewModel.numberOfRowsIn(section: section)
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.getSectionTitle(at: section)
+    return viewModel.sectionTitle(at: section)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.cellReuseIdentifier, for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
       
-    cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
+    cell.textLabel?.attributedText = viewModel.contactName(at: indexPath)
 
     return cell
    }
