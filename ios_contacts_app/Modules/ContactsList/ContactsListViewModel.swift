@@ -66,7 +66,7 @@ class ContactsListViewModel {
   
   // MARK: - Data for tableView
   
-  func getContactName(at indexPath: IndexPath) -> NSMutableAttributedString {
+  func contactName(at indexPath: IndexPath) -> NSMutableAttributedString {
     let name = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].firstName + " ")
     let attrs = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17)]
     let lastName = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].lastName,
@@ -79,7 +79,7 @@ class ContactsListViewModel {
     return contactsWithSections[section].title
   }
   
-  func sumberOfRowsIn(section: Int) -> Int {
+  func numberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].rows.count
   }
   
