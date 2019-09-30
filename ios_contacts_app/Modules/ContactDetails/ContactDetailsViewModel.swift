@@ -3,7 +3,7 @@
 //  ios_contacts_app
 //
 
-import Foundation
+import UIKit
 
 protocol ContactDetailsViewModelDelegate: class {
   func contactDetailsViewModelDidFinish(_ viewModel: ContactDetailsViewModel)

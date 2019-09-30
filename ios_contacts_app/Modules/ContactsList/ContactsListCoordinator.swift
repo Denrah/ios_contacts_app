@@ -9,19 +9,20 @@ class ContactsListCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactsListViewModel: ContactsListViewModel?
   private var searchResultsUpdater: SearchResultsUpdater?
+  private let storageService: StorageService
   
   private enum Contants {
     static let screenTitle = "Contacts"
   }
-  
+ 
   // MARK: - Coordinator setup
   
   init(rootViewController: UINavigationController) {
     self.rootViewController = rootViewController
+    storageService = StorageService()
   }
   
   override func start() {
-    let storageService = StorageService()
     contactsListViewModel = ContactsListViewModel(storageService: storageService)
     guard let contactsListViewModel = contactsListViewModel else { return }
     contactsListViewModel.delegate = self
@@ -32,7 +33,7 @@ class ContactsListCoordinator: Coordinator {
   }
   
   private func setupNavigationBar(viewController: UIViewController) {
-    rootViewController.navigationBar.barTintColor = UIColor.white
+    setNavigationBarAppearance()
     rootViewController.navigationBar.prefersLargeTitles = true
     viewController.navigationItem.title = Contants.screenTitle
     viewController.navigationItem.largeTitleDisplayMode = .always
@@ -79,6 +80,13 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
   func didFinish(from coordinator: ContactEditCoordinator) {
     removeChildCoordinator(coordinator)
+    contactsListViewModel?.getContacts()
+  }
+}
+
+extension ContactsListCoordinator: ContactDetailsCoordinatorDelegate {
+  func didFinish(from coordinator: ContactDetailsCoordinator) {
+    setNavigationBarAppearance()
     contactsListViewModel?.getContacts()
   }
 }

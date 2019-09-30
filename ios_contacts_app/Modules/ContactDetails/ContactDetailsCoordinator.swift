@@ -5,6 +5,10 @@
 
 import UIKit
 
+protocol ContactDetailsCoordinatorDelegate: class {
+  func didFinish(from coordinator: ContactDetailsCoordinator)
+}
+
 class ContactDetailsCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactDetailsViewModel: ContactDetailsViewModel?
@@ -19,10 +23,13 @@ class ContactDetailsCoordinator: Coordinator {
   
   init(rootViewController: UINavigationController, storageService: StorageService, contactID: String) {
     self.rootViewController = rootViewController
+    self.storageService = storageService
+    self.contactID = contactID
   }
   
   override func start() {
-    let contactDetailsViewModel = ContactDetailsViewModel()
+    contactDetailsViewModel = ContactDetailsViewModel(storageService: storageService, contactID: contactID)
+    guard let contactDetailsViewModel = contactDetailsViewModel else { return }
     contactDetailsViewModel.delegate = self
     let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
     setupNavigationBar(viewController: contactDetailsViewController)

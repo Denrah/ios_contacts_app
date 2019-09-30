@@ -11,7 +11,6 @@
 		F7F3A15D233DDBF500352266 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15C233DDBF500352266 /* Constants.swift */; };
 		F7F3A15F233DE8BA00352266 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15E233DE8BA00352266 /* Section.swift */; };
 		F7F3A161233E101500352266 /* StorageService+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A160233E101500352266 /* StorageService+Contacts.swift */; };
-		F7F3A1632341ECBB00352266 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */; };
 		F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */; };
 		F7FDBE39232A6C0500BA15E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */; };
 		F7FDBE3C232A6C0500BA15E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */; };
@@ -56,7 +55,6 @@
 		F7F3A15C233DDBF500352266 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F7F3A15E233DE8BA00352266 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		F7F3A160233E101500352266 /* StorageService+Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "StorageService+Contacts.swift"; path = "ios_contacts_app/Services/StorageService+Contacts.swift"; sourceTree = "<group>"; };
-		F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		F7FDBE2E232A6C0500BA15E5 /* ios_contacts_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_contacts_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */,
 				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
 				F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */,
-				F7F3A1622341ECBB00352266 /* ReuseIdentifiable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -408,7 +405,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7F3A1632341ECBB00352266 /* ReuseIdentifiable.swift in Sources */,
 				F7FDBE882330B78A00BA15E5 /* RealmContact.swift in Sources */,
 				F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */,
 				F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */,
