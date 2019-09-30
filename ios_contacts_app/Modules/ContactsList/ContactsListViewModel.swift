@@ -36,7 +36,6 @@ class ContactsListViewModel {
 
   init(storageService: StorageService) {
     self.storageService = storageService
-    getContacts()
   }
   
   // MARK: - Loading contacts
@@ -76,15 +75,15 @@ class ContactsListViewModel {
     return name
   }
   
-  func getSectionTitle(at section: Int) -> String {
+  func sectionTitle(at section: Int) -> String {
     return contactsWithSections[section].title
   }
   
-  func getNumberOfRowsIn(section: Int) -> Int {
+  func sumberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].rows.count
   }
   
-  func getSectionIndexTitles() -> [String] {
+  func sectionIndexTitles() -> [String] {
     return collation.sectionIndexTitles
   }
   

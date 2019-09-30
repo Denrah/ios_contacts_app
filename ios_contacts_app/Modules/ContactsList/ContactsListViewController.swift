@@ -23,10 +23,11 @@ class ContactsListViewController: UITableViewController {
     super.viewDidLoad()
     setupTableView()
     bindToViewModel()
+    viewModel.getContacts()
   }
   
   private func setupTableView() {
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: LocalConstants.cellReuseIdentifier)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
   }
   
   private func bindToViewModel() {
@@ -49,15 +50,15 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.getNumberOfRowsIn(section: section)
+    return viewModel.sumberOfRowsIn(section: section)
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return viewModel.getSectionTitle(at: section)
+    return viewModel.sectionTitle(at: section)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: LocalConstants.cellReuseIdentifier, for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
     
     cell.textLabel?.attributedText = viewModel.getContactName(at: indexPath)
 
@@ -69,7 +70,7 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-    return viewModel.getSectionIndexTitles()
+    return viewModel.sectionIndexTitles()
   }
 
   // MARK: - Handle cell selection
