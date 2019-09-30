@@ -38,9 +38,9 @@ class ContactsListViewModel {
     self.storageService = storageService
   }
   
-  // MARK: - Loading contacts
+  // MARK: - Loading and filter contacts
   
-  func getContacts() {
+  func loadContacts() {
     let result = storageService.getContacts()
     switch result {
     case .success(let contacts):
@@ -51,7 +51,19 @@ class ContactsListViewModel {
     }
   }
   
-  func updateContacts(contacts: [Contact]) {
+  func filterContacts(input: String) {
+    guard !input.isEmpty else {
+      updateContacts(contacts: contacts)
+      return
+    }
+    let contacts: [Contact] = self.contacts.filter { contact -> Bool in
+      return contact.firstName.range(of: input, options: [.caseInsensitive]) != nil
+        || (contact.lastName.range(of: input, options: [.caseInsensitive]) != nil)
+    }
+    updateContacts(contacts: contacts)
+  }
+  
+  private func updateContacts(contacts: [Contact]) {
     let sections = collation.partitionObjects(array: contacts,
                                               collationStringSelector: #selector(getter: Contact.lastName))
     self.contactsWithSections = sections

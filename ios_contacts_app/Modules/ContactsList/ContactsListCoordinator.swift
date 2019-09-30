@@ -80,13 +80,13 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
   func didFinish(from coordinator: ContactEditCoordinator) {
     removeChildCoordinator(coordinator)
-    contactsListViewModel?.getContacts()
+    contactsListViewModel?.loadContacts()
   }
 }
 
 extension ContactsListCoordinator: ContactDetailsCoordinatorDelegate {
   func didFinish(from coordinator: ContactDetailsCoordinator) {
     setNavigationBarAppearance()
-    contactsListViewModel?.getContacts()
+    contactsListViewModel?.loadContacts()
   }
 }

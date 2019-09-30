@@ -23,7 +23,7 @@ class ContactsListViewController: UITableViewController {
     super.viewDidLoad()
     setupTableView()
     bindToViewModel()
-    viewModel.getContacts()
+    viewModel.loadContacts()
   }
   
   private func setupTableView() {
