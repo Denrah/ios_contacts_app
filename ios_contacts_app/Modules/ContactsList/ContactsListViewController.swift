@@ -8,10 +8,6 @@ import UIKit
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
 
-  private enum LocalConstants {
-    static let cellReuseIdentifier = "contactCell"
-  }
-  
   // MARK: - ViewController setup
   
   init(viewModel: ContactsListViewModel) {
