@@ -7,7 +7,7 @@ import UIKit
 
 class ContactsListViewController: UITableViewController {
   private let viewModel: ContactsListViewModel
-  
+
   // MARK: - ViewController setup
   
   init(viewModel: ContactsListViewModel) {
@@ -23,7 +23,7 @@ class ContactsListViewController: UITableViewController {
     super.viewDidLoad()
     setupTableView()
     bindToViewModel()
-    viewModel.updateContacts()
+    viewModel.loadContacts()
   }
   
   private func setupTableView() {
@@ -67,5 +67,9 @@ class ContactsListViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 28
+  }
+  
+  override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    return viewModel.sectionIndexTitles()
   }
 }

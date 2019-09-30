@@ -7,7 +7,7 @@ import UIKit
 
 extension StorageService {
   func saveContact(_ contact: Contact) -> (Result<Void, Error>) {
-    let realmContact = RealmContact.fromContact(contact)    
+    let realmContact = RealmContact.fromContact(contact)
     
     let result = saveObject(realmContact)
     

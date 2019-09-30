@@ -29,23 +29,45 @@ class ContactsListViewModel {
     return contactsWithSections.count
   }
   
+  var contacts: [Contact] = []
+  
   // MARK: - View setup
   
   init(storageService: StorageService) {
     self.storageService = storageService
+    loadContacts()
   }
   
-  func updateContacts() {
+  // MARK: - Loading and filter contacts
+  
+  func loadContacts() {
     let result = storageService.getContacts()
     switch result {
     case .success(let contacts):
-      let sections = collation.partitionObjects(array: contacts,
-                                                collationStringSelector: #selector(getter: Contact.lastName))
-      contactsWithSections = sections
-      didUpdate?()
+      self.contacts = contacts
+      updateContacts(contacts: contacts)
     case .failure(let error):
       didReceiveError?(error)
     }
+  }
+  
+  func filterContacts(input: String) {
+    guard !input.isEmpty else {
+      updateContacts(contacts: contacts)
+      return
+    }
+    let contacts: [Contact] = self.contacts.filter { contact -> Bool in
+      return contact.firstName.range(of: input, options: [.caseInsensitive]) != nil
+        || (contact.lastName.range(of: input, options: [.caseInsensitive]) != nil)
+    }
+    updateContacts(contacts: contacts)
+  }
+  
+  private func updateContacts(contacts: [Contact]) {
+    let sections = collation.partitionObjects(array: contacts,
+                                              collationStringSelector: #selector(getter: Contact.lastName))
+    self.contactsWithSections = sections
+    didUpdate?()
   }
   
   // MARK: - Add contact press handling
@@ -71,5 +93,9 @@ class ContactsListViewModel {
   
   func numberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].rows.count
+  }
+  
+  func sectionIndexTitles() -> [String] {
+    return collation.sectionIndexTitles
   }
 }

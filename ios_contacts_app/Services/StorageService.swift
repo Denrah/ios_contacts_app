@@ -33,7 +33,7 @@ class StorageService {
     guard let realm = try? Realm() else {
       return Result.failure(StorageError.initFail)
     }
-
+    
     do {
       try realm.write {
         realm.add(object)
