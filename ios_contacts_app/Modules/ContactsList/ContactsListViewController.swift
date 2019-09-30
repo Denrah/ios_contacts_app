@@ -23,7 +23,7 @@ class ContactsListViewController: UITableViewController {
     super.viewDidLoad()
     setupTableView()
     bindToViewModel()
-    viewModel.getContacts()
+    viewModel.loadContacts()
   }
   
   private func setupTableView() {
@@ -70,6 +70,6 @@ class ContactsListViewController: UITableViewController {
   }
   
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-    return viewModel.getSectionIndexTitles()
+    return viewModel.sectionIndexTitles()
   }
 }

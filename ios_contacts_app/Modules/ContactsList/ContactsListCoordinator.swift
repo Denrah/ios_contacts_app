@@ -64,6 +64,6 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
 extension ContactsListCoordinator: ContactEditCoordinatorDelegate {
   func didFinish(from coordinator: ContactEditCoordinator) {
     removeChildCoordinator(coordinator)
-    contactsListViewModel?.getContacts()
+    contactsListViewModel?.loadContacts()
   }
 }
