@@ -8,12 +8,11 @@ import UIKit
 class ContactEditViewController: UIViewController {
   @IBOutlet private weak var notesTextView: UITextView!
   @IBOutlet private weak var notesPlaceholderLabel: UILabel!
-  @IBOutlet private weak var ringtoneTextField: UITextField!
+  @IBOutlet private weak var ringtoneTextView: UITextField!
   @IBOutlet private weak var imagePickerButton: UIButton!
   @IBOutlet private weak var firstNameTextField: UITextField!
   @IBOutlet private weak var lastNametextField: UITextField!
   @IBOutlet private weak var phoneTextField: UITextField!
-  @IBOutlet private weak var contactDeleteView: UIView!
   
   private let viewModel: ContactEditViewModel
   
@@ -26,10 +25,6 @@ class ContactEditViewController: UIViewController {
     static let imagePickerActionSheetTitle = "Select image"
     static let imagePickerActionSheetCameraOption = "Take photo"
     static let imagePickerActionSheerLibraryOprion = "Choose photo"
-    static let deleteTitle = "Delete"
-    static let deleteText = "Are you sure you want to delete the contact?"
-    static let deleteConfirm = "Delete"
-    static let deleteCancel = "Cancel"
   }
   
   // MARK: - ViewController setup
@@ -61,25 +56,16 @@ class ContactEditViewController: UIViewController {
     
     addInputAccessoryForTextFields(input: phoneTextField, nextResponder: notesTextView)
     
-    ringtoneTextField.inputView = ringtonePickerView
-    ringtoneTextField.inputAccessoryView = ringtonePickerToolbar
-    
-    ringtoneTextField.text = viewModel.selectedRingtone.value
-    firstNameTextField.text = viewModel.firstName.value
-    lastNametextField.text = viewModel.lastName.value
-    phoneTextField.text = viewModel.phoneNumber.value
-    notesTextView.text = viewModel.notes.value
-    notesPlaceholderLabel.isHidden = !notesTextView.text.isEmpty
-    imagePickerButton.setImage(viewModel.selectedImage.value ?? #imageLiteral(resourceName: "add"), for: .normal)
-    contactDeleteView.isHidden = viewModel.deleteButtonIsHidden.value ?? true
+    ringtoneTextView.inputView = ringtonePickerView
+    ringtoneTextView.inputAccessoryView = ringtonePickerToolbar
   }
   
   private func bindToViewModel() {
     viewModel.selectedRingtone.bind = { [weak self] ringtone in
-      ringtone.flatMap { self?.ringtoneTextField.text = $0 }
+      ringtone.flatMap { self?.ringtoneTextView.text = $0 }
     }
     viewModel.ringtonePickerDidTapDone = { [weak self] in
-      self?.ringtoneTextField.resignFirstResponder()
+      self?.ringtoneTextView.resignFirstResponder()
     }
     viewModel.selectedImage.bind = { [weak self] image in
       image.flatMap { self?.imagePickerButton.setImage($0, for: .normal) }
@@ -97,14 +83,11 @@ class ContactEditViewController: UIViewController {
                                  lastName: self.lastNametextField.text,
                                  phone: self.phoneTextField.text, notes: self.notesTextView.text)
     }
-    viewModel.deleteButtonIsHidden.bind = { [weak self] isHidden in
-      isHidden.flatMap { self?.contactDeleteView.isHidden = $0 }
-    }
   }
   
   // MARK: - Image picking handling
   
-  @IBAction private func didTapChooseImage() {
+  @IBAction private func onChooseImageButton() {
     let actionSheet = UIAlertController(title: LocalConstants.imagePickerActionSheetTitle,
                                         message: nil, preferredStyle: .actionSheet)
     actionSheet.addAction(UIAlertAction(title: LocalConstants.imagePickerActionSheetCameraOption, style: .default) { _ in

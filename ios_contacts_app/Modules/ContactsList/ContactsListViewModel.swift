@@ -33,7 +33,7 @@ class ContactsListViewModel {
   var contacts: [Contact] = []
   
   // MARK: - View setup
-
+  
   init(storageService: StorageService) {
     self.storageService = storageService
     getContacts()
@@ -67,7 +67,7 @@ class ContactsListViewModel {
   
   // MARK: - Data for tableView
   
-  func getContactName(at indexPath: IndexPath) -> NSMutableAttributedString {
+  func contactName(at indexPath: IndexPath) -> NSMutableAttributedString {
     let name = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].firstName + " ")
     let attrs = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17)]
     let lastName = NSMutableAttributedString(string: contactsWithSections[indexPath.section].rows[indexPath.row].lastName,
@@ -76,11 +76,11 @@ class ContactsListViewModel {
     return name
   }
   
-  func getSectionTitle(at section: Int) -> String {
+  func sectionTitle(at section: Int) -> String {
     return contactsWithSections[section].title
   }
   
-  func getNumberOfRowsIn(section: Int) -> Int {
+  func numberOfRowsIn(section: Int) -> Int {
     return contactsWithSections[section].rows.count
   }
   
