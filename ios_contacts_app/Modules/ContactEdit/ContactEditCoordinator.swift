@@ -13,6 +13,7 @@ protocol ContactEditCoordinatorDelegate: class {
 
 class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
+  private let contactEditNavigationController = UINavigationController()
   private var contactEditViewModel: ContactEditViewModel?
   private let contactID: String?
   
@@ -36,13 +37,22 @@ class ContactEditCoordinator: Coordinator {
     guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
-    setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
-     rootViewController.pushViewController(contactEditViewController, animated: true)
+    
+    contactEditNavigationController.setViewControllers([contactEditViewController], animated: false)
+    
+    setupNavigationBar(viewController: contactEditViewController,
+                       navigationController: contactEditNavigationController,
+                       viewModel: contactEditViewModel)
+    rootViewController.present(contactEditNavigationController, animated: true)
   }
   
-  private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
-    rootViewController.navigationBar.barTintColor = UIColor.white
-    rootViewController.navigationBar.shadowImage = UIImage()
+  private func setupNavigationBar(viewController: UIViewController,
+                                  navigationController: UINavigationController,
+                                  viewModel: ContactEditViewModel) {
+    navigationController.modalPresentationStyle = .fullScreen
+    
+    navigationController.navigationBar.barTintColor = UIColor.white
+    navigationController.navigationBar.shadowImage = UIImage()
     viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
@@ -54,12 +64,13 @@ class ContactEditCoordinator: Coordinator {
   }
   
   private func closeAllScreens() {
+    contactEditNavigationController.dismiss(animated: true, completion: nil)
     rootViewController.popToRootViewController(animated: true)
     delegate?.didFinish(from: self)
   }
   
   private func close() {
-    rootViewController.popViewController(animated: true)
+    contactEditNavigationController.dismiss(animated: true, completion: nil)
     delegate?.didFinish(from: self)
   }
 }
@@ -67,7 +78,7 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
-  func contactEditViewModelDidRequestedCloseAllScreens() {
+  func contactEditViewModelDidDeleteContact() {
     closeAllScreens()
   }
   
@@ -77,7 +88,8 @@ extension ContactEditCoordinator: ContactEditViewModelDelegate {
   
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType) {
-    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
+    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: contactEditNavigationController,
+                                                        sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)
     imagePickerCoordinator.start()

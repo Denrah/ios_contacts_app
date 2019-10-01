@@ -62,7 +62,7 @@ class ContactDetailsViewController: UIViewController {
     let topView = UIView()
     scrollView.addSubview(topView)
     topView.snp.makeConstraints { make in
-      make.left.right.equalTo(0)
+      make.leading.trailing.equalToSuperview()
       make.bottom.equalTo(scrollView.snp.top)
       make.top.equalTo(contentView.snp.top)
     }
@@ -71,16 +71,16 @@ class ContactDetailsViewController: UIViewController {
   
   private func bindToViewModel() {
     viewModel.contactName.bind = { [weak self] name in
-      name.flatMap { self?.contactNameLabel.text = $0 }
+      self?.contactNameLabel.text = name
     }
     viewModel.phoneNumber.bind = { [weak self] phone in
-      phone.flatMap { self?.phoneNumberButton.setTitle($0, for: .normal) }
+      self?.phoneNumberButton.setTitle(phone, for: .normal)
     }
     viewModel.ringtone.bind = { [weak self] ringtone in
-      ringtone.flatMap { self?.ringtoneLabel.text = $0 }
+      self?.ringtoneLabel.text = ringtone
     }
     viewModel.notes.bind = { [weak self] notes in
-      notes.flatMap { self?.notesLabel.text = $0 }
+      self?.notesLabel.text = notes
     }
     viewModel.contactImage.bind = { [weak self] image in
       if let contactImage = image {
@@ -91,7 +91,7 @@ class ContactDetailsViewController: UIViewController {
       }
     }
     viewModel.contactImagePlaceholder.bind = { [weak self] placeholder in
-      placeholder.flatMap { self?.contactImagePlaceholderLabel.text = $0 }
+      self?.contactImagePlaceholderLabel.text = placeholder
     }
     viewModel.didReceiveError = { [weak self] error in
       let alert = UIAlertController(title: Constants.errorAlertTitle,

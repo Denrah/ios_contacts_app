@@ -9,7 +9,7 @@ protocol ContactEditViewModelDelegate: class {
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType)
   func contactEditViewModelDidRequestClose()
-  func contactEditViewModelDidRequestedCloseAllScreens()
+  func contactEditViewModelDidDeleteContact()
 }
 
 enum ContactsEditErrors: Error {
@@ -74,8 +74,6 @@ class ContactEditViewModel {
   }
   
   private func prepareData() {
-    getRingtones()
-    
     if let contactID = contactID {
       let result = storageService.getContact(contactID: contactID)
       switch result {
@@ -91,11 +89,14 @@ class ContactEditViewModel {
         didReceiveError?(error)
       }
     }
+    
+    getRingtones()
   }
   
   private func getRingtones() {
-    selectedRingtone.value = ringtoneService.getDefaultRingtone()
+    selectedRingtone.value = selectedRingtone.value ?? ringtoneService.getDefaultRingtone()
     ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
+    ringtonePickerViewModel.setDefaultRingtone(selectedRingtone.value)
   }
   
   // MARK: - View events handling
@@ -135,7 +136,7 @@ class ContactEditViewModel {
     
     switch result {
     case .success:
-      delegate?.contactEditViewModelDidRequestedCloseAllScreens()
+      delegate?.contactEditViewModelDidDeleteContact()
     case .failure(let error):
       didReceiveError?(error)
     }

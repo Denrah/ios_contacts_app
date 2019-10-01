@@ -26,12 +26,16 @@ class RingtonePickerView: UIPickerView {
     delegate = self
     dataSource = self
     reloadAllComponents()
+    selectRow(viewModel.defaultRingtone.value ?? 0, inComponent: 0, animated: false)
     bindToViewModel()
   }
   
   private func bindToViewModel() {
     viewModel.ringtones.bind = { [weak self] _ in
       self?.reloadAllComponents()
+    }
+    viewModel.defaultRingtone.bind = { [weak self] ringtone in
+      ringtone.flatMap { self?.selectRow($0, inComponent: 0, animated: false) }
     }
   }
 }
