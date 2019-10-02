@@ -59,8 +59,7 @@ class ContactsListViewModel {
       return
     }
     let contacts: [Contact] = self.contacts.filter { contact -> Bool in
-      return contact.firstName.range(of: input, options: [.caseInsensitive]) != nil
-        || (contact.lastName.range(of: input, options: [.caseInsensitive]) != nil)
+      return (contact.firstName + " " + contact.lastName).range(of: input, options: [.caseInsensitive]) != nil
     }
     updateContacts(contacts: contacts)
   }
@@ -89,8 +88,18 @@ class ContactsListViewModel {
     return name
   }
   
-  func sectionTitle(at section: Int) -> String {
+  func sectionTitle(at section: Int) -> String? {
+    if contactsWithSections[section].rows.isEmpty {
+      return nil
+    }
     return contactsWithSections[section].title
+  }
+  
+  func sectionHeight(at section: Int) -> CGFloat {
+    if contactsWithSections[section].rows.isEmpty {
+      return 0
+    }
+    return 28
   }
   
   func numberOfRowsIn(section: Int) -> Int {
