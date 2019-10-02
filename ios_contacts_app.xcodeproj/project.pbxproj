@@ -3,25 +3,106 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E17CFD5B8D1AF6BBCCA787A /* Pods_ios_contacts_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */; };
+		F7999D56234205FD00FEADB3 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7999D55234205FD00FEADB3 /* ReuseIdentifiable.swift */; };
+		F7F3A15D233DDBF500352266 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15C233DDBF500352266 /* Constants.swift */; };
+		F7F3A15F233DE8BA00352266 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A15E233DE8BA00352266 /* Section.swift */; };
+		F7F3A161233E101500352266 /* StorageService+Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F3A160233E101500352266 /* StorageService+Contacts.swift */; };
 		F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */; };
-		F7FDBE34232A6C0500BA15E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE33232A6C0500BA15E5 /* ViewController.swift */; };
-		F7FDBE37232A6C0500BA15E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE35232A6C0500BA15E5 /* Main.storyboard */; };
 		F7FDBE39232A6C0500BA15E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */; };
 		F7FDBE3C232A6C0500BA15E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */; };
+		F7FDBE45232B3FD400BA15E5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE44232B3FD400BA15E5 /* Coordinator.swift */; };
+		F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE47232B400400BA15E5 /* AppCoordinator.swift */; };
+		F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE4D232B427B00BA15E5 /* ContactEditViewController.swift */; };
+		F7FDBE50232B427B00BA15E5 /* ContactEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE4E232B427B00BA15E5 /* ContactEditViewController.xib */; };
+		F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE51232B428C00BA15E5 /* ContactEditViewModel.swift */; };
+		F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE53232B429F00BA15E5 /* ContactEditCoordinator.swift */; };
+		F7FDBE57232B43CD00BA15E5 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE56232B43CD00BA15E5 /* Dynamic.swift */; };
+		F7FDBE5A232B479500BA15E5 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE58232B479500BA15E5 /* ContactDetailsViewController.swift */; };
+		F7FDBE5B232B479500BA15E5 /* ContactDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE59232B479500BA15E5 /* ContactDetailsViewController.xib */; };
+		F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE5C232B47CA00BA15E5 /* ContactDetailsViewModel.swift */; };
+		F7FDBE5F232B480500BA15E5 /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE5E232B480500BA15E5 /* ContactDetailsCoordinator.swift */; };
+		F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE60232B48E800BA15E5 /* ContactsListViewController.swift */; };
+		F7FDBE63232B48E800BA15E5 /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7FDBE61232B48E800BA15E5 /* ContactsListViewController.xib */; };
+		F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE64232B494400BA15E5 /* ContactsListViewModel.swift */; };
+		F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE66232B495500BA15E5 /* ContactsListCoordinator.swift */; };
+		F7FDBE69232B6FA000BA15E5 /* RingtonePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE68232B6FA000BA15E5 /* RingtonePickerView.swift */; };
+		F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE6B232B733F00BA15E5 /* Colors.swift */; };
+		F7FDBE6E232B77A800BA15E5 /* RingtoneToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE6D232B77A800BA15E5 /* RingtoneToolbarView.swift */; };
+		F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE6F232F826100BA15E5 /* RingtonePickerViewModel.swift */; };
+		F7FDBE72232F87F100BA15E5 /* RingtoneToolbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE71232F87F100BA15E5 /* RingtoneToolbarViewModel.swift */; };
+		F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */; };
+		F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */; };
+		F7FDBE7F23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */; };
+		F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */; };
+		F7FDBE882330B78A00BA15E5 /* RealmContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE872330B78A00BA15E5 /* RealmContact.swift */; };
+		F7FDBE8D2330B9EA00BA15E5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */; };
+		F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */; };
+		F7FDBE9323348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */; };
+		F7FDBE9523349DAF00BA15E5 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9423349DAF00BA15E5 /* AppError.swift */; };
+		F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */; };
+		F7FDBE9C2339DCF200BA15E5 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */; };
+		F7FDBE9D2339DCF200BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */; };
+		F7FE700F23448E2400374511 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE700E23448E2400374511 /* AppDependency.swift */; };
+		F7FE70112344AF4300374511 /* DataSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE70102344AF4300374511 /* DataSeeder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42318E08B1DAD402DE400A27 /* Pods-ios_contacts_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.debug.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.debug.xcconfig"; sourceTree = "<group>"; };
+		CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_contacts_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7999D55234205FD00FEADB3 /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
+		F7F3A15C233DDBF500352266 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F7F3A15E233DE8BA00352266 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		F7F3A160233E101500352266 /* StorageService+Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "StorageService+Contacts.swift"; path = "ios_contacts_app/Services/StorageService+Contacts.swift"; sourceTree = "<group>"; };
 		F7FDBE2E232A6C0500BA15E5 /* ios_contacts_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_contacts_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F7FDBE33232A6C0500BA15E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F7FDBE36232A6C0500BA15E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7FDBE3B232A6C0500BA15E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7FDBE3D232A6C0500BA15E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7FDBE44232B3FD400BA15E5 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F7FDBE47232B400400BA15E5 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE4D232B427B00BA15E5 /* ContactEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEditViewController.swift; sourceTree = "<group>"; };
+		F7FDBE4E232B427B00BA15E5 /* ContactEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactEditViewController.xib; sourceTree = "<group>"; };
+		F7FDBE51232B428C00BA15E5 /* ContactEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEditViewModel.swift; sourceTree = "<group>"; };
+		F7FDBE53232B429F00BA15E5 /* ContactEditCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEditCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE56232B43CD00BA15E5 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		F7FDBE58232B479500BA15E5 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
+		F7FDBE59232B479500BA15E5 /* ContactDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactDetailsViewController.xib; sourceTree = "<group>"; };
+		F7FDBE5C232B47CA00BA15E5 /* ContactDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewModel.swift; sourceTree = "<group>"; };
+		F7FDBE5E232B480500BA15E5 /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE60232B48E800BA15E5 /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
+		F7FDBE61232B48E800BA15E5 /* ContactsListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsListViewController.xib; sourceTree = "<group>"; };
+		F7FDBE64232B494400BA15E5 /* ContactsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewModel.swift; sourceTree = "<group>"; };
+		F7FDBE66232B495500BA15E5 /* ContactsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE68232B6FA000BA15E5 /* RingtonePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtonePickerView.swift; sourceTree = "<group>"; };
+		F7FDBE6B232B733F00BA15E5 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		F7FDBE6D232B77A800BA15E5 /* RingtoneToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneToolbarView.swift; sourceTree = "<group>"; };
+		F7FDBE6F232F826100BA15E5 /* RingtonePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtonePickerViewModel.swift; sourceTree = "<group>"; };
+		F7FDBE71232F87F100BA15E5 /* RingtoneToolbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneToolbarViewModel.swift; sourceTree = "<group>"; };
+		F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
+		F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHandler.swift; sourceTree = "<group>"; };
+		F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		F7FDBE7E23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		F7FDBE8123309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+inputAccessory.swift"; sourceTree = "<group>"; };
+		F7FDBE852330B4A200BA15E5 /* ios_contacts_app-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios_contacts_app-Bridging-Header.h"; sourceTree = "<group>"; };
+		F7FDBE872330B78A00BA15E5 /* RealmContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmContact.swift; sourceTree = "<group>"; };
+		F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
+		F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILocalizedIndexedCollation+PartitionObjects.swift"; sourceTree = "<group>"; };
+		F7FDBE9423349DAF00BA15E5 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdater.swift; sourceTree = "<group>"; };
+		F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageService.swift; path = ios_contacts_app/Services/StorageService.swift; sourceTree = "<group>"; };
+		F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneService.swift; path = ios_contacts_app/Services/RingtoneService.swift; sourceTree = "<group>"; };
+		F7FE700E23448E2400374511 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		F7FE70102344AF4300374511 /* DataSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeeder.swift; sourceTree = "<group>"; };
+		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +110,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E17CFD5B8D1AF6BBCCA787A /* Pods_ios_contacts_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC1219A23D89DE587132FA68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA46AF13AF221AFE227F103A /* Pods_ios_contacts_app.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC8E559D9ACAD9510C9A8016 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				42318E08B1DAD402DE400A27 /* Pods-ios_contacts_app.debug.xcconfig */,
+				FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F7FDBE25232A6C0500BA15E5 = {
 			isa = PBXGroup;
 			children = (
 				F7FDBE30232A6C0500BA15E5 /* ios_contacts_app */,
 				F7FDBE2F232A6C0500BA15E5 /* Products */,
+				CC8E559D9ACAD9510C9A8016 /* Pods */,
+				CC1219A23D89DE587132FA68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +155,127 @@
 		F7FDBE30232A6C0500BA15E5 /* ios_contacts_app */ = {
 			isa = PBXGroup;
 			children = (
+				F7FDBE862330B77600BA15E5 /* Models */,
+				F7FDBE73232F8D3500BA15E5 /* Services */,
+				F7FDBE55232B436F00BA15E5 /* Helpers */,
+				F7FDBE6A232B733000BA15E5 /* Values */,
+				F7FDBE43232B3FB800BA15E5 /* Modules */,
 				F7FDBE31232A6C0500BA15E5 /* AppDelegate.swift */,
-				F7FDBE33232A6C0500BA15E5 /* ViewController.swift */,
-				F7FDBE35232A6C0500BA15E5 /* Main.storyboard */,
 				F7FDBE38232A6C0500BA15E5 /* Assets.xcassets */,
 				F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */,
 				F7FDBE3D232A6C0500BA15E5 /* Info.plist */,
 			);
 			path = ios_contacts_app;
+			sourceTree = "<group>";
+		};
+		F7FDBE43232B3FB800BA15E5 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE4B232B406300BA15E5 /* ContactEdit */,
+				F7FDBE4A232B405300BA15E5 /* ContactDetails */,
+				F7FDBE49232B404A00BA15E5 /* ContactsList */,
+				F7FDBE44232B3FD400BA15E5 /* Coordinator.swift */,
+				F7FDBE90233392A300BA15E5 /* ImagePickerCoordinator.swift */,
+				F7FDBE47232B400400BA15E5 /* AppCoordinator.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		F7FDBE49232B404A00BA15E5 /* ContactsList */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE60232B48E800BA15E5 /* ContactsListViewController.swift */,
+				F7FDBE61232B48E800BA15E5 /* ContactsListViewController.xib */,
+				F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */,
+				F7FDBE64232B494400BA15E5 /* ContactsListViewModel.swift */,
+				F7FDBE66232B495500BA15E5 /* ContactsListCoordinator.swift */,
+			);
+			path = ContactsList;
+			sourceTree = "<group>";
+		};
+		F7FDBE4A232B405300BA15E5 /* ContactDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE58232B479500BA15E5 /* ContactDetailsViewController.swift */,
+				F7FDBE59232B479500BA15E5 /* ContactDetailsViewController.xib */,
+				F7FDBE5C232B47CA00BA15E5 /* ContactDetailsViewModel.swift */,
+				F7FDBE5E232B480500BA15E5 /* ContactDetailsCoordinator.swift */,
+			);
+			path = ContactDetails;
+			sourceTree = "<group>";
+		};
+		F7FDBE4B232B406300BA15E5 /* ContactEdit */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE4D232B427B00BA15E5 /* ContactEditViewController.swift */,
+				F7FDBE4E232B427B00BA15E5 /* ContactEditViewController.xib */,
+				F7FDBE51232B428C00BA15E5 /* ContactEditViewModel.swift */,
+				F7FDBE53232B429F00BA15E5 /* ContactEditCoordinator.swift */,
+				F7FDBE68232B6FA000BA15E5 /* RingtonePickerView.swift */,
+				F7FDBE6D232B77A800BA15E5 /* RingtoneToolbarView.swift */,
+				F7FDBE6F232F826100BA15E5 /* RingtonePickerViewModel.swift */,
+				F7FDBE71232F87F100BA15E5 /* RingtoneToolbarViewModel.swift */,
+			);
+			path = ContactEdit;
+			sourceTree = "<group>";
+		};
+		F7FDBE55232B436F00BA15E5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE852330B4A200BA15E5 /* ios_contacts_app-Bridging-Header.h */,
+				F7FDBE8123309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				F7FDBE8023309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				F7FDBE7E23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.h */,
+				F7FDBE7D23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m */,
+				F7FDBE56232B43CD00BA15E5 /* Dynamic.swift */,
+				F7FDBE76232F953D00BA15E5 /* UIColor+RGBA.swift */,
+				F7FDBE78232F9DA000BA15E5 /* ImagePickerHandler.swift */,
+				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
+				F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */,
+				F7999D55234205FD00FEADB3 /* ReuseIdentifiable.swift */,
+				F7FE700E23448E2400374511 /* AppDependency.swift */,
+				F7FE70102344AF4300374511 /* DataSeeder.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F7FDBE6A232B733000BA15E5 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE6B232B733F00BA15E5 /* Colors.swift */,
+				F7FDBE9423349DAF00BA15E5 /* AppError.swift */,
+				F7F3A15C233DDBF500352266 /* Constants.swift */,
+			);
+			path = Values;
+			sourceTree = "<group>";
+		};
+		F7FDBE73232F8D3500BA15E5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */,
+				F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */,
+				F7F3A160233E101500352266 /* StorageService+Contacts.swift */,
+			);
+			name = Services;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F7FDBE862330B77600BA15E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE8B2330B9BD00BA15E5 /* RealmModels */,
+				F7FDBE8C2330B9EA00BA15E5 /* Contact.swift */,
+				F7F3A15E233DE8BA00352266 /* Section.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F7FDBE8B2330B9BD00BA15E5 /* RealmModels */ = {
+			isa = PBXGroup;
+			children = (
+				F7FDBE872330B78A00BA15E5 /* RealmContact.swift */,
+			);
+			path = RealmModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +285,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F7FDBE40232A6C0500BA15E5 /* Build configuration list for PBXNativeTarget "ios_contacts_app" */;
 			buildPhases = (
+				92D247AB48D78D77C916C87C /* [CP] Check Pods Manifest.lock */,
 				F7FDBE2A232A6C0500BA15E5 /* Sources */,
 				F7FDBE2B232A6C0500BA15E5 /* Frameworks */,
 				F7FDBE2C232A6C0500BA15E5 /* Resources */,
+				B9910AEECB7A5D514A6B55A3 /* [CP] Embed Pods Frameworks */,
+				F7FDBE4C232B41A200BA15E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -96,6 +313,7 @@
 				TargetAttributes = {
 					F7FDBE2D232A6C0500BA15E5 = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -122,35 +340,123 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7FDBE63232B48E800BA15E5 /* ContactsListViewController.xib in Resources */,
+				F7FDBE5B232B479500BA15E5 /* ContactDetailsViewController.xib in Resources */,
 				F7FDBE3C232A6C0500BA15E5 /* LaunchScreen.storyboard in Resources */,
+				F7FDBE50232B427B00BA15E5 /* ContactEditViewController.xib in Resources */,
 				F7FDBE39232A6C0500BA15E5 /* Assets.xcassets in Resources */,
-				F7FDBE37232A6C0500BA15E5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		92D247AB48D78D77C916C87C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ios_contacts_app-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9910AEECB7A5D514A6B55A3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7FDBE4C232B41A200BA15E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F7FDBE2A232A6C0500BA15E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7FDBE34232A6C0500BA15E5 /* ViewController.swift in Sources */,
+				F7FDBE882330B78A00BA15E5 /* RealmContact.swift in Sources */,
+				F7999D56234205FD00FEADB3 /* ReuseIdentifiable.swift in Sources */,
+				F7FDBE52232B428C00BA15E5 /* ContactEditViewModel.swift in Sources */,
+				F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */,
+				F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */,
+				F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */,
+				F7FE700F23448E2400374511 /* AppDependency.swift in Sources */,
+				F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */,
+				F7F3A15D233DDBF500352266 /* Constants.swift in Sources */,
+				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,
+				F7FDBE67232B495500BA15E5 /* ContactsListCoordinator.swift in Sources */,
+				F7FDBE842330A30F00BA15E5 /* UIViewController+inputAccessory.swift in Sources */,
+				F7FDBE48232B400400BA15E5 /* AppCoordinator.swift in Sources */,
+				F7FDBE9523349DAF00BA15E5 /* AppError.swift in Sources */,
+				F7FDBE9D2339DCF200BA15E5 /* RingtoneService.swift in Sources */,
+				F7FDBE5F232B480500BA15E5 /* ContactDetailsCoordinator.swift in Sources */,
+				F7FDBE6E232B77A800BA15E5 /* RingtoneToolbarView.swift in Sources */,
+				F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */,
+				F7FDBE72232F87F100BA15E5 /* RingtoneToolbarViewModel.swift in Sources */,
+				F7FDBE57232B43CD00BA15E5 /* Dynamic.swift in Sources */,
+				F7FDBE8223309EF400BA15E5 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				F7FDBE45232B3FD400BA15E5 /* Coordinator.swift in Sources */,
+				F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */,
+				F7F3A15F233DE8BA00352266 /* Section.swift in Sources */,
+				F7FE70112344AF4300374511 /* DataSeeder.swift in Sources */,
+				F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */,
+				F7FDBE8D2330B9EA00BA15E5 /* Contact.swift in Sources */,
+				F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */,
+				F7FDBE91233392A300BA15E5 /* ImagePickerCoordinator.swift in Sources */,
+				F7FDBE5A232B479500BA15E5 /* ContactDetailsViewController.swift in Sources */,
+				F7FDBE77232F953D00BA15E5 /* UIColor+RGBA.swift in Sources */,
+				F7FDBE9C2339DCF200BA15E5 /* StorageService.swift in Sources */,
 				F7FDBE32232A6C0500BA15E5 /* AppDelegate.swift in Sources */,
+				F7FDBE9323348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift in Sources */,
+				F7F3A161233E101500352266 /* StorageService+Contacts.swift in Sources */,
+				F7FDBE7F23309ECF00BA15E5 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				F7FDBE69232B6FA000BA15E5 /* RingtonePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F7FDBE35232A6C0500BA15E5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F7FDBE36232A6C0500BA15E5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F7FDBE3A232A6C0500BA15E5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -280,8 +586,10 @@
 		};
 		F7FDBE41232A6C0500BA15E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42318E08B1DAD402DE400A27 /* Pods-ios_contacts_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_contacts_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -290,6 +598,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "kode.ios-contacts-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_contacts_app/Helpers/ios_contacts_app-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -297,8 +607,10 @@
 		};
 		F7FDBE42232A6C0500BA15E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ios_contacts_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -307,6 +619,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "kode.ios-contacts-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ios_contacts_app/Helpers/ios_contacts_app-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
