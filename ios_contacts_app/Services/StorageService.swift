@@ -11,6 +11,7 @@ enum StorageError: Error {
   case objectConvertionFailed
   case failWriteToStorage
   case generalSaveFailure
+  case objectNotFound
 }
 
 extension StorageError: LocalizedError {
@@ -24,19 +25,27 @@ extension StorageError: LocalizedError {
       return "Can't write to storage"
     case .generalSaveFailure:
       return "Some error has occured while contact saving"
+    case .objectNotFound:
+      return "Object not found"
     }
   }
 }
 
 class StorageService {
+  private let realm: Realm?
+  
+  init() {
+    realm = try? Realm()
+  }
+  
   func saveObject<T>(_ object: T) -> Result<Void, Error> where T: Object {
-    guard let realm = try? Realm() else {
+    guard let realm = realm else {
       return Result.failure(StorageError.initFail)
     }
     
     do {
       try realm.write {
-        realm.add(object)
+        realm.add(object, update: .all)
       }
     } catch {
       return Result.failure(StorageError.failWriteToStorage)
@@ -45,12 +54,43 @@ class StorageService {
   }
   
   func getObjects<T>(ofType: T.Type) -> Result<[T], Error> where T: Object {
-    guard let realm = try? Realm() else {
+    guard let realm = realm else {
       return Result.failure(StorageError.initFail)
     }
     
     let objects = realm.objects(T.self)
     
     return Result.success(Array(objects))
+  }
+  
+  func getObjectByID<T>(ofType: T.Type, objectID: Any) -> Result<T, Error> where T: Object {
+    guard let realm = realm else {
+      return Result.failure(StorageError.initFail)
+    }
+    
+    guard let object = realm.object(ofType: T.self, forPrimaryKey: objectID) else {
+      return Result.failure(StorageError.objectNotFound)
+    }
+    
+    return Result.success(object)
+  }
+  
+  func deleteObjectByID<T>(ofType: T.Type, objectID: Any) -> Result<Void, Error> where T: Object {
+    guard let realm = realm else {
+      return Result.failure(StorageError.initFail)
+    }
+    
+    guard let object = realm.object(ofType: T.self, forPrimaryKey: objectID) else {
+      return Result.failure(StorageError.objectNotFound)
+    }
+    
+    do {
+      try realm.write {
+        realm.delete(object)
+      }
+    } catch {
+      return Result.failure(StorageError.failWriteToStorage)
+    }
+    return Result.success(())
   }
 }

@@ -7,10 +7,13 @@ import UIKit
 
 protocol ContactsListViewModelDelegate: class {
   func contactsListViewModelDidRequestShowContactAddScreen()
+  func contactsListViewModelDidRequestShowDetails(for contactId: String)
 }
 
 class ContactsListViewModel {
-  private let storageService: StorageService
+  typealias Dependencies = HasStorageService
+  
+  private let dependencies: Dependencies
   private let collation = UILocalizedIndexedCollation.current()
   private var contactsWithSections = [Section<Contact>]()
   
@@ -32,16 +35,15 @@ class ContactsListViewModel {
   var contacts: [Contact] = []
   
   // MARK: - View setup
-  
-  init(storageService: StorageService) {
-    self.storageService = storageService
-    loadContacts()
+
+  init(dependencies: Dependencies) {
+    self.dependencies = dependencies
   }
   
   // MARK: - Loading and filter contacts
   
   func loadContacts() {
-    let result = storageService.getContacts()
+    let result = dependencies.storageService.getContacts()
     switch result {
     case .success(let contacts):
       self.contacts = contacts
@@ -97,5 +99,12 @@ class ContactsListViewModel {
   
   func sectionIndexTitles() -> [String] {
     return collation.sectionIndexTitles
+  }
+  
+  // MARK: - Cell selection
+  
+  func didSelectCell(indexPath: IndexPath) {
+    guard let contactId = contactsWithSections[indexPath.section].rows[indexPath.row].id else { return }
+    delegate?.contactsListViewModelDidRequestShowDetails(for: contactId)
   }
 }

@@ -9,11 +9,14 @@ import RealmSwift
 
 protocol ContactEditCoordinatorDelegate: class {
   func didFinish(from coordinator: ContactEditCoordinator)
+  func didRequestReturnToMainScreen(from coordinator: ContactEditCoordinator)
 }
 
 class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
+  private let appDependency: AppDependency
   private var contactEditViewModel: ContactEditViewModel?
+  private let contactID: String?
   
   // MARK: - Delegate
   
@@ -21,25 +24,31 @@ class ContactEditCoordinator: Coordinator {
   
   // MARK: - Coordinator setup
   
-  init(rootViewController: UINavigationController) {
+  init(rootViewController: UINavigationController, appDependency: AppDependency, contactID: String? = nil) {
     self.rootViewController = rootViewController
+    self.contactID = contactID
+    self.appDependency = appDependency
   }
   
   override func start() {
-    let ringtoneService = RingtoneService()
-    let storageService = StorageService()
-    
-    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService, storageService: storageService)
+    contactEditViewModel = ContactEditViewModel(dependencies: appDependency, contactID: contactID)
     guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
-    setupNavigationBar(viewController: contactEditViewController, viewModel: contactEditViewModel)
-     rootViewController.pushViewController(contactEditViewController, animated: true)
+    
+    setupNavigationBar(viewController: contactEditViewController,
+                       navigationController: rootViewController,
+                       viewModel: contactEditViewModel)
+    rootViewController.pushViewController(contactEditViewController, animated: false)
   }
   
-  private func setupNavigationBar(viewController: UIViewController, viewModel: ContactEditViewModel) {
-    rootViewController.navigationBar.barTintColor = UIColor.white
-    rootViewController.navigationBar.shadowImage = UIImage()
+  private func setupNavigationBar(viewController: UIViewController,
+                                  navigationController: UINavigationController,
+                                  viewModel: ContactEditViewModel) {
+    navigationController.modalPresentationStyle = .fullScreen
+    
+    navigationController.navigationBar.barTintColor = UIColor.white
+    navigationController.navigationBar.shadowImage = UIImage()
     viewController.navigationItem.largeTitleDisplayMode = .never
     
     viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
@@ -50,8 +59,11 @@ class ContactEditCoordinator: Coordinator {
                                                                        action: #selector(contactEditViewModel?.didTapDone))
   }
   
+  private func closeAllScreens() {
+    delegate?.didRequestReturnToMainScreen(from: self)
+  }
+  
   private func close() {
-    rootViewController.popViewController(animated: true)
     delegate?.didFinish(from: self)
   }
 }
@@ -59,13 +71,18 @@ class ContactEditCoordinator: Coordinator {
 // MARK: - Image piker presentation
 
 extension ContactEditCoordinator: ContactEditViewModelDelegate {
+  func contactEditViewModelDidDeleteContact() {
+    closeAllScreens()
+  }
+  
   func contactEditViewModelDidRequestClose() {
     close()
   }
   
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType) {
-    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController, sourceType: sourceType)
+    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController,
+                                                        sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)
     imagePickerCoordinator.start()

@@ -7,7 +7,7 @@ import UIKit
 
 extension UIViewController {
   func addInputAccessoryForTextFields(input: UITextField, nextResponder: UIResponder) {
-    let toolbar: UIToolbar = UIToolbar()
+    let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 50, height: 44))
     toolbar.sizeToFit()
 
     let nextButton = UIBarButtonItem(title: "Next", style: .plain,

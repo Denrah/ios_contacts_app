@@ -7,13 +7,15 @@ import UIKit
 
 class AppCoordinator: Coordinator {
   // MARK: - Properties
-  let window: UIWindow?
-  
-  let rootViewController = UINavigationController()
+  private let window: UIWindow?
+  private let rootViewController = UINavigationController()
+  private let appDependency: AppDependency
   
   // MARK: - Coordinator
-  init(window: UIWindow?) {
+  init(window: UIWindow?, appDependency: AppDependency) {
+    window?.backgroundColor = UIColor.white
     self.window = window
+    self.appDependency = appDependency
   }
   
   override func start() {
@@ -21,7 +23,7 @@ class AppCoordinator: Coordinator {
       return
     }
     
-    let contactsListCoordinator = ContactsListCoordinator(rootViewController: rootViewController)
+    let contactsListCoordinator = ContactsListCoordinator(rootViewController: rootViewController, appDependency: appDependency)
     self.addChildCoordinator(contactsListCoordinator)
     contactsListCoordinator.start()
     
