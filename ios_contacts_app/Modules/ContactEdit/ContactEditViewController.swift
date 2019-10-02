@@ -29,7 +29,7 @@ class ContactEditViewController: UIViewController {
     static let deleteTitle = "Delete"
     static let deleteText = "Are you sure you want to delete the contact?"
     static let deleteConfirm = "Delete"
-    static let deleteCancel = "Cancel"
+    static let cancel = "Cancel"
   }
   
   // MARK: - ViewController setup
@@ -113,13 +113,14 @@ class ContactEditViewController: UIViewController {
     actionSheet.addAction(UIAlertAction(title: LocalConstants.imagePickerActionSheerLibraryOprion, style: .default) { _ in
       self.viewModel.chooseImage(sourceType: .photoLibrary)
     })
+    actionSheet.addAction(UIAlertAction(title: LocalConstants.cancel, style: .cancel, handler: nil))
     present(actionSheet, animated: true, completion: nil)
   }
   
   @IBAction private func didTapDelete() {
     let alert = UIAlertController(title: LocalConstants.deleteTitle, message: LocalConstants.deleteText,
                                   preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: LocalConstants.deleteCancel, style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: LocalConstants.cancel, style: .cancel, handler: nil))
     alert.addAction(UIAlertAction(title: LocalConstants.deleteConfirm, style: .destructive) { [weak self] _ in
       self?.viewModel.deleteContact()
     })

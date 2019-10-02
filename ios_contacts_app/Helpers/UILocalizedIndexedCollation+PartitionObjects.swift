@@ -18,7 +18,7 @@ extension UILocalizedIndexedCollation {
       unsortedSections[index].append(item)
     }
     var sections: [Section<T>] = []
-    for index in 0 ..< unsortedSections.count where !unsortedSections[index].isEmpty {
+    for index in 0 ..< unsortedSections.count {
       if let sortedArray = sortedArray(from: unsortedSections[index],
                                        collationStringSelector: collationStringSelector) as? [T] {
         let section = Section(rows: sortedArray, title: self.sectionTitles[index])

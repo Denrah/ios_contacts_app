@@ -66,7 +66,7 @@ class ContactsListViewController: UITableViewController {
    }
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 28
+    return viewModel.sectionHeight(at: section)
   }
   
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
