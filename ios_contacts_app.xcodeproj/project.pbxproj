@@ -49,6 +49,7 @@
 		F7FDBE9C2339DCF200BA15E5 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */; };
 		F7FDBE9D2339DCF200BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */; };
 		F7FE700F23448E2400374511 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE700E23448E2400374511 /* AppDependency.swift */; };
+		F7FE70112344AF4300374511 /* DataSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE70102344AF4300374511 /* DataSeeder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageService.swift; path = ios_contacts_app/Services/StorageService.swift; sourceTree = "<group>"; };
 		F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneService.swift; path = ios_contacts_app/Services/RingtoneService.swift; sourceTree = "<group>"; };
 		F7FE700E23448E2400374511 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		F7FE70102344AF4300374511 /* DataSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSeeder.swift; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 				F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */,
 				F7999D55234205FD00FEADB3 /* ReuseIdentifiable.swift */,
 				F7FE700E23448E2400374511 /* AppDependency.swift */,
+				F7FE70102344AF4300374511 /* DataSeeder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				F7FDBE45232B3FD400BA15E5 /* Coordinator.swift in Sources */,
 				F7FDBE62232B48E800BA15E5 /* ContactsListViewController.swift in Sources */,
 				F7F3A15F233DE8BA00352266 /* Section.swift in Sources */,
+				F7FE70112344AF4300374511 /* DataSeeder.swift in Sources */,
 				F7FDBE4F232B427B00BA15E5 /* ContactEditViewController.swift in Sources */,
 				F7FDBE8D2330B9EA00BA15E5 /* Contact.swift in Sources */,
 				F7FDBE79232F9DA000BA15E5 /* ImagePickerHandler.swift in Sources */,
