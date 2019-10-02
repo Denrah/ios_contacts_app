@@ -11,7 +11,9 @@ protocol ContactDetailsViewModelDelegate: class {
 }
 
 class ContactDetailsViewModel {
-  private let storageService: StorageService
+  typealias Dependencies = HasStorageService
+  
+  private let dependencies: Dependencies
   private let contactID: String
   
   // MARK: - Delegate
@@ -33,15 +35,15 @@ class ContactDetailsViewModel {
   
   // MARK: - ViewController setup
   
-  init(storageService: StorageService, contactID: String) {
-    self.storageService = storageService
+  init(dependencies: Dependencies, contactID: String) {
+    self.dependencies = dependencies
     self.contactID = contactID
     
-    getContact()
+    loadContact()
   }
   
-  func getContact() {
-    let result = storageService.getContact(contactID: contactID)
+  func loadContact() {
+    let result = dependencies.storageService.getContact(contactID: contactID)
     switch result {
     case .success(let contact):
       contactName.value = "\(contact.firstName) \(contact.lastName)"

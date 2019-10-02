@@ -11,7 +11,9 @@ protocol ContactsListViewModelDelegate: class {
 }
 
 class ContactsListViewModel {
-  private let storageService: StorageService
+  typealias Dependencies = HasStorageService
+  
+  private let dependencies: Dependencies
   private let collation = UILocalizedIndexedCollation.current()
   private var contactsWithSections = [Section<Contact>]()
   
@@ -34,14 +36,14 @@ class ContactsListViewModel {
   
   // MARK: - View setup
 
-  init(storageService: StorageService) {
-    self.storageService = storageService
+  init(dependencies: Dependencies) {
+    self.dependencies = dependencies
   }
   
   // MARK: - Loading and filter contacts
   
   func loadContacts() {
-    let result = storageService.getContacts()
+    let result = dependencies.storageService.getContacts()
     switch result {
     case .success(let contacts):
       self.contacts = contacts

@@ -9,11 +9,12 @@ import RealmSwift
 
 protocol ContactEditCoordinatorDelegate: class {
   func didFinish(from coordinator: ContactEditCoordinator)
+  func didRequestReturnToMainScreen(from coordinator: ContactEditCoordinator)
 }
 
 class ContactEditCoordinator: Coordinator {
   private let rootViewController: UINavigationController
-  private let contactEditNavigationController = UINavigationController()
+  private let appDependency: AppDependency
   private var contactEditViewModel: ContactEditViewModel?
   private let contactID: String?
   
@@ -23,27 +24,22 @@ class ContactEditCoordinator: Coordinator {
   
   // MARK: - Coordinator setup
   
-  init(rootViewController: UINavigationController, contactID: String? = nil) {
+  init(rootViewController: UINavigationController, appDependency: AppDependency, contactID: String? = nil) {
     self.rootViewController = rootViewController
     self.contactID = contactID
+    self.appDependency = appDependency
   }
   
   override func start() {
-    let ringtoneService = RingtoneService()
-    let storageService = StorageService()
-    
-    contactEditViewModel = ContactEditViewModel(ringtoneService: ringtoneService,
-                                                storageService: storageService, contactID: contactID)
+    contactEditViewModel = ContactEditViewModel(dependencies: appDependency, contactID: contactID)
     guard let contactEditViewModel = contactEditViewModel else { return }
     contactEditViewModel.delegate = self
     let contactEditViewController = ContactEditViewController(viewModel: contactEditViewModel)
     
-    contactEditNavigationController.setViewControllers([contactEditViewController], animated: false)
-    
     setupNavigationBar(viewController: contactEditViewController,
-                       navigationController: contactEditNavigationController,
+                       navigationController: rootViewController,
                        viewModel: contactEditViewModel)
-    rootViewController.present(contactEditNavigationController, animated: true)
+    rootViewController.pushViewController(contactEditViewController, animated: false)
   }
   
   private func setupNavigationBar(viewController: UIViewController,
@@ -64,13 +60,10 @@ class ContactEditCoordinator: Coordinator {
   }
   
   private func closeAllScreens() {
-    contactEditNavigationController.dismiss(animated: true, completion: nil)
-    rootViewController.popToRootViewController(animated: true)
-    delegate?.didFinish(from: self)
+    delegate?.didRequestReturnToMainScreen(from: self)
   }
   
   private func close() {
-    contactEditNavigationController.dismiss(animated: true, completion: nil)
     delegate?.didFinish(from: self)
   }
 }
@@ -88,7 +81,7 @@ extension ContactEditCoordinator: ContactEditViewModelDelegate {
   
   func contactEditViewModelDidRequestChooseImage(_ viewModel: ContactEditViewModel,
                                                  sourceType: UIImagePickerController.SourceType) {
-    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: contactEditNavigationController,
+    let imagePickerCoordinator = ImagePickerCoordinator(rootViewController: rootViewController,
                                                         sourceType: sourceType)
     imagePickerCoordinator.delegate = self
     addChildCoordinator(imagePickerCoordinator)

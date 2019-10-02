@@ -26,8 +26,9 @@ extension ContactsEditErrors: LocalizedError {
 }
 
 class ContactEditViewModel {
-  private let ringtoneService: RingtoneService
-  private let storageService: StorageService
+  typealias Dependencies = HasStorageService & HasRingtoneService
+  
+  private let dependencies: Dependencies
   private let contactID: String?
   
   // MARK: - Delegate
@@ -66,16 +67,15 @@ class ContactEditViewModel {
   
   // MARK: - ViewModel setup
   
-  init(ringtoneService: RingtoneService, storageService: StorageService, contactID: String? = nil) {
-    self.ringtoneService = ringtoneService
-    self.storageService = storageService
+  init(dependencies: Dependencies, contactID: String? = nil) {
+    self.dependencies = dependencies
     self.contactID = contactID
     prepareData()
   }
   
   private func prepareData() {
     if let contactID = contactID {
-      let result = storageService.getContact(contactID: contactID)
+      let result = dependencies.storageService.getContact(contactID: contactID)
       switch result {
       case .success(let contact):
         selectedImage.value = contact.image
@@ -94,8 +94,8 @@ class ContactEditViewModel {
   }
   
   private func getRingtones() {
-    selectedRingtone.value = selectedRingtone.value ?? ringtoneService.getDefaultRingtone()
-    ringtonePickerViewModel.ringtones.value = ringtoneService.getRingtones()
+    selectedRingtone.value = selectedRingtone.value ?? dependencies.ringtoneService.getDefaultRingtone()
+    ringtonePickerViewModel.ringtones.value = dependencies.ringtoneService.getRingtones()
     ringtonePickerViewModel.setDefaultRingtone(selectedRingtone.value)
   }
   
@@ -120,7 +120,7 @@ class ContactEditViewModel {
     let contact = Contact(firstName: firstName, lastName: lastName, phoneNumber: phone,
                           ringtone: ringtone, notes: notes, image: selectedImage.value, id: contactID)
     
-    let result = storageService.saveContact(contact)
+    let result = dependencies.storageService.saveContact(contact)
     
     switch result {
     case .success:
@@ -132,7 +132,7 @@ class ContactEditViewModel {
   
   func deleteContact() {
     guard let contactID = contactID else { return }
-    let result = storageService.deleteContactByID(contactID)
+    let result = dependencies.storageService.deleteContactByID(contactID)
     
     switch result {
     case .success:

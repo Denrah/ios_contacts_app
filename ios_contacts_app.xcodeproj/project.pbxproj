@@ -48,6 +48,7 @@
 		F7FDBE972334A6BB00BA15E5 /* SearchResultsUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */; };
 		F7FDBE9C2339DCF200BA15E5 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */; };
 		F7FDBE9D2339DCF200BA15E5 /* RingtoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */; };
+		F7FE700F23448E2400374511 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FE700E23448E2400374511 /* AppDependency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		F7FDBE962334A6BB00BA15E5 /* SearchResultsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsUpdater.swift; sourceTree = "<group>"; };
 		F7FDBE9A2339DCF200BA15E5 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageService.swift; path = ios_contacts_app/Services/StorageService.swift; sourceTree = "<group>"; };
 		F7FDBE9B2339DCF200BA15E5 /* RingtoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RingtoneService.swift; path = ios_contacts_app/Services/RingtoneService.swift; sourceTree = "<group>"; };
+		F7FE700E23448E2400374511 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		FC25C2660F4D4D3A124C7348 /* Pods-ios_contacts_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_contacts_app.release.xcconfig"; path = "Target Support Files/Pods-ios_contacts_app/Pods-ios_contacts_app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,6 +231,7 @@
 				F7FDBE832330A30F00BA15E5 /* UIViewController+inputAccessory.swift */,
 				F7FDBE9223348A2800BA15E5 /* UILocalizedIndexedCollation+PartitionObjects.swift */,
 				F7999D55234205FD00FEADB3 /* ReuseIdentifiable.swift */,
+				F7FE700E23448E2400374511 /* AppDependency.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				F7FDBE6C232B733F00BA15E5 /* Colors.swift in Sources */,
 				F7FDBE65232B494400BA15E5 /* ContactsListViewModel.swift in Sources */,
 				F7FDBE70232F826100BA15E5 /* RingtonePickerViewModel.swift in Sources */,
+				F7FE700F23448E2400374511 /* AppDependency.swift in Sources */,
 				F7FDBE54232B429F00BA15E5 /* ContactEditCoordinator.swift in Sources */,
 				F7F3A15D233DDBF500352266 /* Constants.swift in Sources */,
 				F7FDBE5D232B47CA00BA15E5 /* ContactDetailsViewModel.swift in Sources */,

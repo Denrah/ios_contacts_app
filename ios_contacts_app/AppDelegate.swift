@@ -11,9 +11,10 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
-  lazy var appCoordinator: AppCoordinator = {
-    return AppCoordinator(window: self.window)
+  private lazy var appCoordinator: AppCoordinator = {
+    return AppCoordinator(window: self.window, appDependency: self.appDependency)
   }()
+  private lazy var appDependency = AppDependency.makeDefault()
   
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

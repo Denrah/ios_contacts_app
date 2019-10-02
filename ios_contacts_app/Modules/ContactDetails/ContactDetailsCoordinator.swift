@@ -13,7 +13,7 @@ class ContactDetailsCoordinator: Coordinator {
   private let rootViewController: UINavigationController
   private var contactDetailsViewModel: ContactDetailsViewModel?
   private let contactID: String
-  private let storageService: StorageService
+  private let appDependency: AppDependency
   
   // MARK: - Delegate
   
@@ -21,14 +21,14 @@ class ContactDetailsCoordinator: Coordinator {
   
   // MARK: - Coordinator setup
   
-  init(rootViewController: UINavigationController, storageService: StorageService, contactID: String) {
+  init(rootViewController: UINavigationController, appDependency: AppDependency, contactID: String) {
     self.rootViewController = rootViewController
-    self.storageService = storageService
+    self.appDependency = appDependency
     self.contactID = contactID
   }
   
   override func start() {
-    contactDetailsViewModel = ContactDetailsViewModel(storageService: storageService, contactID: contactID)
+    contactDetailsViewModel = ContactDetailsViewModel(dependencies: appDependency, contactID: contactID)
     guard let contactDetailsViewModel = contactDetailsViewModel else { return }
     contactDetailsViewModel.delegate = self
     let contactDetailsViewController = ContactDetailsViewController(viewModel: contactDetailsViewModel)
@@ -57,10 +57,13 @@ class ContactDetailsCoordinator: Coordinator {
   // MARK: - Moving between screens
   
   private func showEditContactScreen() {
-    let contactEditCoordinator = ContactEditCoordinator(rootViewController: rootViewController, contactID: contactID)
+    let contactEditNavigationController = UINavigationController()
+    let contactEditCoordinator = ContactEditCoordinator(rootViewController: contactEditNavigationController,
+                                                        appDependency: appDependency, contactID: contactID)
     contactEditCoordinator.delegate = self
     addChildCoordinator(contactEditCoordinator)
     contactEditCoordinator.start()
+    rootViewController.present(contactEditNavigationController, animated: true)
   }
 }
 
@@ -75,9 +78,16 @@ extension ContactDetailsCoordinator: ContactDetailsViewModelDelegate {
 }
 
 extension ContactDetailsCoordinator: ContactEditCoordinatorDelegate {
+  func didRequestReturnToMainScreen(from coordinator: ContactEditCoordinator) {
+    removeChildCoordinator(coordinator)
+    rootViewController.dismiss(animated: true, completion: nil)
+    rootViewController.popToRootViewController(animated: true)
+  }
+  
   func didFinish(from coordinator: ContactEditCoordinator) {
     removeChildCoordinator(coordinator)
+    rootViewController.dismiss(animated: true, completion: nil)
     setNavigationBarAppearance()
-    contactDetailsViewModel?.getContact()
+    contactDetailsViewModel?.loadContact()
   }
 }
